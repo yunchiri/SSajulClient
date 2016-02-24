@@ -10,21 +10,18 @@ import UIKit
 
 class BoardViewcontroller: UITableViewController {
 
-    var contentTableViewController : ContentTableViewController? = nil
+    var itemListViewConroller : ItemListViewConroller? = nil
     var itemViewController: ItemViewController? = nil
-    var objects = [AnyObject]()
+
+
 
 
     
-    struct boardItem {
-        var name : String
-        var id : String
-    }
-
     
     
+    var boardList = SSajulClient.sharedInstance.getBoardList()
     
-    var boardList = [boardItem(name: "해외축구게시판", id: "soccerboard"), boardItem(name: "라커룸", id: "locker")]
+    //[Board(name: "간호사근무편성", boardID: "soccerboard"), Board(name: "전공의근무편성", boardID: "locker")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +36,7 @@ class BoardViewcontroller: UITableViewController {
 ////            self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
 //            self.contentTableViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ContentTableViewController
 //        }
+
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -51,20 +49,16 @@ class BoardViewcontroller: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-//    func insertNewObject(sender: AnyObject) {
-//        objects.insert(NSDate(), atIndex: 0)
-//        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-//        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-//    }
-
     // MARK: - Segues
-
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showDetail" {
+        if segue.identifier == "itemListSegue" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let object = boardList[indexPath.row].id as String!
-                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! ItemViewController
-                //controller.detailItem = object
+                let selectedBoard = boardList[indexPath.row] as Board!
+                
+                let controller = segue.destinationViewController as! ItemListViewConroller
+                
+                controller.selectedBoard = selectedBoard
+                
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
@@ -94,14 +88,14 @@ class BoardViewcontroller: UITableViewController {
         return false
     }
 
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            objects.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-        }
-    }
+//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if editingStyle == .Delete {
+//            objects.removeAtIndex(indexPath.row)
+//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+//        } else if editingStyle == .Insert {
+//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+//        }
+//    }
 
 
 }

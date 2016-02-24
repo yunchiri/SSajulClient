@@ -10,15 +10,29 @@ import UIKit
 
 class ItemListViewConroller: UITableViewController {
 
+    var itemList = [Item]()
+    var selectedBoard : Board? = nil
+    var currentPage : Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if  let sb = selectedBoard {
+                SSajulClient.sharedInstance.getItemList( sb , page: 1)
+        }
+        
+        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+  
+    }
+    override func viewWillAppear(animated: Bool) {
+        boardChage()
     }
     
     override func didReceiveMemoryWarning() {
@@ -34,13 +48,14 @@ class ItemListViewConroller: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
+        // #warning   implementation, return the number of rows
+        return itemList.count
+        
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("itemCell", forIndexPath: indexPath)
         
         
         
@@ -97,5 +112,17 @@ class ItemListViewConroller: UITableViewController {
     // Pass the selected object to the new view controller.
     }
     */
+    
+    func boardChage(){
+
+        if  let sb = selectedBoard {
+            SSajulClient.sharedInstance.getItemList( sb , page: 1)
+        }
+        
+        //SSajulClient.sharedInstance.getItemList( sb , page: 1)
+
+        
+        self.tableView.reloadData()
+    }
     
 }
