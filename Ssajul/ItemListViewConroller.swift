@@ -31,10 +31,11 @@ class ItemListViewConroller: UITableViewController {
         
   
     }
-    override func viewWillAppear(animated: Bool) {
-        boardChage()
-    }
     
+//    override func viewWillAppear(animated: Bool) {
+//        boardChage()
+//    }
+//    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
