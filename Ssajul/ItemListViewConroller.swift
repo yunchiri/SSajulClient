@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Alamofire
+import Kanna
+
 
 class ItemListViewConroller: UITableViewController {
 
@@ -14,12 +17,12 @@ class ItemListViewConroller: UITableViewController {
     var selectedBoard : Board? = nil
     var currentPage : Int = 0
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if  let sb = selectedBoard {
-                SSajulClient.sharedInstance.getItemList( sb , page: 1)
-        }
+        boardChage()
         
         
         
@@ -32,7 +35,7 @@ class ItemListViewConroller: UITableViewController {
   
     }
     override func viewWillAppear(animated: Bool) {
-        boardChage()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -59,7 +62,7 @@ class ItemListViewConroller: UITableViewController {
         
         
         
-        cell.textLabel!.text = "test"
+        cell.textLabel!.text = itemList[indexPath.row].title
         
         // Configure the cell...
         
@@ -115,14 +118,109 @@ class ItemListViewConroller: UITableViewController {
     
     func boardChage(){
 
-        if  let sb = selectedBoard {
-            SSajulClient.sharedInstance.getItemList( sb , page: 1)
-        }
         
         //SSajulClient.sharedInstance.getItemList( sb , page: 1)
+        
+        //let url = "http://www.soccerline.co.kr/slboard/list.php?page=2&code=soccerboard&keyfield=&key=&period=&"
+        let url = "http://www.soccerline.co.kr/slboard/list.php?page=4&code=soccerboard&keyfield=&key=&period=&"
+        
+//        //NSUTF8StringEncoding
+        
+        Alamofire.request(.GET, url)
+            .responseString(encoding:CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ) { response in
+                //print(response.description)
+//                if let doc = Kanna.HTML(html: response.result.value!, encoding: CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ){
+                if let doc = Kanna.HTML(html: response.description, encoding: NSUTF8StringEncoding){
+                    
+                    let element : XMLElement? = doc.css(("table.te2")).first
+                    
+                    let elements : XMLNodeSet = (element?.css("tr"))!
+                    
+                    for item in elements{
+
+                        
+                        let verifyItem = item.toHTML as String!
+                        
+                        if verifyItem.containsString("<tr height=\"2\">"){ continue }
+
+                        if verifyItem.containsString("<tr height=\"20\">") {continue}
+                        
+                        
+                        var parsingCnt = 1
+                        
+                        var itemId : String = ""
+                        var itemTitle : String = ""
+                        var itemUserName : String = ""
+                        var itemDate : String = ""
+                        var itemReadCount : Int = 0
+                        var itemVoteUP : Int = 0
+                        var itemVoteDown : Int = 0
+                        
+
+                        for model : XMLElement in item.css("td"){
+
+                           
+                            if parsingCnt == 1 {
+                                itemId = model.text!
+                                
+                            }
+                            
+                            if parsingCnt == 2 {
+                                itemTitle = model.text!
+                            }
+                            
+                            if parsingCnt == 3 {
+                                itemUserName = model.text!
+                            }
+                            
+                            if parsingCnt == 4 {
+                                itemDate = model.text!
+                            }
+                            
+                            if parsingCnt == 5 {
+                                itemReadCount = 0
+                            }
+                            
+                            if parsingCnt == 6 {
+                                itemVoteUP = 0
+                                itemVoteDown = 0
+                            }
+                            
+                            if parsingCnt == 6 {
+                                var newItem = Item()
+                                
+                                
+                                newItem.id = itemId
+                                newItem.title = itemTitle
+                                newItem.userName = itemUserName
+                                newItem.createAt = itemDate
+                                newItem.readCount = itemReadCount
+                                newItem.voteUp = itemVoteUP
+                                newItem.voteDown = itemVoteDown
+                                
+                                parsingCnt = 0
+                                self.itemList.append(newItem)
+                            }
+                            
+                            parsingCnt++
+                            continue
+                        }
+                        
+                    }
+                    self.tableView.reloadData()
+                    
+                    
+                
+                }
+                
+                
+                
+                
+        }
+        
 
         
-        self.tableView.reloadData()
+        
     }
     
 }

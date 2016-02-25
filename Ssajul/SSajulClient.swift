@@ -27,20 +27,12 @@ class SSajulClient  {
 //        }
         
         
-        let url = "http://m.soccerline.co.kr/bbs/soccerboard/list.html"
+        let url = "http://m.soccerline.co.kr/bbs/locker/list.html?&code=locker&keyfield=&key=&period=&page=4"
 
-        Alamofire.request(.GET, url).responseJSON { response in
-            switch response.result {
-            case .Success(let data):
-                
-                print(data)
-//                let json = JSON(data)
-//                let name = json["name"].stringValue
-//                print(name)
-            case .Failure(let error):
-                print("Request failed with error: \(error)")
+            Alamofire.request(.GET, url)
+                .responseString(encoding: NSUTF8StringEncoding) { response in
+                    print(response.description)
             }
-        }
         
         return ""
     }
