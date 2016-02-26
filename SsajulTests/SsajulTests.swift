@@ -14,6 +14,7 @@ class SsajulTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        let url = "http://www.soccerline.co.kr/slboard/list.php?page=1&code=locker&keyfield=&key=&period=&"
     }
     
     override func tearDown() {

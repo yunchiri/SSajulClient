@@ -11,6 +11,8 @@ import Alamofire
 import Kanna
 
 
+
+
 class ItemListViewConroller: UITableViewController {
 
     var itemList = [Item]()
@@ -18,11 +20,12 @@ class ItemListViewConroller: UITableViewController {
     var currentPage : Int = 0
     
 
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        boardChage()
+        updateBoardList()
         
         
         
@@ -58,11 +61,14 @@ class ItemListViewConroller: UITableViewController {
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("itemCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("itemCell", forIndexPath: indexPath) as! ItemCell
         
         
         
-        cell.textLabel!.text = itemList[indexPath.row].title
+//        cell.textLabel!.text = itemList[indexPath.row].title
+        
+        cell.content.text = itemList[indexPath.row].title
+        cell.userName.text = itemList[indexPath.row].userName
         
         // Configure the cell...
         
@@ -106,23 +112,43 @@ class ItemListViewConroller: UITableViewController {
     }
     */
     
-    /*
+    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     // Get the new view controller using segue.destinationViewController.
     // Pass the selected object to the new view controller.
+        if segue.identifier == "itemSegue" {
+            if let indexPath = self.tableView.indexPathForSelectedRow{
+
+                let selectedItem = itemList[indexPath.row] as Item
+                
+                let itemController = segue.destinationViewController as! ItemViewController
+                
+                
+                itemController.selectedBoard = selectedBoard
+                itemController.selectedItem = selectedItem
+                itemController.navigationItem.leftItemsSupplementBackButton = true
+                
+            }
+        }
     }
-    */
+
+
     
-    func boardChage(){
+    
+    
+    func updateBoardList(){
 
         
         //SSajulClient.sharedInstance.getItemList( sb , page: 1)
         
         //let url = "http://www.soccerline.co.kr/slboard/list.php?page=2&code=soccerboard&keyfield=&key=&period=&"
-        let url = "http://www.soccerline.co.kr/slboard/list.php?page=4&code=soccerboard&keyfield=&key=&period=&"
+        
+        let boardId = selectedBoard?.boardID
+        
+        let url = String(format:  "http://www.soccerline.co.kr/slboard/list.php?page=1&code=%@&keyfield=&key=&period=&",  boardId!)
         
 //        //NSUTF8StringEncoding
         
@@ -132,7 +158,10 @@ class ItemListViewConroller: UITableViewController {
 //                if let doc = Kanna.HTML(html: response.result.value!, encoding: CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ){
                 if let doc = Kanna.HTML(html: response.description, encoding: NSUTF8StringEncoding){
                     
-                    let element : XMLElement? = doc.css(("table.te2")).first
+                    let element : XMLElement? = doc.css(("table.te2 , table.te2.a")).first
+                    
+                    print( element?.text)
+                    
                     
                     let elements : XMLNodeSet = (element?.css("tr"))!
                     
@@ -158,7 +187,7 @@ class ItemListViewConroller: UITableViewController {
                         
 
                         for model : XMLElement in item.css("td"){
-
+                           
                            
                             if parsingCnt == 1 {
                                 itemId = model.text!
@@ -187,7 +216,7 @@ class ItemListViewConroller: UITableViewController {
                             }
                             
                             if parsingCnt == 6 {
-                                var newItem = Item()
+                                let newItem = Item()
                                 
                                 
                                 newItem.id = itemId
