@@ -14,7 +14,6 @@
 		040CB4F61C5F7CEC00C67432 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 040CB4F51C5F7CEC00C67432 /* Assets.xcassets */; };
 		040CB4F91C5F7CEC00C67432 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040CB4F71C5F7CEC00C67432 /* LaunchScreen.storyboard */; };
 		040CB5041C5F7CEC00C67432 /* SsajulTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CB5031C5F7CEC00C67432 /* SsajulTests.swift */; };
-		040CB50F1C5F7CEC00C67432 /* SsajulUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CB50E1C5F7CEC00C67432 /* SsajulUITests.swift */; };
 		04D0FF1B1C7C830300B204C4 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1A1C7C830300B204C4 /* Board.swift */; };
 		04D0FF1D1C7C84C300B204C4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1C1C7C84C300B204C4 /* Item.swift */; };
 		04D0FF1F1C7C84DE00B204C4 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1E1C7C84DE00B204C4 /* Comment.swift */; };
@@ -26,13 +25,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		040CB5001C5F7CEC00C67432 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 040CB4E11C5F7CEC00C67432 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 040CB4E81C5F7CEC00C67432;
-			remoteInfo = Ssajul;
-		};
-		040CB50B1C5F7CEC00C67432 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 040CB4E11C5F7CEC00C67432 /* Project object */;
 			proxyType = 1;
@@ -53,7 +45,6 @@
 		040CB4FF1C5F7CEC00C67432 /* SsajulTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SsajulTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		040CB5031C5F7CEC00C67432 /* SsajulTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SsajulTests.swift; sourceTree = "<group>"; };
 		040CB5051C5F7CEC00C67432 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		040CB50A1C5F7CEC00C67432 /* SsajulUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SsajulUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		040CB50E1C5F7CEC00C67432 /* SsajulUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SsajulUITests.swift; sourceTree = "<group>"; };
 		040CB5101C5F7CEC00C67432 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04D0FF1A1C7C830300B204C4 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
@@ -83,13 +74,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		040CB5071C5F7CEC00C67432 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -110,7 +94,6 @@
 			children = (
 				040CB4E91C5F7CEC00C67432 /* Ssajul.app */,
 				040CB4FF1C5F7CEC00C67432 /* SsajulTests.xctest */,
-				040CB50A1C5F7CEC00C67432 /* SsajulUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -243,24 +226,6 @@
 			productReference = 040CB4FF1C5F7CEC00C67432 /* SsajulTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		040CB5091C5F7CEC00C67432 /* SsajulUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 040CB5191C5F7CEC00C67432 /* Build configuration list for PBXNativeTarget "SsajulUITests" */;
-			buildPhases = (
-				040CB5061C5F7CEC00C67432 /* Sources */,
-				040CB5071C5F7CEC00C67432 /* Frameworks */,
-				040CB5081C5F7CEC00C67432 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				040CB50C1C5F7CEC00C67432 /* PBXTargetDependency */,
-			);
-			name = SsajulUITests;
-			productName = SsajulUITests;
-			productReference = 040CB50A1C5F7CEC00C67432 /* SsajulUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -275,10 +240,6 @@
 						CreatedOnToolsVersion = 7.2;
 					};
 					040CB4FE1C5F7CEC00C67432 = {
-						CreatedOnToolsVersion = 7.2;
-						TestTargetID = 040CB4E81C5F7CEC00C67432;
-					};
-					040CB5091C5F7CEC00C67432 = {
 						CreatedOnToolsVersion = 7.2;
 						TestTargetID = 040CB4E81C5F7CEC00C67432;
 					};
@@ -299,7 +260,6 @@
 			targets = (
 				040CB4E81C5F7CEC00C67432 /* Ssajul */,
 				040CB4FE1C5F7CEC00C67432 /* SsajulTests */,
-				040CB5091C5F7CEC00C67432 /* SsajulUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -316,13 +276,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		040CB4FD1C5F7CEC00C67432 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		040CB5081C5F7CEC00C67432 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -404,14 +357,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		040CB5061C5F7CEC00C67432 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				040CB50F1C5F7CEC00C67432 /* SsajulUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -419,11 +364,6 @@
 			isa = PBXTargetDependency;
 			target = 040CB4E81C5F7CEC00C67432 /* Ssajul */;
 			targetProxy = 040CB5001C5F7CEC00C67432 /* PBXContainerItemProxy */;
-		};
-		040CB50C1C5F7CEC00C67432 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 040CB4E81C5F7CEC00C67432 /* Ssajul */;
-			targetProxy = 040CB50B1C5F7CEC00C67432 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -554,6 +494,7 @@
 		};
 		040CB5171C5F7CEC00C67432 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 66E8694D811E7154D460421A /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = SsajulTests/Info.plist;
@@ -573,30 +514,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wearecontrols.SsajulTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ssajul.app/Ssajul";
-			};
-			name = Release;
-		};
-		040CB51A1C5F7CEC00C67432 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = SsajulUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wearecontrols.SsajulUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = Ssajul;
-				USES_XCTRUNNER = YES;
-			};
-			name = Debug;
-		};
-		040CB51B1C5F7CEC00C67432 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = SsajulUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wearecontrols.SsajulUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = Ssajul;
-				USES_XCTRUNNER = YES;
 			};
 			name = Release;
 		};
@@ -626,15 +543,6 @@
 			buildConfigurations = (
 				040CB5171C5F7CEC00C67432 /* Debug */,
 				040CB5181C5F7CEC00C67432 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		040CB5191C5F7CEC00C67432 /* Build configuration list for PBXNativeTarget "SsajulUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				040CB51A1C5F7CEC00C67432 /* Debug */,
-				040CB51B1C5F7CEC00C67432 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

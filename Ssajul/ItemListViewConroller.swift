@@ -158,10 +158,21 @@ class ItemListViewConroller: UITableViewController {
 //                if let doc = Kanna.HTML(html: response.result.value!, encoding: CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ){
                 if let doc = Kanna.HTML(html: response.description, encoding: NSUTF8StringEncoding){
                     
-                    let element : XMLElement? = doc.css(("table.te2 , table.te2.a")).first
+                    let element : XMLElement? = doc.css("table.te2").first
                     
-                    print( element?.text)
-                    
+                    for xxx in  (element as XMLElement?)!.css("tr"){
+//                        print(xxx.text)
+//                        print(xxx.innerHTML)
+                        
+                        for qq in (xxx.xpath("td[1]")){
+                            print( qq.toHTML)
+                        }
+                        
+                        
+                        
+                        
+                    }
+                    return
                     
                     let elements : XMLNodeSet = (element?.css("tr"))!
                     
