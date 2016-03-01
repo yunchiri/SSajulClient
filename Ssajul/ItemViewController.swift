@@ -38,7 +38,7 @@ class ItemViewController: UIViewController , WKNavigationDelegate{
         
         
         let boardId = selectedBoard?.boardID
-        let itemId = selectedItem?.id
+        let itemId = selectedItem?.uid
         
         let urlString = String(format:  "http://m.soccerline.co.kr/bbs/%@/view.html?uid=%@&page=1&code=%@&keyfield=&key=&period=",  boardId!, itemId!, boardId!)
 

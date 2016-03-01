@@ -17,7 +17,7 @@ class ItemListViewConroller: UITableViewController {
 
     var itemList = [Item]()
     var selectedBoard : Board? = nil
-    var currentPage : Int = 0
+    var currentPage : Int = 1
     
 
 
@@ -137,129 +137,75 @@ class ItemListViewConroller: UITableViewController {
 
 
     
+    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let currentOffset = scrollView.contentOffset.y;
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+        
+        if (maximumOffset - currentOffset <= -40) {
+            print("reload");
+        }
+    }
     
+ 
     
     func updateBoardList(){
 
-        
-        //SSajulClient.sharedInstance.getItemList( sb , page: 1)
-        
-        //let url = "http://www.soccerline.co.kr/slboard/list.php?page=2&code=soccerboard&keyfield=&key=&period=&"
-        
         let boardId = selectedBoard?.boardID
         
-        let url = String(format:  "http://www.soccerline.co.kr/slboard/list.php?page=1&code=%@&keyfield=&key=&period=&",  boardId!)
-        
-//        //NSUTF8StringEncoding
-        
+        let url = String(format:  "http://www.soccerline.co.kr/slboard/list.php?page=%d&code=%@&keyfield=&key=&period=&", currentPage, boardId!)
+
         Alamofire.request(.GET, url)
             .responseString(encoding:CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ) { response in
-                //print(response.description)
-//                if let doc = Kanna.HTML(html: response.result.value!, encoding: CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ){
+
                 if let doc = Kanna.HTML(html: response.description, encoding: NSUTF8StringEncoding){
                     
                     let element : XMLElement? = doc.css("table.te2").first
                     
                     for xxx in  (element as XMLElement?)!.css("tr"){
-//                        print(xxx.text)
-//                        print(xxx.innerHTML)
-                        
-                        for qq in (xxx.xpath("td[1]")){
-                            print( qq.toHTML)
-                        }
-                        
-                        
-                        
-                        
-                    }
-                    return
-                    
-                    let elements : XMLNodeSet = (element?.css("tr"))!
-                    
-                    for item in elements{
-
-                        
-                        let verifyItem = item.toHTML as String!
+        
+                        let verifyItem = xxx.toHTML as String!
                         
                         if verifyItem.containsString("<tr height=\"2\">"){ continue }
-
+                        
                         if verifyItem.containsString("<tr height=\"20\">") {continue}
                         
                         
-                        var parsingCnt = 1
+                        let newItem = Item()
                         
-                        var itemId : String = ""
-                        var itemTitle : String = ""
-                        var itemUserName : String = ""
-                        var itemDate : String = ""
-                        var itemReadCount : Int = 0
-                        var itemVoteUP : Int = 0
-                        var itemVoteDown : Int = 0
-                        
+                        //print( xxx.xpath("td[1]").first?.text ) // do nothing
 
-                        for model : XMLElement in item.css("td"){
-                           
-                           
-                            if parsingCnt == 1 {
-                                itemId = model.text!
-                                
-                            }
-                            
-                            if parsingCnt == 2 {
-                                itemTitle = model.text!
-                            }
-                            
-                            if parsingCnt == 3 {
-                                itemUserName = model.text!
-                            }
-                            
-                            if parsingCnt == 4 {
-                                itemDate = model.text!
-                            }
-                            
-                            if parsingCnt == 5 {
-                                itemReadCount = 0
-                            }
-                            
-                            if parsingCnt == 6 {
-                                itemVoteUP = 0
-                                itemVoteDown = 0
-                            }
-                            
-                            if parsingCnt == 6 {
-                                let newItem = Item()
-                                
-                                
-                                newItem.id = itemId
-                                newItem.title = itemTitle
-                                newItem.userName = itemUserName
-                                newItem.createAt = itemDate
-                                newItem.readCount = itemReadCount
-                                newItem.voteUp = itemVoteUP
-                                newItem.voteDown = itemVoteDown
-                                
-                                parsingCnt = 0
-                                self.itemList.append(newItem)
-                            }
-                            
-                            parsingCnt++
-                            continue
+                        let searchCharacter: Character = "="
+                        let searchCharacterQueto: Character = "&"
+                        
+                        let href = xxx.xpath("td[2]/a/@href").first?.text as String!
+                        
+                        if href.lowercaseString.characters.contains(searchCharacter) {
+                            print("word contains \(searchCharacter)")
                         }
+                        
+                        let indexOfStart = href.lowercaseString.characters.indexOf(searchCharacter)!.advancedBy(1)
+                        let indexOfEnd = href.lowercaseString.characters.indexOf(searchCharacterQueto)!.advancedBy(0)
+                        let range = Range.init(start: indexOfStart, end: indexOfEnd)
+                        
+                        
+                        newItem.uid = href.substringWithRange(range)
+                        
+                        newItem.title = xxx.xpath("td[2]").first?.text as String!
+                        
+                        newItem.userName = xxx.xpath("td[3]").first?.text as String!
+                        
+                        newItem.createAt = xxx.xpath("td[4]").first?.text as String!
+
+                        newItem.readCount = Int((xxx.xpath("td[5]").first?.text)!)!
+
+                        self.itemList.append(newItem)
                         
                     }
                     self.tableView.reloadData()
                     
-                    
-                
                 }
                 
-                
-                
-                
         }
-        
-
-        
         
     }
     
