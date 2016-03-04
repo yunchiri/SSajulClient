@@ -8,6 +8,8 @@
 
 import UIKit
 import WebKit
+import Alamofire
+import Kanna
 
 class ItemViewController: UIViewController , WKNavigationDelegate{
     
@@ -44,8 +46,22 @@ class ItemViewController: UIViewController , WKNavigationDelegate{
 
         let url = NSURL(string: urlString)!
         
-        webView2.loadRequest(NSURLRequest(URL: url))
-        webView2.allowsBackForwardNavigationGestures = true
+        
+        Alamofire.request(.GET, url)
+            .responseString(encoding: NSUTF8StringEncoding  ) { response in
+                
+                if let doc = Kanna.HTML(html: response.description, encoding: NSUTF8StringEncoding){
+                    
+                    let content : XMLElement = doc.css("div#articleView").first!
+                    
+                    let htmlCode =   self.createHTML(content.toHTML!)
+                    self.webView2.loadHTMLString(htmlCode, baseURL: nil)
+                    self.webView2.allowsBackForwardNavigationGestures = true
+
+                }
+        }
+
+
         
     }
     
@@ -54,6 +70,25 @@ class ItemViewController: UIViewController , WKNavigationDelegate{
         
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func createHTML(content : String) -> String{
+        let html = "<html>"
+            + "<head>"
+            + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
+            + "<meta name=\"viewport\""
+            + "\tcontent=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi\" />"
+            + "<script"
+            + "\tsrc=\"http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js\"></script>"
+            + "<style type=\"text/css\">"
+            + "#articleView * {"
+            + "\tmax-width: 100%; !important;"
+            + "}"
+            + "</style>"
+            + "</head><body>"
+            + "\(content) </body></html>"
+
+        return html
     }
 }
 

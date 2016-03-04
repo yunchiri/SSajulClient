@@ -14,6 +14,7 @@ class ItemCell: UITableViewCell {
     
     @IBOutlet weak var userName: UILabel!
     
+    @IBOutlet weak var createAt: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

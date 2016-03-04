@@ -69,6 +69,7 @@ class ItemListViewConroller: UITableViewController {
         
         cell.content.text = itemList[indexPath.row].title
         cell.userName.text = itemList[indexPath.row].userName
+        cell.createAt.text = itemList[indexPath.row].createAt
         
         // Configure the cell...
         
