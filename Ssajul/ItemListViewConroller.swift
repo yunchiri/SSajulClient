@@ -25,6 +25,9 @@ class ItemListViewConroller: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.refreshControl?.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+    
+
         updateBoardList()
         
         
@@ -39,6 +42,14 @@ class ItemListViewConroller: UITableViewController {
     }
     override func viewWillAppear(animated: Bool) {
         
+    }
+    
+    func handleRefresh(refreshControl : UIRefreshControl){
+        currentPage = 1
+        itemList.removeAll()
+        updateBoardList()
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     override func didReceiveMemoryWarning() {
@@ -125,7 +136,7 @@ class ItemListViewConroller: UITableViewController {
 
                 let selectedItem = itemList[indexPath.row] as Item
                 
-                let itemController = segue.destinationViewController as! ItemViewController
+                let itemController = segue.destinationViewController as! ItemTableViewController
                 
                 
                 itemController.selectedBoard = selectedBoard
@@ -144,6 +155,8 @@ class ItemListViewConroller: UITableViewController {
         
         if (maximumOffset - currentOffset <= -40) {
             print("reload");
+            currentPage++
+            updateBoardList()
         }
     }
     
