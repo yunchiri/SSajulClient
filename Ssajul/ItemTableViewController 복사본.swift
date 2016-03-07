@@ -12,13 +12,13 @@ import Alamofire
 import Kanna
 
 
-class ItemTableViewController: UITableViewController , UIWebViewDelegate{
+class ItemTableViewController: UITableViewController , WKNavigationDelegate{
 
     var selectedBoard : Board? = nil
     var selectedItem : Item? = nil
     
     var commentList = [Comment]()
-    let webView2 = UIWebView()
+    let webView2 = WKWebView()
     
     var contentSize : CGFloat = 0
     var isContentAdd : Bool = false
@@ -32,30 +32,17 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         let c =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-        let c1 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-        let c2 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-        let c3 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-        let c4 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-        let c5 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-        
         
         commentList.append(c)
-        commentList.append(c1)
-        commentList.append(c2)
-        commentList.append(c3)
-        commentList.append(c4)
-        commentList.append(c5)
+        
+//        webView2.frame = CGRect(x: 0, y: 22, width: view.frame.width, height: 0)//view.frame.height-22)
         
         webView2.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        webView2.delegate = self
-        webView2.scrollView.scrollEnabled = false
-        webView2.scrollView.bounces = false
-
-
-
         
-//        self.tableView.rowHeight = UITableViewAutomaticDimension
-//        self.tableView.estimatedRowHeight = 100
+        webView2.navigationDelegate = self
+        
+        webView2.backgroundColor = UIColor.brownColor()
+
         
         let boardId = selectedBoard?.boardID
         let itemId = selectedItem?.uid
@@ -99,19 +86,14 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
+        
         
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("contentCell", forIndexPath: indexPath)
             
-            webView2.frame = CGRectMake(0,0,cell.frame.size.width,contentSize+1)
-
+            //webView2.frame = CGRectMake(0,0,cell.frame.size.width,contentSize)
             
-            if isContentAdd == false {
-                cell.contentView.addSubview(webView2)
-                isContentAdd = true
-            }
-//            (cell as! ContentCell).updateContent((selectedBoard?.boardID)!,  itemId: (selectedItem?.uid)!)
+            (cell as! ContentCell).updateContent((selectedBoard?.boardID)!,  itemId: (selectedItem?.uid)!)
 
 
             
@@ -123,22 +105,26 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
         
         return cell
     }
-
-
-    func webViewDidFinishLoad(webView: UIWebView) {
-//        print( webView.scrollView.contentSize.height);
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        
+        print( webView.scrollView.contentSize.height);
         //
         contentSize = webView.scrollView.contentSize.height
         
         self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 1, inSection: 0)], withRowAnimation: .Automatic)
         
     }
+
     
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         if (indexPath.row == 0){
-            return contentSize;
+            return 200;
+//            
+//            contentHeights[webView.tag] = webView.scrollView.contentSize.height
+//            tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: webView.tag, inSection: 0)], withRowAnimation: .Automatic)
         }
         
         return 44;
