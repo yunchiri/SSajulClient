@@ -66,33 +66,54 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="contentCell2" rowHeight="190" id="psB-2w-5wZ">
-                                <rect key="frame" x="0.0" y="354" width="600" height="190"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="contentHeaderCell" rowHeight="87" id="psB-2w-5wZ" customClass="ContentHeaderCell" customModule="Ssajul" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="354" width="600" height="87"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="psB-2w-5wZ" id="ODs-AC-ErY">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="189"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="86"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cka-om-ZdV">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cka-om-ZdV">
                                             <rect key="frame" x="8" y="13" width="584" height="22"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvV-JT-nPD">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvV-JT-nPD">
                                             <rect key="frame" x="8" y="43" width="80" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="0GC-8z-l6E"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62o-Q8-Yd3">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62o-Q8-Yd3">
                                             <rect key="frame" x="103" y="43" width="42" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="fxe-dT-eNw"/>
+                                                <constraint firstAttribute="width" constant="42" id="guv-gf-e3E"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="cka-om-ZdV" secondAttribute="trailing" id="0zh-OV-ZLa"/>
+                                        <constraint firstItem="cka-om-ZdV" firstAttribute="top" secondItem="ODs-AC-ErY" secondAttribute="topMargin" constant="5" id="6xi-ru-66a"/>
+                                        <constraint firstItem="62o-Q8-Yd3" firstAttribute="top" secondItem="cka-om-ZdV" secondAttribute="bottom" constant="8" id="QTu-28-cp6"/>
+                                        <constraint firstItem="62o-Q8-Yd3" firstAttribute="leading" secondItem="xvV-JT-nPD" secondAttribute="trailing" constant="15" id="Uhp-Uf-z3A"/>
+                                        <constraint firstItem="xvV-JT-nPD" firstAttribute="top" secondItem="cka-om-ZdV" secondAttribute="bottom" constant="8" id="UrH-mv-DLD"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="xvV-JT-nPD" secondAttribute="leading" id="hNp-XK-hSA"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="cka-om-ZdV" secondAttribute="leading" id="pXW-d0-vqy"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="createAt" destination="62o-Q8-Yd3" id="zsY-Fe-1P0"/>
+                                    <outlet property="title" destination="cka-om-ZdV" id="oKc-G7-x82"/>
+                                    <outlet property="usernm" destination="xvV-JT-nPD" id="VaA-fU-bgs"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

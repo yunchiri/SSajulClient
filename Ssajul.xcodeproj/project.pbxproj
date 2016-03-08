@@ -23,6 +23,7 @@
 		133CBCA475665740BB8A59FA /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06AC94D76EB323A467BA1EB6 /* Pods.framework */; };
 		4D9D699C1C80605F000F4104 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9D699B1C80605F000F4104 /* ItemCell.swift */; };
 		4D9D699E1C89CCB3000F4104 /* ItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */; };
+		4D9D69A01C8F201E000F4104 /* ContentHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9D699F1C8F201E000F4104 /* ContentHeaderCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		06AC94D76EB323A467BA1EB6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D9D699B1C80605F000F4104 /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewController.swift; sourceTree = "<group>"; };
+		4D9D699F1C8F201E000F4104 /* ContentHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentHeaderCell.swift; sourceTree = "<group>"; };
 		66E8694D811E7154D460421A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D30B30C989CD3EA5466D2555 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -178,6 +180,7 @@
 			children = (
 				4D9D699B1C80605F000F4104 /* ItemCell.swift */,
 				043DEE981C8C669500AC934B /* ContentCell.swift */,
+				4D9D699F1C8F201E000F4104 /* ContentHeaderCell.swift */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 			files = (
 				4D9D699E1C89CCB3000F4104 /* ItemTableViewController.swift in Sources */,
 				043DEE991C8C669500AC934B /* ContentCell.swift in Sources */,
+				4D9D69A01C8F201E000F4104 /* ContentHeaderCell.swift in Sources */,
 				040CB4F11C5F7CEC00C67432 /* ItemViewController.swift in Sources */,
 				040CB4EF1C5F7CEC00C67432 /* BoardViewController.swift in Sources */,
 				4D9D699C1C80605F000F4104 /* ItemCell.swift in Sources */,

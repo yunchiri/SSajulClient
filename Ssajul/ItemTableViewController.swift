@@ -88,38 +88,40 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return commentList.count + 1
+        return commentList.count + 2
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        
         if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCellWithIdentifier("contentHeaderCell", forIndexPath: indexPath)
+            
+                (cell as? ContentHeaderCell)?.title.text = selectedItem!.title
+            
+            return cell
+            
+        }
+        if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("contentCell", forIndexPath: indexPath)
             
-            webView2.frame = CGRectMake(0,0,cell.frame.size.width,contentSize+1)
+            webView2.frame = CGRectMake(0, 0 ,cell.frame.size.width,contentSize + 100)
 
             
             if isContentAdd == false {
                 cell.contentView.addSubview(webView2)
                 isContentAdd = true
             }
-//            (cell as! ContentCell).updateContent((selectedBoard?.boardID)!,  itemId: (selectedItem?.uid)!)
-
-
-            
             return cell
         }
-        // Configure the cell...
+        
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath)
-        cell.textLabel?.text = commentList[indexPath.row - 1].content
+        cell.textLabel?.text = commentList[indexPath.row - 2].content
         
         return cell
     }
@@ -130,14 +132,15 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
         //
         contentSize = webView.scrollView.contentSize.height
         
-        self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 1, inSection: 0)], withRowAnimation: .Automatic)
+        self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 2, inSection: 0)], withRowAnimation: .Automatic)
         
     }
     
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        if (indexPath.row == 0){
+        
+        if (indexPath.row == 1){
             return contentSize;
         }
         
