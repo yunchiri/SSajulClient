@@ -27,8 +27,11 @@ class ItemListViewConroller: UITableViewController {
         
         self.refreshControl?.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
     
+        
 
-        updateBoardList()
+        
+        self.tableView.estimatedRowHeight = 44
+         self.tableView.rowHeight = UITableViewAutomaticDimension;   
         
         
         
