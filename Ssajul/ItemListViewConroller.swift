@@ -29,9 +29,10 @@ class ItemListViewConroller: UITableViewController {
     
         
 
+        updateBoardList()
         
-        self.tableView.estimatedRowHeight = 44
-         self.tableView.rowHeight = UITableViewAutomaticDimension;   
+        self.tableView.estimatedRowHeight = 30
+         self.tableView.rowHeight = UITableViewAutomaticDimension;
         
         
         
@@ -43,9 +44,7 @@ class ItemListViewConroller: UITableViewController {
         
   
     }
-    override func viewWillAppear(animated: Bool) {
-        
-    }
+
     
     func handleRefresh(refreshControl : UIRefreshControl){
         currentPage = 1
@@ -115,7 +114,7 @@ class ItemListViewConroller: UITableViewController {
     /*
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    
+    5tl
     }
     */
     
@@ -196,9 +195,9 @@ class ItemListViewConroller: UITableViewController {
                         
                         let href = xxx.xpath("td[2]/a/@href").first?.text as String!
                         
-                        if href.lowercaseString.characters.contains(searchCharacter) {
-                            print("word contains \(searchCharacter)")
-                        }
+//                        if href.lowercaseString.characters.contains(searchCharacter) {
+//                            print("word contains \(searchCharacter)")
+//                        }
                         
                         let indexOfStart = href.lowercaseString.characters.indexOf(searchCharacter)!.advancedBy(1)
                         let indexOfEnd = href.lowercaseString.characters.indexOf(searchCharacterQueto)!.advancedBy(0)
@@ -214,7 +213,16 @@ class ItemListViewConroller: UITableViewController {
                         newItem.createAt = xxx.xpath("td[4]").first?.text as String!
 
                         newItem.readCount = Int((xxx.xpath("td[5]").first?.text)!)!
-
+                        
+                        let upAndDown = (xxx.xpath("td[6]").first?.text)!
+                        
+                        
+                        
+                        print("(")
+                        print(  upAndDown.substringFromIndex( upAndDown.startIndex.advancedBy(1)) )
+                        print("<>")
+                        print(  upAndDown.substringToIndex( upAndDown.endIndex.advancedBy(-1)) )
+                        print(")")
                         self.itemList.append(newItem)
                         
                     }
