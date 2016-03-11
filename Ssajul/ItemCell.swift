@@ -26,5 +26,12 @@ class ItemCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func setItem(item : Item) {
+        
+        self.content.text = item.title
+        self.userName.text = item.userName
+        self.createAt.text = item.createAt
+    }
 
 }

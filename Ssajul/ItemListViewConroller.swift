@@ -77,12 +77,8 @@ class ItemListViewConroller: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("itemCell", forIndexPath: indexPath) as! ItemCell
         
         
-        
-//        cell.textLabel!.text = itemList[indexPath.row].title
-        
-        cell.content.text = itemList[indexPath.row].title
-        cell.userName.text = itemList[indexPath.row].userName
-        cell.createAt.text = itemList[indexPath.row].createAt
+        let item = itemList[indexPath.row]
+        cell.setItem( item)
         
         // Configure the cell...
         
@@ -91,40 +87,7 @@ class ItemListViewConroller: UITableViewController {
     }
     
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return false if you do not want the specified item to be editable.
-    return true
-    }
-    */
-    
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-    // Delete the row from the data source
-    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    } else if editingStyle == .Insert {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-    }
-    */
-    
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    5tl
-    }
-    */
-    
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return false if you do not want the item to be re-orderable.
-    return true
-    }
-    */
+
     
     
     // MARK: - Navigation
@@ -188,16 +151,10 @@ class ItemListViewConroller: UITableViewController {
                         
                         let newItem = Item()
                         
-                        //print( xxx.xpath("td[1]").first?.text ) // do nothing
-
                         let searchCharacter: Character = "="
                         let searchCharacterQueto: Character = "&"
                         
                         let href = xxx.xpath("td[2]/a/@href").first?.text as String!
-                        
-//                        if href.lowercaseString.characters.contains(searchCharacter) {
-//                            print("word contains \(searchCharacter)")
-//                        }
                         
                         let indexOfStart = href.lowercaseString.characters.indexOf(searchCharacter)!.advancedBy(1)
                         let indexOfEnd = href.lowercaseString.characters.indexOf(searchCharacterQueto)!.advancedBy(0)
@@ -216,13 +173,10 @@ class ItemListViewConroller: UITableViewController {
                         
                         let upAndDown = (xxx.xpath("td[6]").first?.text)!
                         
+                        newItem.voteUp = Int(upAndDown.substringToIndex( upAndDown.startIndex.advancedBy(1)))
+                        newItem.voteDown = Int(upAndDown.substringFromIndex( upAndDown.endIndex.advancedBy(-1)))
                         
                         
-                        print("(")
-                        print(  upAndDown.substringFromIndex( upAndDown.startIndex.advancedBy(1)) )
-                        print("<>")
-                        print(  upAndDown.substringToIndex( upAndDown.endIndex.advancedBy(-1)) )
-                        print(")")
                         self.itemList.append(newItem)
                         
                     }

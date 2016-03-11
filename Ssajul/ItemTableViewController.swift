@@ -99,10 +99,20 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCellWithIdentifier("contentHeaderCell", forIndexPath: indexPath)
+
+            let cell = tableView.dequeueReusableCellWithIdentifier("itemCell", forIndexPath: indexPath) as! ItemCell
             
-                (cell as? ContentHeaderCell)?.title.text = selectedItem!.title
             
+            
+            //        cell.textLabel!.text = itemList[indexPath.row].title
+            
+//            cell.content.text = selectedItem?.title
+//            cell.userName.text = selectedItem?.userName
+//            cell.createAt.text = selectedItem?.createAt
+//            
+            cell.setItem(selectedItem!)
+            
+            print("createAt : \(selectedItem?.createAt)")
             return cell
             
         }
