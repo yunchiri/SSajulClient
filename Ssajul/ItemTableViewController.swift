@@ -31,6 +31,8 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+   
+        
         let c =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
         let c1 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
         let c2 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
@@ -50,8 +52,10 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
         webView2.delegate = self
         webView2.scrollView.scrollEnabled = false
         webView2.scrollView.bounces = false
-
-
+        
+        //
+        self.tableView.estimatedRowHeight = 30
+        self.tableView.rowHeight = UITableViewAutomaticDimension;
 
         
 //        self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -74,6 +78,15 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
                     
                     let htmlCode =  SSajulClient.sharedInstance.createHTML(content.toHTML!)
                     self.webView2.loadHTMLString(htmlCode, baseURL: nil)
+                    
+                    //comment parsing()
+                    
+                    let commentHtml = doc.xpath("//div/ul/li")
+                    
+                    for commentsModel in  commentHtml{
+                        print("comment")
+                    }
+                    
                     
                 }
         }
