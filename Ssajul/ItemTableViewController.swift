@@ -33,20 +33,20 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
    
         
-        let c =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-        let c1 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-        let c2 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-        let c3 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-        let c4 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-        let c5 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-        
-        
-        commentList.append(c)
-        commentList.append(c1)
-        commentList.append(c2)
-        commentList.append(c3)
-        commentList.append(c4)
-        commentList.append(c5)
+//        let c =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
+//        let c1 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
+//        let c2 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
+//        let c3 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
+//        let c4 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
+//        let c5 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
+//        
+//        
+//        commentList.append(c)
+//        commentList.append(c1)
+//        commentList.append(c2)
+//        commentList.append(c3)
+//        commentList.append(c4)
+//        commentList.append(c5)
         
         webView2.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         webView2.delegate = self
@@ -90,20 +90,15 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
                             continue
                         }
                         
-                        print(comment.toHTML)
+                        let newComment = Comment()
+                        newComment.content = (comment.xpath("p").first?.text)!
+                        newComment.userInfo = (comment.xpath("p").last?.text)!
                         
-//                        for pp in comment.xpath("p"){
-//                                print("comment")
-//                                print("comment end")
-//                        }
-//                        print("comment")
-                        print(comment.xpath("p").first?.text)
-                            
-                        print(comment.xpath("p").last?.text)
-//                        print("comment end")
+                        self.commentList.append(newComment)
+                        
                     }
                     
-                    
+                    self.tableView.reloadData()
                 }
         }
         
@@ -131,17 +126,8 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
 
             let cell = tableView.dequeueReusableCellWithIdentifier("itemCell", forIndexPath: indexPath) as! ItemCell
             
-            
-            
-            //        cell.textLabel!.text = itemList[indexPath.row].title
-            
-//            cell.content.text = selectedItem?.title
-//            cell.userName.text = selectedItem?.userName
-//            cell.createAt.text = selectedItem?.createAt
-//            
             cell.setItem(selectedItem!)
             
-            print("createAt : \(selectedItem?.createAt)")
             return cell
             
         }
@@ -159,9 +145,10 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
         }
         
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath)
-        cell.textLabel?.text = commentList[indexPath.row - 2].content
         
+        let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! CommentCell
+        
+        cell.setComment(commentList[indexPath.row - 2])
         return cell
     }
 

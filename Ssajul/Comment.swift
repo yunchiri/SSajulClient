@@ -10,15 +10,17 @@ import Foundation
 
 
 class Comment{
-    var userID : String
-    var userName : String
-    var userIP : String
-    var createAt : String
-    var voteUp : Int
-    var voteDown : Int
+    var userID : String?
+    var userName : String?
+    var userIP : String?
+    var createAt : String?
+    var voteUp : Int?
+    var voteDown : Int?
     var content : String
     
-    var rawData : String
+    var rawData : String?
+    
+    var userInfo : String?
     //func HTML() : String
 
     
@@ -38,5 +40,19 @@ class Comment{
 //    init(rawData : String){
 //        self.rawData = rawData
 //    }
+    
+    
+    init(){
+        self.userID = ""
+        self.userName = ""
+        self.userIP = ""
+        
+        self.createAt = ""
+        self.voteUp = 0
+        self.voteDown = 0
+        self.content = ""
+        
+        self.rawData = ""
+    }
     
 }

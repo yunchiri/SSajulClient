@@ -15,6 +15,7 @@
 		040CB4F91C5F7CEC00C67432 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040CB4F71C5F7CEC00C67432 /* LaunchScreen.storyboard */; };
 		040CB5041C5F7CEC00C67432 /* SsajulTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CB5031C5F7CEC00C67432 /* SsajulTests.swift */; };
 		043DEE991C8C669500AC934B /* ContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEE981C8C669500AC934B /* ContentCell.swift */; };
+		046625091C96EA20006BB90F /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046625081C96EA20006BB90F /* CommentCell.swift */; };
 		04D0FF1B1C7C830300B204C4 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1A1C7C830300B204C4 /* Board.swift */; };
 		04D0FF1D1C7C84C300B204C4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1C1C7C84C300B204C4 /* Item.swift */; };
 		04D0FF1F1C7C84DE00B204C4 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1E1C7C84DE00B204C4 /* Comment.swift */; };
@@ -51,6 +52,7 @@
 		040CB50E1C5F7CEC00C67432 /* SsajulUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SsajulUITests.swift; sourceTree = "<group>"; };
 		040CB5101C5F7CEC00C67432 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		043DEE981C8C669500AC934B /* ContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentCell.swift; sourceTree = "<group>"; };
+		046625081C96EA20006BB90F /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		04D0FF1A1C7C830300B204C4 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		04D0FF1C1C7C84C300B204C4 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		04D0FF1E1C7C84DE00B204C4 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				4D9D699B1C80605F000F4104 /* ItemCell.swift */,
 				043DEE981C8C669500AC934B /* ContentCell.swift */,
 				4D9D699F1C8F201E000F4104 /* ContentHeaderCell.swift */,
+				046625081C96EA20006BB90F /* CommentCell.swift */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				040CB4EF1C5F7CEC00C67432 /* BoardViewController.swift in Sources */,
 				4D9D699C1C80605F000F4104 /* ItemCell.swift in Sources */,
 				04D0FF1B1C7C830300B204C4 /* Board.swift in Sources */,
+				046625091C96EA20006BB90F /* CommentCell.swift in Sources */,
 				04D0FF1F1C7C84DE00B204C4 /* Comment.swift in Sources */,
 				04D0FF221C7C946900B204C4 /* ItemListViewConroller.swift in Sources */,
 				04D0FF251C7C94E000B204C4 /* SSajulClient.swift in Sources */,

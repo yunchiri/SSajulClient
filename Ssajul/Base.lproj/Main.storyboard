@@ -41,10 +41,10 @@
             </objects>
             <point key="canvasLocation" x="2316" y="-159"/>
         </scene>
-        <!--Item Table View Controller-->
+        <!--글-->
         <scene sceneID="cX2-3H-oWq">
             <objects>
-                <tableViewController id="Hwl-YI-Pjo" customClass="ItemTableViewController" customModule="Ssajul" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="글" id="Hwl-YI-Pjo" customClass="ItemTableViewController" customModule="Ssajul" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="NCa-ST-LcC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -58,13 +58,44 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="68" id="7Ic-VB-1D0">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="68" id="7Ic-VB-1D0" customClass="CommentCell" customModule="Ssajul" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="286" width="600" height="68"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Ic-VB-1D0" id="CYB-V9-pwF">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="67"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Abf-a2-yfb">
+                                            <rect key="frame" x="8" y="8" width="584" height="36"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oR8-qc-p32">
+                                            <rect key="frame" x="8" y="52" width="584" height="15"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="topMargin" secondItem="Abf-a2-yfb" secondAttribute="top" id="15z-fR-iRc"/>
+                                        <constraint firstAttribute="topMargin" secondItem="Abf-a2-yfb" secondAttribute="top" id="cCw-GD-cQ2"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="oR8-qc-p32" secondAttribute="leading" id="cf7-Lv-gd0"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="oR8-qc-p32" secondAttribute="trailing" id="cts-yY-qTE"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Abf-a2-yfb" secondAttribute="trailing" id="f26-60-vmM"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="Abf-a2-yfb" secondAttribute="leading" id="nx5-up-Lt2"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="Abf-a2-yfb" secondAttribute="leading" id="xxz-Gs-1ga"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="oR8-qc-p32" secondAttribute="bottom" constant="1" id="JXb-S6-632"/>
+                                    <constraint firstAttribute="bottom" secondItem="oR8-qc-p32" secondAttribute="bottom" constant="1" id="WCV-hb-5GQ"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="content" destination="Abf-a2-yfb" id="odW-PL-JN7"/>
+                                    <outlet property="userInfo" destination="oR8-qc-p32" id="gxb-6l-e0q"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemCell" rowHeight="53" id="kcu-OE-tBI" customClass="ItemCell" customModule="Ssajul" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="354" width="600" height="53"/>
@@ -92,6 +123,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" red="0.99607843139999996" green="0.74117647060000003" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="leadingMargin" secondItem="TZc-Iy-TD7" secondAttribute="leading" id="29a-Xu-TAy"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="TZc-Iy-TD7" secondAttribute="bottom" constant="-5" id="CPX-5H-bgi"/>
@@ -168,16 +200,16 @@
                             <outlet property="delegate" destination="7bK-jq-Zjz" id="RA6-mI-bju"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Master" id="Zdf-7t-Un8"/>
+                    <navigationItem key="navigationItem" title="게시판" id="Zdf-7t-Un8"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="731" y="-159"/>
         </scene>
-        <!--ItemList-->
+        <!--게시물-->
         <scene sceneID="2yT-rS-z89">
             <objects>
-                <tableViewController title="ItemList" id="ZnZ-ER-tyL" customClass="ItemListViewConroller" customModule="Ssajul" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="게시물" id="ZnZ-ER-tyL" customClass="ItemListViewConroller" customModule="Ssajul" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="53" sectionHeaderHeight="28" sectionFooterHeight="28" id="VI6-ts-AhB">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
