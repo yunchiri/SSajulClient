@@ -81,10 +81,26 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
                     
                     //comment parsing()
                     
-                    let commentHtml = doc.xpath("//div/ul/li")
+                    let commentHtml = doc.xpath("//div[3]/ul/li")
                     
-                    for commentsModel in  commentHtml{
-                        print("comment")
+                    
+                    for comment in  commentHtml{
+                        
+                        if comment ==   (commentHtml.last! asw XMLElement)  {
+                            continue
+                        }
+                        
+                        print(comment.toHTML)
+                        
+//                        for pp in comment.xpath("p"){
+//                                print("comment")
+//                                print("comment end")
+//                        }
+//                        print("comment")
+                        print(comment.xpath("p").first?.text)
+                            
+                        print(comment.xpath("p").last?.text)
+//                        print("comment end")
                     }
                     
                     
