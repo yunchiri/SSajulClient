@@ -86,7 +86,7 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
                     
                     for comment in  commentHtml{
                         
-                        if comment ==   (commentHtml.last! asw XMLElement)  {
+                        if comment.xpath("p").count < 2 {
                             continue
                         }
                         
