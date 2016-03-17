@@ -49,10 +49,12 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
 //        commentList.append(c5)
         
         webView2.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        webView2.frame.size = CGSizeMake(100, 100)
+        
         webView2.delegate = self
         webView2.scrollView.scrollEnabled = false
         webView2.scrollView.bounces = false
-        
+        webView2.backgroundColor = UIColor.blueColor()
         //
         self.tableView.estimatedRowHeight = 30
         self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -163,16 +165,32 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
     }
     
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
-        
+//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        
+//        
+//        if (indexPath.row == 1){
+//            return contentSize;
+//        }
+//        
+//        if (indexPath.row > 1){
+//            return 100
+//        }
+//        
+//        return 60;
+//    }
+    
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+
         if (indexPath.row == 1){
-            return contentSize;
+            return 500;
         }
         
-        return 44;
+        if (indexPath.row > 1){
+            return 70
+        }
+        
+        return 60;
     }
-    
     
     /*
     // MARK: - Navigation
