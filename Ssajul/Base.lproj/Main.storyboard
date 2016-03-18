@@ -50,16 +50,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="contentCell" rowHeight="194" id="OBy-6k-0oS">
-                                <rect key="frame" x="0.0" y="92" width="600" height="194"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="contentCell" rowHeight="201" id="OBy-6k-0oS">
+                                <rect key="frame" x="0.0" y="92" width="600" height="201"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OBy-6k-0oS" id="Czv-Kv-imu">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="193"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="contentCell2" rowHeight="201" id="jrR-Qa-h2G" customClass="ContentCell" customModule="Ssajul" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="293" width="600" height="201"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jrR-Qa-h2G" id="CnC-y1-zO2">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UiV-Q3-37P">
+                                            <rect key="frame" x="4" y="0.0" width="592" height="200"/>
+                                            <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                        </webView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="UiV-Q3-37P" firstAttribute="top" secondItem="CnC-y1-zO2" secondAttribute="topMargin" constant="-8" id="JuK-ld-kuZ"/>
+                                        <constraint firstItem="UiV-Q3-37P" firstAttribute="leading" secondItem="CnC-y1-zO2" secondAttribute="leadingMargin" constant="-4" id="ahy-HP-1v0"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="UiV-Q3-37P" secondAttribute="trailing" constant="-4" id="rmY-pP-5oG"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="UiV-Q3-37P" secondAttribute="bottom" constant="1" id="m00-aF-HcY"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="webView" destination="UiV-Q3-37P" id="yMo-Ph-DPZ"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="68" id="7Ic-VB-1D0" customClass="CommentCell" customModule="Ssajul" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="286" width="600" height="68"/>
+                                <rect key="frame" x="0.0" y="494" width="600" height="68"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Ic-VB-1D0" id="CYB-V9-pwF">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="67"/>
@@ -94,7 +119,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemCell" rowHeight="53" id="kcu-OE-tBI" customClass="ItemCell" customModule="Ssajul" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="354" width="600" height="53"/>
+                                <rect key="frame" x="0.0" y="562" width="600" height="53"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kcu-OE-tBI" id="Mrb-8l-BCR">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="52"/>

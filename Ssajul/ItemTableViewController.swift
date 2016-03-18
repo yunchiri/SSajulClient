@@ -52,11 +52,11 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
         webView2.frame.size = CGSizeMake(100, 100)
         
         webView2.delegate = self
-        webView2.scrollView.scrollEnabled = false
+        webView2.scrollView.scrollEnabled = true
         webView2.scrollView.bounces = false
-        webView2.backgroundColor = UIColor.blueColor()
+        //webView2.backgroundColor = UIColor.blueColor()
         //
-        self.tableView.estimatedRowHeight = 30
+        self.tableView.estimatedRowHeight = 50
         self.tableView.rowHeight = UITableViewAutomaticDimension;
 
         
@@ -136,7 +136,7 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
         if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("contentCell", forIndexPath: indexPath)
             
-            webView2.frame = CGRectMake(0, 0 ,cell.frame.size.width,contentSize + 1)
+            webView2.frame = CGRectMake(0, 0 ,cell.frame.size.width,contentSize + 300)
 
             
             if isContentAdd == false {
@@ -146,6 +146,13 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
             return cell
         }
         
+//        if indexPath.row == 1 {
+//            let cell = tableView.dequeueReusableCellWithIdentifier("contentCell2", forIndexPath: indexPath) as! ContentCell
+//            
+//            cell.updateContent((selectedBoard?.boardID)!, itemId: (selectedItem?.uid)!)
+//            
+//            return cell
+//        }
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! CommentCell
@@ -164,61 +171,25 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
         
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == 1 {
+            return contentSize
+        }
+        
+        return UITableViewAutomaticDimension
+    }
 
-//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        
-//        
-//        if (indexPath.row == 1){
-//            return contentSize;
-//        }
-//        
-//        if (indexPath.row > 1){
-//            return 100
-//        }
-//        
-//        return 60;
-//    }
-    
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 
-        if (indexPath.row == 1){
+        if indexPath.row == 1 {
             return 500;
         }
         
-        if (indexPath.row > 1){
+        if indexPath.row > 1 {
             return 70
         }
         
         return 60;
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-//    func createHTML(content : String) -> String{
-//        let html = "<html>"
-//            + "<head>"
-//            + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
-//            + "<meta name=\"viewport\""
-//            + "\tcontent=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi\" />"
-//            + "<script"
-//            + "\tsrc=\"http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js\"></script>"
-//            + "<style type=\"text/css\">"
-//            + "#articleView * {"
-//            + "\tmax-width: 100%; !important;"
-//            + "}"
-//            + "</style>"
-//            + "</head><body>"
-//            + "\(content) </body></html>"
-//        
-//        return html
-//    }
     
 }
