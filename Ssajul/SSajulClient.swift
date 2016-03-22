@@ -16,8 +16,22 @@ class SSajulClient  {
     func getBoardList() -> Array<Board>{
         
         
+//soccermingboard
+//columnboard
+        return [Board(name: "해외축구게시판", boardID: "soccerboard")
+//            , Board(name: "국내축구게시판", boardID: "kookdaeboard")
+//            , Board(name: "축구동영상게시판", boardID: "soccermingboard")
+            , Board(name: "축구칼럼게시판", boardID: "columnboard")
+//            , Board(name: "축구추천게시판", boardID: "recomboard")
+            , Board(name: "라커룸", boardID: "locker")
+//            , Board(name: "동영상게시판", boardID: "streamingboard")
+//            , Board(name: "게임게시판", boardID: "gameboard")
+//            , Board(name: "투표게시판", boardID: "pollboard")
+//            , Board(name: "라커룸추천", boardID: "locker_recom")        
+        ]
+        
+            
 
-        return         [Board(name: "간호사근무편성", boardID: "soccerboard"), Board(name: "전공의근무편성", boardID: "locker")]
     }
     
     func getItemList(board : Board, page : Int) -> String{

@@ -26,27 +26,7 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-   
-        
-//        let c =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-//        let c1 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-//        let c2 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-//        let c3 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-//        let c4 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-//        let c5 =  Comment(userID: "a", userName: "a", userIP: "a", createAt: "a", voteUp: 1, voteDown: 1, content: "a", rawData: "a")
-//        
-//        
-//        commentList.append(c)
-//        commentList.append(c1)
-//        commentList.append(c2)
-//        commentList.append(c3)
-//        commentList.append(c4)
-//        commentList.append(c5)
+        self.title = self.selectedItem?.title
         
         webView2.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         webView2.frame.size = CGSizeMake(100, 100)
@@ -71,8 +51,11 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
         let url = NSURL(string: urlString)!
         
         
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        
         Alamofire.request(.GET, url)
             .responseString(encoding: NSUTF8StringEncoding  ) { response in
+                
                 
                 if let doc = Kanna.HTML(html: response.description, encoding: NSUTF8StringEncoding){
                     
@@ -101,7 +84,9 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
                     }
                     
                     self.tableView.reloadData()
+
                 }
+
         }
         
     }
@@ -136,7 +121,7 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
         if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("contentCell", forIndexPath: indexPath)
             
-            webView2.frame = CGRectMake(0, 0 ,cell.frame.size.width,contentSize + 300)
+            webView2.frame = CGRectMake(0, 0 ,cell.frame.size.width,contentSize+1)
 
             
             if isContentAdd == false {
@@ -167,9 +152,14 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
         //
         contentSize = webView.scrollView.contentSize.height
         
-        self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 2, inSection: 0)], withRowAnimation: .Automatic)
+//        self.tableView.deleteRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+
+        self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
         
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     }
+    
+
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == 1 {
@@ -182,7 +172,7 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 
         if indexPath.row == 1 {
-            return 500;
+            return UITableViewAutomaticDimension;
         }
         
         if indexPath.row > 1 {

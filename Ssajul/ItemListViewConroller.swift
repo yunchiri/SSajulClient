@@ -25,7 +25,11 @@ class ItemListViewConroller: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.refreshControl?.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+        
+        self.title = self.selectedBoard?.name
+        
+        
+        self.refreshControl?.addTarget(self, action: #selector(ItemListViewConroller.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
     
         
 
@@ -120,7 +124,7 @@ class ItemListViewConroller: UITableViewController {
         
         if (maximumOffset - currentOffset <= -40) {
             print("reload");
-            currentPage++
+            currentPage += 1
             updateBoardList()
         }
     }
@@ -147,7 +151,9 @@ class ItemListViewConroller: UITableViewController {
                         if verifyItem.containsString("<tr height=\"2\">"){ continue }
                         
                         if verifyItem.containsString("<tr height=\"20\">") {continue}
-                        
+
+                        if verifyItem.containsString("<td colspan=\"8\"") {continue}
+
                         
                         let newItem = Item()
                         
