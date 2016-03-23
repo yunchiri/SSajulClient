@@ -46,7 +46,7 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
         let boardId = selectedBoard?.boardID
         let itemId = selectedItem?.uid
         
-        let urlString = String(format:  "http://m.soccerline.co.kr/bbs/%@/view.html?uid=%@&page=1&code=%@&keyfield=&key=&period=",  boardId!, itemId!, boardId!)
+        let urlString = String(format:  "http://m.soccerline.co.kr/bbs/totalboard/view.html?uid=%@&page=1&code=%@&keyfield=&key=&period=", itemId!, boardId!)
         
         let url = NSURL(string: urlString)!
         
