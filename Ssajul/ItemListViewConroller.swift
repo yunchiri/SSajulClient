@@ -30,7 +30,7 @@ class ItemListViewConroller: UITableViewController {
         
         
 //        self.refreshControl?.addTarget(self, action: #selector(ItemListViewConroller.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-    self.refreshControl?.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+    self.refreshControl?.addTarget(self, action: #selector(ItemListViewConroller.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         
 
         updateBoardList()
@@ -166,8 +166,13 @@ class ItemListViewConroller: UITableViewController {
                         let indexOfEnd = href.lowercaseString.characters.indexOf(searchCharacterQueto)!.advancedBy(0)
                         let range = Range.init(start: indexOfStart, end: indexOfEnd)
                         
-                        
                         newItem.uid = href.substringWithRange(range)
+                        
+                        if self.itemList.count > 0 {
+                            if self.itemList.last?.uid == newItem.uid {
+                                continue;
+                            }
+                        }
                         
                         newItem.title = xxx.xpath("td[2]").first?.text as String!
                         
