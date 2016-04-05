@@ -8,6 +8,7 @@
 
 import UIKit
 
+import Alamofire
 
 class LoginViewController: UIViewController {
 
@@ -40,5 +41,32 @@ class LoginViewController: UIViewController {
     
     @IBAction func uiLogin(sender: AnyObject) {
         
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        
+        let url = "http://www.soccerline.co.kr/login/index.php"
+        
+        let parameters = [ "login_id" : "z5000" ,"login_pwd" : "z0007"]
+        
+        
+        Alamofire.request(.POST, url, parameters: parameters)
+            .responseString { response in
+                print("Success: \(response.result.isSuccess)")
+//                print("Response String: \(response.result.value)")
+                if let httpError = response.result.error {
+                    let statusCode = httpError.code
+                    print(statusCode)
+                }
+                
+                if response.result.isSuccess == true {
+                    self.uiClose(self)
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    
+                    SSajulClient.sharedInstance.login()
+                }
+        }
+        
+        
+        
+                
     }
 }

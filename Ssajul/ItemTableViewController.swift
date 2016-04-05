@@ -62,6 +62,10 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
                     let content : XMLElement = doc.css("div#articleView").first!
                     
                     let htmlCode =  SSajulClient.sharedInstance.createHTML(content.toHTML!)
+                    
+                    if htmlCode == "" {
+                        return
+                    }
                     self.webView2.loadHTMLString(htmlCode, baseURL: nil)
                     
                     //comment parsing()

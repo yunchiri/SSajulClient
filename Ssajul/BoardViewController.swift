@@ -27,13 +27,18 @@ class BoardViewcontroller: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
     }
 
     override func viewWillAppear(animated: Bool) {
 //        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
+        
+        if SSajulClient.sharedInstance.isLogin() == true {
+            uiLogin.title = "로그아웃"
+        }else{
+            uiLogin.title = "로그인"
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {

@@ -13,6 +13,9 @@ import Alamofire
 class SSajulClient  {
     static let sharedInstance = SSajulClient()
     
+    var _isLogin : Bool = false
+    
+    
     func getBoardList() -> Array<Board>{
         
         
@@ -57,12 +60,18 @@ class SSajulClient  {
     }
     
     func login() {
+        _isLogin = true
         
     }
     
     func logout() {
-        
+        _isLogin = false
     }
+    
+    func isLogin() -> Bool {
+        return _isLogin
+    }
+    
     
     func createHTML(content : String) -> String{
         let html = "<html>"
