@@ -23,6 +23,7 @@
 		04D0FF221C7C946900B204C4 /* ItemListViewConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF211C7C946900B204C4 /* ItemListViewConroller.swift */; };
 		04D0FF251C7C94E000B204C4 /* SSajulClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF241C7C94E000B204C4 /* SSajulClient.swift */; };
 		133CBCA475665740BB8A59FA /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06AC94D76EB323A467BA1EB6 /* Pods.framework */; };
+		4D6DF27E1CB50CD30054FF8B /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6DF27D1CB50CD30054FF8B /* CommentViewController.swift */; };
 		4D9D699C1C80605F000F4104 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9D699B1C80605F000F4104 /* ItemCell.swift */; };
 		4D9D699E1C89CCB3000F4104 /* ItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */; };
 		4D9D69A01C8F201E000F4104 /* ContentHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9D699F1C8F201E000F4104 /* ContentHeaderCell.swift */; };
@@ -61,6 +62,7 @@
 		04D0FF211C7C946900B204C4 /* ItemListViewConroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListViewConroller.swift; sourceTree = "<group>"; };
 		04D0FF241C7C94E000B204C4 /* SSajulClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSajulClient.swift; sourceTree = "<group>"; };
 		06AC94D76EB323A467BA1EB6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D6DF27D1CB50CD30054FF8B /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		4D9D699B1C80605F000F4104 /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewController.swift; sourceTree = "<group>"; };
 		4D9D699F1C8F201E000F4104 /* ContentHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentHeaderCell.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				04D0FF211C7C946900B204C4 /* ItemListViewConroller.swift */,
 				4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */,
 				047D24381CB291FC00148EBC /* LoginViewController.swift */,
+				4D6DF27D1CB50CD30054FF8B /* CommentViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				043DEE991C8C669500AC934B /* ContentCell.swift in Sources */,
 				4D9D69A01C8F201E000F4104 /* ContentHeaderCell.swift in Sources */,
 				040CB4F11C5F7CEC00C67432 /* ItemViewController.swift in Sources */,
+				4D6DF27E1CB50CD30054FF8B /* CommentViewController.swift in Sources */,
 				040CB4EF1C5F7CEC00C67432 /* BoardViewController.swift in Sources */,
 				4D9D699C1C80605F000F4104 /* ItemCell.swift in Sources */,
 				04D0FF1B1C7C830300B204C4 /* Board.swift in Sources */,

@@ -157,6 +157,15 @@
                             <outlet property="delegate" destination="Hwl-YI-Pjo" id="jjU-hF-7HJ"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="gPN-Ue-o3n">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="snm-xs-Kay">
+                            <connections>
+                                <segue destination="fh2-7O-S3g" kind="popoverPresentation" popoverAnchorBarButtonItem="snm-xs-Kay" id="N5W-uD-LhF">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="pXS-9Z-dGL">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
@@ -164,6 +173,48 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0jH-kG-EEw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1695" y="598"/>
+        </scene>
+        <!--Comment View Controller-->
+        <scene sceneID="BsE-XD-fIj">
+            <objects>
+                <viewController id="fh2-7O-S3g" customClass="CommentViewController" customModule="Ssajul" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qhL-Ys-vXr"/>
+                        <viewControllerLayoutGuide type="bottom" id="4Wo-PG-HGw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="U5T-UD-n3L">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CkX-59-Ohc">
+                                <rect key="frame" x="69" y="144" width="431" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFa-mR-K2p">
+                                <rect key="frame" x="261" y="216" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="addcomment:" destination="fh2-7O-S3g" eventType="touchUpInside" id="Lkn-z6-CWs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3LU-vZ-nPY">
+                                <rect key="frame" x="269" y="20" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="uiClose:" destination="fh2-7O-S3g" eventType="touchUpInside" id="x7v-hv-Qg3"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="uiComment" destination="CkX-59-Ohc" id="71U-mr-74A"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3oQ-gF-s3P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2340" y="608"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="FZq-Gy-T96">
