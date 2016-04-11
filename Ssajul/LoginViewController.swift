@@ -48,7 +48,7 @@ class LoginViewController: UIViewController {
         let parameters = [ "login_id" : "z5000" ,"login_pwd" : "z0007"]
         
         
-        Alamofire.request(.POST, url, parameters: parameters)
+        let request = Alamofire.request(.POST, url, parameters: parameters)
             .responseString { response in
                 print("Success: \(response.result.isSuccess)")
 //                print("Response String: \(response.result.value)")
@@ -65,7 +65,7 @@ class LoginViewController: UIViewController {
                 }
         }
         
-        
+        debugPrint(request)
         
                 
     }

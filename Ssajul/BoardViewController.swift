@@ -35,12 +35,16 @@ class BoardViewcontroller: UITableViewController {
         
         if SSajulClient.sharedInstance.isLogin() == true {
             uiLogin.title = "로그아웃"
+            
+            deleteCookies()
         }else{
             uiLogin.title = "로그인"
         }
         
     }
 
+
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -83,6 +87,17 @@ class BoardViewcontroller: UITableViewController {
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return false
+    }
+    
+    //Cookie
+    
+    func deleteCookies() {
+        let storage : NSHTTPCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        for cookie in storage.cookies!  as [NSHTTPCookie]
+        {
+            storage.deleteCookie(cookie)
+        }
+        NSUserDefaults.standardUserDefaults()
     }
 
 //    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
