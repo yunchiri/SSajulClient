@@ -41,11 +41,14 @@ class LoginViewController: UIViewController {
     
     @IBAction func uiLogin(sender: AnyObject) {
         
+        print("enter login")
+        self.showCookies()
+        
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         
-        let url = "http://www.soccerline.co.kr/login/index.php"
+        let url = "http://www.soccerline.co.kr/login/login_ok3.php"
         
-        let parameters = [ "login_id" : "z5000" ,"login_pwd" : "z0007"]
+        let parameters = [ "login_id" : "z5000" ,"login_pwd" : "z007"]
         
         
         let request = Alamofire.request(.POST, url, parameters: parameters)
@@ -62,11 +65,74 @@ class LoginViewController: UIViewController {
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                     
                     SSajulClient.sharedInstance.login()
+                    
+                    print("enter success login")
+                    self.showCookies()
+                    
+                    self.addcomment()
                 }
         }
         
         debugPrint(request)
         
                 
+    }
+  
+    
+    func addcomment() {
+        
+        
+        let url = "https://www.soccerline.co.kr/slboard/comment_write.php"
+        
+        let parameters = [ "code" : "soccerboard"
+            ,"tbl_name" : "soccerboard"
+            ,"comment_board_name" : "7"
+            ,"nickname" : "a"
+            ,"page" : "7"
+            , "key" : ""
+            , "keyfield" : ""
+            , "period" : ""
+            , "uid" : "1987159662"
+            , "mode" : "W"
+            , "comment" : "aaaa333"
+        ]
+//        
+        var defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders ?? [:]
+        defaultHeaders["Content-Type"] = "application/x-www-form-urlencoded"
+//
+//        showCookies()
+        
+//        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+//        configuration.HTTPAdditionalHeaders = defaultHeaders;
+//        let _ = Alamofire.Manager(configuration: configuration)
+        
+        let request = Alamofire.request(.POST, url, parameters: parameters)
+            .responseString { response in
+                
+                if response.result.isSuccess == true {
+                    self.uiClose(self)
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    
+                    SSajulClient.sharedInstance.login()
+                }
+        }
+        
+        debugPrint(request)
+        
+        
+    }
+    
+    func showCookies() {
+        
+        let cookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        //println("policy: \(cookieStorage.cookieAcceptPolicy.rawValue)")
+        
+        let cookies = cookieStorage.cookies! as [NSHTTPCookie]
+        
+        print("Cookies.count: \(cookies.count)")
+        
+        for cookie in cookies {
+            print("ORGcookie: \(cookie)")
+        }
     }
 }
