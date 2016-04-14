@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		040CB4ED1C5F7CEC00C67432 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CB4EC1C5F7CEC00C67432 /* AppDelegate.swift */; };
 		040CB4EF1C5F7CEC00C67432 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CB4EE1C5F7CEC00C67432 /* BoardViewController.swift */; };
-		040CB4F11C5F7CEC00C67432 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CB4F01C5F7CEC00C67432 /* ItemViewController.swift */; };
 		040CB4F41C5F7CEC00C67432 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040CB4F21C5F7CEC00C67432 /* Main.storyboard */; };
 		040CB4F61C5F7CEC00C67432 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 040CB4F51C5F7CEC00C67432 /* Assets.xcassets */; };
 		040CB4F91C5F7CEC00C67432 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040CB4F71C5F7CEC00C67432 /* LaunchScreen.storyboard */; };
@@ -22,8 +21,9 @@
 		04D0FF1F1C7C84DE00B204C4 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1E1C7C84DE00B204C4 /* Comment.swift */; };
 		04D0FF221C7C946900B204C4 /* ItemListViewConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF211C7C946900B204C4 /* ItemListViewConroller.swift */; };
 		04D0FF251C7C94E000B204C4 /* SSajulClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF241C7C94E000B204C4 /* SSajulClient.swift */; };
+		04DCA7AC1CBDDF7900E2E184 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCA7AB1CBDDF7900E2E184 /* User.swift */; };
+		04DCA7AE1CBE7B1000E2E184 /* CommentWriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCA7AD1CBE7B1000E2E184 /* CommentWriteCell.swift */; };
 		133CBCA475665740BB8A59FA /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06AC94D76EB323A467BA1EB6 /* Pods.framework */; };
-		4D6DF27E1CB50CD30054FF8B /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6DF27D1CB50CD30054FF8B /* CommentViewController.swift */; };
 		4D9D699C1C80605F000F4104 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9D699B1C80605F000F4104 /* ItemCell.swift */; };
 		4D9D699E1C89CCB3000F4104 /* ItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */; };
 		4D9D69A01C8F201E000F4104 /* ContentHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9D699F1C8F201E000F4104 /* ContentHeaderCell.swift */; };
@@ -43,7 +43,6 @@
 		040CB4E91C5F7CEC00C67432 /* Ssajul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ssajul.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		040CB4EC1C5F7CEC00C67432 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		040CB4EE1C5F7CEC00C67432 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
-		040CB4F01C5F7CEC00C67432 /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
 		040CB4F31C5F7CEC00C67432 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		040CB4F51C5F7CEC00C67432 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		040CB4F81C5F7CEC00C67432 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -61,8 +60,9 @@
 		04D0FF1E1C7C84DE00B204C4 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		04D0FF211C7C946900B204C4 /* ItemListViewConroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListViewConroller.swift; sourceTree = "<group>"; };
 		04D0FF241C7C94E000B204C4 /* SSajulClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSajulClient.swift; sourceTree = "<group>"; };
+		04DCA7AB1CBDDF7900E2E184 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		04DCA7AD1CBE7B1000E2E184 /* CommentWriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentWriteCell.swift; sourceTree = "<group>"; };
 		06AC94D76EB323A467BA1EB6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D6DF27D1CB50CD30054FF8B /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		4D9D699B1C80605F000F4104 /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewController.swift; sourceTree = "<group>"; };
 		4D9D699F1C8F201E000F4104 /* ContentHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentHeaderCell.swift; sourceTree = "<group>"; };
@@ -150,6 +150,7 @@
 				04D0FF1A1C7C830300B204C4 /* Board.swift */,
 				04D0FF1C1C7C84C300B204C4 /* Item.swift */,
 				04D0FF1E1C7C84DE00B204C4 /* Comment.swift */,
+				04DCA7AB1CBDDF7900E2E184 /* User.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -158,11 +159,9 @@
 			isa = PBXGroup;
 			children = (
 				040CB4EE1C5F7CEC00C67432 /* BoardViewController.swift */,
-				040CB4F01C5F7CEC00C67432 /* ItemViewController.swift */,
 				04D0FF211C7C946900B204C4 /* ItemListViewConroller.swift */,
 				4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */,
 				047D24381CB291FC00148EBC /* LoginViewController.swift */,
-				4D6DF27D1CB50CD30054FF8B /* CommentViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -190,6 +189,7 @@
 				043DEE981C8C669500AC934B /* ContentCell.swift */,
 				4D9D699F1C8F201E000F4104 /* ContentHeaderCell.swift */,
 				046625081C96EA20006BB90F /* CommentCell.swift */,
+				04DCA7AD1CBE7B1000E2E184 /* CommentWriteCell.swift */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -359,8 +359,8 @@
 				4D9D699E1C89CCB3000F4104 /* ItemTableViewController.swift in Sources */,
 				043DEE991C8C669500AC934B /* ContentCell.swift in Sources */,
 				4D9D69A01C8F201E000F4104 /* ContentHeaderCell.swift in Sources */,
-				040CB4F11C5F7CEC00C67432 /* ItemViewController.swift in Sources */,
-				4D6DF27E1CB50CD30054FF8B /* CommentViewController.swift in Sources */,
+				04DCA7AC1CBDDF7900E2E184 /* User.swift in Sources */,
+				04DCA7AE1CBE7B1000E2E184 /* CommentWriteCell.swift in Sources */,
 				040CB4EF1C5F7CEC00C67432 /* BoardViewController.swift in Sources */,
 				4D9D699C1C80605F000F4104 /* ItemCell.swift in Sources */,
 				04D0FF1B1C7C830300B204C4 /* Board.swift in Sources */,

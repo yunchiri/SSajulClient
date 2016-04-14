@@ -13,18 +13,11 @@ class BoardViewcontroller: UITableViewController {
     @IBOutlet weak var uiLogin: UIBarButtonItem!
     
     var itemListViewConroller : ItemListViewConroller? = nil
-    var itemViewController: ItemViewController? = nil
+//    var itemViewController: ItemViewController? = nil
 
-
-
-
-    
-    
     
     var boardList = SSajulClient.sharedInstance.getBoardList()
-    
-    //[Board(name: "간호사근무편성", boardID: "soccerboard"), Board(name: "전공의근무편성", boardID: "locker")]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -36,7 +29,7 @@ class BoardViewcontroller: UITableViewController {
         if SSajulClient.sharedInstance.isLogin() == true {
             uiLogin.title = "로그아웃"
             
-            deleteCookies()
+            
         }else{
             uiLogin.title = "로그인"
         }
@@ -58,8 +51,8 @@ class BoardViewcontroller: UITableViewController {
                 
                 let controller = segue.destinationViewController as! ItemListViewConroller
                 
-                controller.selectedBoard = selectedBoard
                 
+                SSajulClient.sharedInstance.selectedBoard = selectedBoard
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
@@ -89,16 +82,7 @@ class BoardViewcontroller: UITableViewController {
         return false
     }
     
-    //Cookie
-    
-    func deleteCookies() {
-        let storage : NSHTTPCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-        for cookie in storage.cookies!  as [NSHTTPCookie]
-        {
-            storage.deleteCookie(cookie)
-        }
-        NSUserDefaults.standardUserDefaults()
-    }
+
 
 //    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 //        if editingStyle == .Delete {

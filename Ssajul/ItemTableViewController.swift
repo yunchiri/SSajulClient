@@ -13,16 +13,24 @@ import Kanna
 import NextGrowingTextView
 
 
-class ItemTableViewController: UITableViewController , UIWebViewDelegate{
-
+class ItemTableViewController: UITableViewController , UIWebViewDelegate  {
+    
     
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var growingTextView: NextGrowingTextView!
     
+    enum CellType : Int {
+        case header = 0
+        case body = 1
+        case comment
+        case commentAdder
+        
+    }
     
+    var commentWriteCell : CommentWriteCell? = nil
     
-    var selectedBoard : Board? = nil
-    var selectedItem : Item? = nil
+    //    var selectedBoard : Board? = nil
+    //    var selectedItem : Item? = nil
     
     var commentList = [Comment]()
     let webView2 = UIWebView()
@@ -32,22 +40,22 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.title = self.selectedItem?.title
+        
+        self.title = SSajulClient.sharedInstance.selectedItem?.title
+        
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         
         //댓글 셋팅
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
-        
-        self.growingTextView.layer.cornerRadius = 4
-        self.growingTextView.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        //
+        //        self.growingTextView.layer.cornerRadius = 4
+        //        self.growingTextView.backgroundColor = UIColor(white: 0.9, alpha: 1)
         
         
         
         webView2.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         webView2.frame.size = CGSizeMake(100, 100)
-        
         webView2.delegate = self
         webView2.scrollView.scrollEnabled = true
         webView2.scrollView.bounces = false
@@ -55,17 +63,87 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
         //
         self.tableView.estimatedRowHeight = 50
         self.tableView.rowHeight = UITableViewAutomaticDimension;
-
         
-//        self.tableView.rowHeight = UITableViewAutomaticDimension
-//        self.tableView.estimatedRowHeight = 100
         
-        let boardId = selectedBoard?.boardID
-        let itemId = selectedItem?.uid
+        loadingContent();
         
-        let urlString = String(format:  "http://m.soccerline.co.kr/bbs/totalboard/view.html?uid=%@&page=1&code=%@&keyfield=&key=&period=", itemId!, boardId!)
         
-        let url = NSURL(string: urlString)!
+    }
+    
+    func handleRefresh(refreshControl : UIRefreshControl){
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
+    
+    
+    
+    
+    @IBAction func addComent(sender: AnyObject) {
+        self.tableView.endEditing(true)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Table view data source
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return commentList.count + 3
+    }
+    
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if indexPath.row == CellType.header.rawValue {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("itemCell", forIndexPath: indexPath) as! ItemCell
+            
+            cell.setItem( SSajulClient.sharedInstance.selectedItem!)
+            
+            return cell
+            
+        }
+        if indexPath.row == CellType.body.rawValue {
+            let cell = tableView.dequeueReusableCellWithIdentifier("contentCell", forIndexPath: indexPath)
+            
+            webView2.frame = CGRectMake(0, 0 ,cell.frame.size.width,contentSize+1)
+            
+            
+            if isContentAdd == false {
+                cell.contentView.addSubview(webView2)
+                isContentAdd = true
+            }
+            return cell
+        }
+        
+        if indexPath.row == commentList.count + 2 {
+            
+            let cell2 = tableView.dequeueReusableCellWithIdentifier("commentWriteCell", forIndexPath: indexPath) as! CommentWriteCell
+            
+            commentWriteCell = cell2
+            
+            return cell2
+        }
+        
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! CommentCell
+        
+        cell.setComment(commentList[indexPath.row - 2])
+        return cell
+    }
+    
+    
+    
+    func loadingContent()  {
+        
+        let url = NSURL(string: SSajulClient.sharedInstance.urlForContent( ))!
         
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
@@ -81,9 +159,18 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
                     
                     let htmlCode =  SSajulClient.sharedInstance.createHTML(content.toHTML!)
                     
-
                     
-                    self.webView2.loadHTMLString(htmlCode, baseURL: nil)
+                    //content
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.webView2.loadHTMLString(htmlCode, baseURL: nil)
+                    })
+                    
+                    //comment
+                    
+                    //comment item
+                    
+                    //                    let commentParameter = doc.css("#viewWriteCommentFrm")
+                    
                     
                     //comment parsing()
                     
@@ -96,11 +183,8 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
                             continue
                         }
                         
-//                        if comment.xpath("p").count < 2 {
-//                            continue
-//                        }
                         
-                        let newComment = Comment()
+                        var newComment = Comment()
                         newComment.content = (comment.xpath("p").first?.text)!
                         newComment.userInfo = (comment.xpath("p").last?.text)!
                         
@@ -109,163 +193,47 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate{
                     }
                     
                     self.tableView.reloadData()
-
+                    
                 }
-
+                
         }
-        
-    }
-
-    @IBAction func addComent(sender: AnyObject) {
-            self.tableView.endEditing(true)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return commentList.count + 2
-    }
-
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
-        if indexPath.row == 0 {
-
-            let cell = tableView.dequeueReusableCellWithIdentifier("itemCell", forIndexPath: indexPath) as! ItemCell
-            
-            cell.setItem(selectedItem!)
-            
-            return cell
-            
-        }
-        if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("contentCell", forIndexPath: indexPath)
-            
-            webView2.frame = CGRectMake(0, 0 ,cell.frame.size.width,contentSize+1)
-
-            
-            if isContentAdd == false {
-                cell.contentView.addSubview(webView2)
-                isContentAdd = true
-            }
-            return cell
-        }
-        
-//        if indexPath.row == 1 {
-//            let cell = tableView.dequeueReusableCellWithIdentifier("q1", forIndexPath: indexPath) as! ContentCell
-//            
-//           //            
-//            return cell
-//        }
-        
-   
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! CommentCell
-        
-        cell.setComment(commentList[indexPath.row - 2])
-        return cell
-    }
-
-
     func webViewDidFinishLoad(webView: UIWebView) {
-//        print( webView.scrollView.contentSize.height);
-        //
         contentSize = webView.scrollView.contentSize.height
         
-//        self.tableView.deleteRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
-
         self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     }
     
-
+    
     //댓글
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 1 {
+        if indexPath.row == CellType.body.rawValue {
             return contentSize
         }
         
+        if indexPath.row == commentList.count + 2 {
+            return 120
+        }
         return UITableViewAutomaticDimension
     }
-
+    
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-
-        if indexPath.row == 1 {
-            return UITableViewAutomaticDimension;
-        }
         
-        if indexPath.row > 1 {
-            return 70
+        if indexPath.row == CellType.body.rawValue {
+            return UITableViewAutomaticDimension;
         }
         
         return 60;
     }
     
-    
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.view.endEditing(true)
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        commentWriteCell?.addTargetUser("selected id")
     }
     
     
-    @IBAction func handleSendButton(sender: AnyObject) {
-        self.growingTextView.text = ""
-        self.view.endEditing(true)
-    }
-    
-    
-    func keyboardWillHide(sender: NSNotification) {
-        if let userInfo = sender.userInfo {
-            if let _ = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size.height {
-                
-                UIView.animateWithDuration(0.25, animations: { () -> Void in self.view.layoutIfNeeded() })
-            }
-        }
-    }
-    func keyboardWillShow(sender: NSNotification) {
-        if let userInfo = sender.userInfo {
-            if let keyboardHeight = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size.height {
-//                self.inputContainerViewBottom.constant = keyboardHeight
-
-
-//
-            
-                self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight, 0)
-                tableViewScrollToBottom(true)
-            
-                
-                UIView.animateWithDuration(0.25, animations: { () -> Void in
-                    self.view.layoutIfNeeded()
-                })
-            }
-        }
-    }
-    
-    func tableViewScrollToBottom(animated: Bool) {
-        
-        let delay = 0.1 * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-        
-        dispatch_after(time, dispatch_get_main_queue(), {
-            
-            let numberOfSections = self.tableView.numberOfSections
-            let numberOfRows = self.tableView.numberOfRowsInSection(numberOfSections-1)
-            
-            if numberOfRows > 0 {
-                let indexPath = NSIndexPath(forRow: numberOfRows-1, inSection: (numberOfSections-1))
-                self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: animated)
-            }
-            
-        })
-    }
     
 }

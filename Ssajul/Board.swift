@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Board{
+struct Board{
     var name : String
     var boardID : String
     

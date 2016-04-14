@@ -15,6 +15,8 @@ class SSajulClient  {
     
     var _isLogin : Bool = false
     
+    var selectedBoard :Board?
+    var selectedItem : Item?
     
     func getBoardList() -> Array<Board>{
         
@@ -32,9 +34,6 @@ class SSajulClient  {
             , Board(name: "투표게시판", boardID: "pollboard")
             , Board(name: "라커룸추천", boardID: "locker_recom")        
         ]
-        
-            
-
     }
     
     func getItemList(board : Board, page : Int) -> String{
@@ -92,5 +91,97 @@ class SSajulClient  {
         return html
     }
 
+    
+    //cookie utils
+    
+    func showCookies() {
+        
+        let cookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        //println("policy: \(cookieStorage.cookieAcceptPolicy.rawValue)")
+        
+        let cookies = cookieStorage.cookies! as [NSHTTPCookie]
+        
+        print("Cookies.count: \(cookies.count)")
+        
+        for cookie in cookies {
+            print("ORGcookie: \(cookie)")
+        }
+    }
+    
+    func deleteCookies() {
+        let storage : NSHTTPCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        for cookie in storage.cookies!  as [NSHTTPCookie]
+        {
+            storage.deleteCookie(cookie)
+        }
+        NSUserDefaults.standardUserDefaults()
+    }
+    
+    //urls
+    
+    func urlForLogin() -> String {
+        return "http://www.soccerline.co.kr/login/login_ok3.php"
+    }
+    
+    func urlForComment() -> String {
+        return "https://www.soccerline.co.kr/slboard/comment_write.php"
+    }
+    
+    
+    func urlForContent() -> String{
+        if selectedBoard == nil { return "http://127.0.0.1" }
+        if selectedItem == nil { return "http://127.0.0.1" }
+        
+        let boardId = selectedBoard!.boardID
+        let itemId = selectedItem!.uid
+        
+        return String(format:  "http://m.soccerline.co.kr/bbs/totalboard/view.html?uid=%@&page=1&code=%@&keyfield=&key=&period=", itemId, boardId)
+    }
+    
+    func urlForBoardItemList(page : Int) -> String{
+        if selectedBoard == nil { return "http://127.0.0.1" }
+        
+        let boardId = selectedBoard!.boardID
+        
+        return String(format:  "http://www.soccerline.co.kr/slboard/list.php?page=%d&code=%@&keyfield=&key=&period=&", page, boardId)
+    }
+    
+    func urlForCommentWrite() -> String{
+        
+        return  "https://www.soccerline.co.kr/slboard/comment_write.php"
+    }
+    
+    func ParametersForComment() -> [ String : String ] {
+        //body default
+//        var parameters = [ "code" : "soccerboard"
+//            ,"tbl_name" : "soccerboard"
+//            ,"comment_board_name" : "7"
+//            ,"nickname" : "a"
+//            ,"page" : ""
+//            , "key" : ""
+//            , "keyfield" : ""
+//            , "period" : ""
+//            , "uid" : "1987159662"
+//            , "mode" : "W"
+//            , "comment" : ""
+//        ]
+        
+        var parameters = [
+            "comment_board_name" : "7"
+            ,"page" : ""
+            , "key" : ""
+            , "keyfield" : ""
+            , "period" : ""
+            , "mode" : "W"
+            , "comment" : ""
+        ]
+        
+        parameters["code"] =  selectedBoard?.boardID
+        parameters["tbl_name"] =  selectedBoard?.boardID
+        parameters["uid"] =  selectedItem?.uid
+        
+        return parameters
+        
+    }
     
 }

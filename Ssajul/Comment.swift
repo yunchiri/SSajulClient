@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Comment{
+struct Comment{
     var userID : String?
     var userName : String?
     var userIP : String?

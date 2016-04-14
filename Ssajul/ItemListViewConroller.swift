@@ -38,14 +38,7 @@ class ItemListViewConroller: UITableViewController {
         self.tableView.estimatedRowHeight = 30
          self.tableView.rowHeight = UITableViewAutomaticDimension;
         
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
+
   
     }
 
@@ -83,10 +76,7 @@ class ItemListViewConroller: UITableViewController {
         
         let item = itemList[indexPath.row]
         cell.setItem( item)
-        
         // Configure the cell...
-        
-        
         return cell
     }
     
@@ -108,8 +98,12 @@ class ItemListViewConroller: UITableViewController {
                 let itemController = segue.destinationViewController as! ItemTableViewController
                 
                 
-                itemController.selectedBoard = selectedBoard
-                itemController.selectedItem = selectedItem
+//                itemController.selectedBoard = selectedBoard
+//                itemController.selectedItem = selectedItem
+                
+                //SSajulClient.sharedInstance.selectedBoard = selectedBoard
+                SSajulClient.sharedInstance.selectedItem = selectedItem
+                
                 itemController.navigationItem.leftItemsSupplementBackButton = true
                 
             }
@@ -132,17 +126,17 @@ class ItemListViewConroller: UITableViewController {
  
     
     func updateBoardList(){
-
-        let boardId = selectedBoard?.boardID
         
-        let url = String(format:  "http://www.soccerline.co.kr/slboard/list.php?page=%d&code=%@&keyfield=&key=&period=&", currentPage, boardId!)
-
+        let url = SSajulClient.sharedInstance.urlForBoardItemList( currentPage)
+        
         Alamofire.request(.GET, url)
             .responseString(encoding:CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ) { response in
 
                 if let doc = Kanna.HTML(html: response.description, encoding: NSUTF8StringEncoding){
                     
                     let element : XMLElement? = doc.css("table.te2").first
+                    
+                    
                     
                     for xxx in  (element as XMLElement?)!.css("tr"){
         
@@ -155,7 +149,7 @@ class ItemListViewConroller: UITableViewController {
                         if verifyItem.containsString("<td colspan=\"8\"") {continue}
 
                         
-                        let newItem = Item()
+                        
                         
                         let searchCharacter: Character = "="
                         let searchCharacterQueto: Character = "&"
@@ -166,13 +160,24 @@ class ItemListViewConroller: UITableViewController {
                         let indexOfEnd = href.lowercaseString.characters.indexOf(searchCharacterQueto)!.advancedBy(0)
                         let range = Range.init(start: indexOfStart, end: indexOfEnd)
                         
-                        newItem.uid = href.substringWithRange(range)
+                        let preUid = href.substringWithRange(range)
+                        
+//                        newItem.uid = href.substringWithRange(range)
                         
                         if self.itemList.count > 0 {
-                            if self.itemList.last?.uid == newItem.uid {
-                                continue;
+                            
+                            if self.itemList.contains({ (Item) -> Bool in
+                                if Item.uid == preUid { return true }
+                                return false
+                            }) == true {
+                                print("exist uid")
+                                continue
                             }
+
                         }
+                        var newItem = Item()
+                        
+                        newItem.uid = preUid
                         
                         newItem.title = xxx.xpath("td[2]").first?.text as String!
                         
