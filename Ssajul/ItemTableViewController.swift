@@ -184,11 +184,8 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate  {
                         }
                         
                         
-                        var newComment = Comment()
-                        newComment.content = (comment.xpath("p").first?.text)!
-                        newComment.userInfo = (comment.xpath("p").last?.text)!
                         
-                        self.commentList.append(newComment)
+                        self.commentList.append(self.createComment(comment))
                         
                     }
                     
@@ -197,6 +194,29 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate  {
                 }
                 
         }
+    }
+    
+    func createComment( commentHTML : XMLElement) -> Comment{
+        
+        
+        
+        
+        var newComment = Comment()
+        newComment.content = (commentHTML.xpath("p").first?.text)!
+        newComment.userInfo = (commentHTML.xpath("p").last?.text)!
+        
+        let searchCharacter: Character = "-"
+        let searchCharacterQueto: Character = "-"
+
+        let indexOfStart = newComment.userInfo!.characters.indexOf(searchCharacter)!.advancedBy(1)
+        let indexOfEnd = newComment.userInfo!.characters.indexOf(searchCharacter).
+        let range = Range.init(start: indexOfStart, end: indexOfEnd)
+
+        let preUid = newComment.userInfo!.substringWithRange(range)
+        
+
+        
+        return newComment
     }
     
     

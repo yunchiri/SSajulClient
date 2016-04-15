@@ -70,8 +70,6 @@ class LoginViewController: UIViewController {
                     print("enter success login")
                     
 //                    SSajulClient.sharedInstance.showCookies()
-                    
-//                    self.addcomment()
                 }
         }
         
@@ -80,42 +78,5 @@ class LoginViewController: UIViewController {
                 
     }
   
-    
-    func addcomment() {
-        
-        
-        let url = SSajulClient.sharedInstance.urlForComment()
-        
-        let parameters = [ "code" : "soccerboard"
-            ,"tbl_name" : "soccerboard"
-            ,"comment_board_name" : "7"
-            ,"nickname" : "a"
-            ,"page" : "7"
-            , "key" : ""
-            , "keyfield" : ""
-            , "period" : ""
-            , "uid" : "1987159662"
-            , "mode" : "W"
-            , "comment" : "aaaa333"
-        ]
-//        
-        var defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders ?? [:]
-        defaultHeaders["Content-Type"] = "application/x-www-form-urlencoded"
-
-        let _ = Alamofire.request(.POST, url, parameters: parameters)
-            .responseString { response in
-                
-                if response.result.isSuccess == true {
-                    self.uiClose(self)
-                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                    
-                    SSajulClient.sharedInstance.login()
-                }
-        }
-        
-//        debugPrint(request)
-        
-        
-    }
     
 }
