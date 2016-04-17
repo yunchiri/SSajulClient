@@ -13,11 +13,11 @@ import Kanna
 import NextGrowingTextView
 
 
-class ItemTableViewController: UITableViewController , UIWebViewDelegate  {
+class ItemTableViewController: UITableViewController , UIWebViewDelegate , CommentWriteCellDelegate {
     
     
     @IBOutlet weak var inputContainerView: UIView!
-    @IBOutlet weak var growingTextView: NextGrowingTextView!
+    
     
     enum CellType : Int {
         case header = 0
@@ -45,14 +45,6 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate  {
         
         self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         
-        //댓글 셋팅
-        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
-        //
-        //        self.growingTextView.layer.cornerRadius = 4
-        //        self.growingTextView.backgroundColor = UIColor(white: 0.9, alpha: 1)
-        
-        
         
         webView2.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         webView2.frame.size = CGSizeMake(100, 100)
@@ -71,7 +63,7 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate  {
     }
     
     func handleRefresh(refreshControl : UIRefreshControl){
-        self.tableView.reloadData()
+        self.loadingContent()
         refreshControl.endRefreshing()
     }
     
@@ -128,7 +120,7 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate  {
             let cell2 = tableView.dequeueReusableCellWithIdentifier("commentWriteCell", forIndexPath: indexPath) as! CommentWriteCell
             
             commentWriteCell = cell2
-            
+            cell2.delegate = self
             return cell2
         }
         
@@ -143,6 +135,10 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate  {
     
     func loadingContent()  {
         
+        if commentList.count > 0 {
+                commentList.removeAll()
+        }
+        
         let url = NSURL(string: SSajulClient.sharedInstance.urlForContent( ))!
         
         
@@ -153,6 +149,7 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate  {
                 
                 
                 if let doc = Kanna.HTML(html: response.description, encoding: NSUTF8StringEncoding){
+                    
                     
                     
                     let content : XMLElement = doc.css("div#articleView").first!
@@ -169,30 +166,18 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate  {
                     
                     //comment item
                     
-                    //                    let commentParameter = doc.css("#viewWriteCommentFrm")
-                    
-                    
-                    //comment parsing()
-                    
+                    //let commentParameter = doc.css("#viewWriteCommentFrm")
+
                     let commentHtml = doc.xpath("//div[3]/ul/li")
                     
-                    
                     for comment in  commentHtml{
-                        
                         guard comment.xpath("p").count >= 2 else {
                             continue
                         }
-                        
-                        
-                        
                         self.commentList.append(self.createComment(comment))
-                        
                     }
-                    
                     self.tableView.reloadData()
-                    
                 }
-                
         }
     }
     
@@ -202,19 +187,33 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate  {
         
         
         var newComment = Comment()
+        
+        let commentDetail = (commentHTML.xpath("p").last?.text)!
+        
         newComment.content = (commentHTML.xpath("p").first?.text)!
-        newComment.userInfo = (commentHTML.xpath("p").last?.text)!
+        newComment.userInfo = commentDetail
         
-        let searchCharacter: Character = "-"
-        let searchCharacterQueto: Character = "-"
-
-        let indexOfStart = newComment.userInfo!.characters.indexOf(searchCharacter)!.advancedBy(1)
-        let indexOfEnd = newComment.userInfo!.characters.indexOf(searchCharacter).
-        let range = Range.init(start: indexOfStart, end: indexOfEnd)
-
-        let preUid = newComment.userInfo!.substringWithRange(range)
+        var commentDetailList = commentDetail.characters.split("-").map(String.init)
         
-
+        if commentDetailList.count > 3 {
+           
+            for var y in 1..<commentDetailList.count - 2 {
+                commentDetailList[0] = commentDetailList[0] + "-" + commentDetailList[y]
+            }
+            
+        }
+        
+        let searchCharacter: Character = "("
+        let indexOfStart = commentDetailList[0].characters.indexOf(searchCharacter)
+        
+        
+        let userName = commentDetailList[0].substringToIndex(indexOfStart!).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        
+        let userID = commentDetailList[0].substringFromIndex(indexOfStart!).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        
+        newComment.userName = userName
+        newComment.userID = String(String(userID.characters.dropLast()).characters.dropFirst())
+        newComment.createAt = commentDetailList[ commentDetailList.count - 1  ]
         
         return newComment
     }
@@ -251,7 +250,28 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate  {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        commentWriteCell?.addTargetUser("selected id")
+        
+        let selectedCell = tableView.cellForRowAtIndexPath(indexPath)
+        
+        if selectedCell is CommentCell {
+            let userName = (selectedCell as! CommentCell).getUserName()
+            commentWriteCell?.addTargetUser(userName)
+            
+        }
+        
+    }
+    
+    func  commentDidPost() {
+        self.loadingContent()
+    }
+    
+    func needLogin() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let loginViewController = storyboard.instantiateViewControllerWithIdentifier("loginVC") as! LoginViewController
+        
+        self.presentViewController(loginViewController, animated: true, completion: nil)
+        
     }
     
     

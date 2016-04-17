@@ -16,9 +16,11 @@ import Kanna
 class ItemListViewConroller: UITableViewController {
 
     var itemList = [Item]()
-    var selectedBoard : Board? = nil
+//    var selectedBoard : Board? = nil
     var currentPage : Int = 1
     
+    
+    @IBOutlet weak var uiWriteContentButton: UIBarButtonItem!
 
 
     
@@ -26,14 +28,14 @@ class ItemListViewConroller: UITableViewController {
         super.viewDidLoad()
         
         
-        self.title = self.selectedBoard?.name
+        self.title = SSajulClient.sharedInstance.selectedBoard?.name
         
         
 //        self.refreshControl?.addTarget(self, action: #selector(ItemListViewConroller.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
     self.refreshControl?.addTarget(self, action: #selector(ItemListViewConroller.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         
 
-        updateBoardList()
+        
         
         self.tableView.estimatedRowHeight = 30
          self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -41,6 +43,26 @@ class ItemListViewConroller: UITableViewController {
 
   
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        //        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+        super.viewWillAppear(animated)
+        
+        updateBoardList()
+        
+        if SSajulClient.sharedInstance.isLogin() == true {
+            uiWriteContentButton.enabled = true
+            
+            
+        }else{
+            uiWriteContentButton.enabled = false
+        }
+        
+        
+        
+    }
+    
+    
 
     
     func handleRefresh(refreshControl : UIRefreshControl){
@@ -105,6 +127,23 @@ class ItemListViewConroller: UITableViewController {
                 SSajulClient.sharedInstance.selectedItem = selectedItem
                 
                 itemController.navigationItem.leftItemsSupplementBackButton = true
+                
+            }
+        }
+        
+        if segue.identifier == "writeContentSegue"{
+        
+            print( SSajulClient.sharedInstance.selectedBoard?.name )
+            
+            if SSajulClient.sharedInstance.selectedBoard?.boardID == "recomboard" {
+                
+                let alertController = UIAlertController(title: "이 게시판에는 글 못씀", message: "아마 꾸레들이 점령한듯...", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                    print("OK")
+                }
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
                 
             }
         }

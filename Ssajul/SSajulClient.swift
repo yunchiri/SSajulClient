@@ -18,6 +18,9 @@ class SSajulClient  {
     var selectedBoard :Board?
     var selectedItem : Item?
     
+    var boundaryPart = "pIGWeRaGJ9VVoeGq"
+    
+    
     func getBoardList() -> Array<Board>{
         
         
@@ -58,8 +61,13 @@ class SSajulClient  {
         return ""
     }
     
-    func login() {
+    func login(loginId : String , loingPwd : String) {
         _isLogin = true
+        
+        NSUserDefaults.standardUserDefaults().setObject( loginId, forKey: "login_id")
+        NSUserDefaults.standardUserDefaults().setObject( loingPwd, forKey: "login_pwd")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
         
     }
     
@@ -151,6 +159,41 @@ class SSajulClient  {
         return  "https://www.soccerline.co.kr/slboard/comment_write.php"
     }
     
+    func urlForContentWrite() -> String{
+        return "http://www.soccerline.co.kr/slboard/post.php"
+    }
+    
+//    func BodyForContent() -> String {
+//        let parameters = [
+//            "nickname" : "¸¸½ÃÁî"
+//            ,"code" : "cheongchun"
+//            , "comment_yn" : "1"
+//            , "subject" : "asdf"
+//            , "comment" : "fda"
+//            , "mode" : "W"
+//            , "comment" : ""
+//        ]
+//
+//
+//        let boundary = "------WebKitFormBoundarypIGWeRaGJ9VVoeGq"
+//        let endLine = "\r\n"
+//        var body = ""
+//        
+//        
+//        for (key, value) in parameters {
+//            
+//            body.stringByAppendingString("\(boundary)")
+//            body.stringByAppendingString(endLine)
+//            body.stringByAppendingString("Content-Disposition: form-data; name=\"\(key)\"")
+//            body.stringByAppendingString(endLine)
+//            body.stringByAppendingString(endLine)
+//            body.stringByAppendingString(value as NSString as String)
+//        }
+//        
+//        body.stringByAppendingString(boundary)
+//        return body
+//    }
+    
     func ParametersForComment() -> [ String : String ] {
         //body default
 //        var parameters = [ "code" : "soccerboard"
@@ -183,5 +226,25 @@ class SSajulClient  {
         return parameters
         
     }
+    
+    
+    func getLoginID() -> String {
+        
+        let notlogin = "not_logined"
+        if isLogin() == true {
+            let userID = NSUserDefaults.standardUserDefaults().objectForKey( "login_id") as! String
+            
+            if userID.characters.count == 0 {
+                return notlogin
+            }
+            
+            return userID
+        }
+        
+        return notlogin
+    
+    }
+    
+    
     
 }

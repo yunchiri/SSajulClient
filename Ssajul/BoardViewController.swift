@@ -26,6 +26,12 @@ class BoardViewcontroller: UITableViewController {
 //        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
         
+        loginButtonChanger()
+
+        
+    }
+
+    func loginButtonChanger(){
         if SSajulClient.sharedInstance.isLogin() == true {
             uiLogin.title = "로그아웃"
             
@@ -33,10 +39,7 @@ class BoardViewcontroller: UITableViewController {
         }else{
             uiLogin.title = "로그인"
         }
-        
     }
-
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -44,6 +47,19 @@ class BoardViewcontroller: UITableViewController {
     }
 
     // MARK: - Segues
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if identifier == "loginSegue" {
+            if SSajulClient.sharedInstance.isLogin() == true {
+                SSajulClient.sharedInstance.logout()
+                loginButtonChanger()
+                return false
+            }
+        }
+        
+        return true
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "itemListSegue" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
@@ -56,6 +72,8 @@ class BoardViewcontroller: UITableViewController {
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
+        
+
     }
 
     // MARK: - Table View

@@ -9,10 +9,15 @@
 import UIKit
 import Alamofire
 
-class CommentWriteCell: UITableViewCell , UITextViewDelegate {
+class CommentWriteCell: UITableViewCell , UITextViewDelegate  {
 
- 
     
+    @IBOutlet weak var commentLengthInfoView: UILabel!
+    @IBOutlet weak var commentTextView: UITextView!
+    @IBOutlet weak var commentWriteButton: UIButton!
+    
+    var delegate : CommentWriteCellDelegate?
+    var isPosting : Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,9 +34,6 @@ class CommentWriteCell: UITableViewCell , UITextViewDelegate {
     }
 
     
-    @IBOutlet weak var commentLengthInfoView: UILabel!
-    @IBOutlet weak var commentTextView: UITextView!
-    @IBOutlet weak var commentWriteButton: UIButton!
     
     @IBAction func writeComment(sender: AnyObject) {
     
@@ -54,27 +56,20 @@ class CommentWriteCell: UITableViewCell , UITextViewDelegate {
     
     func addTargetUser(userNickName : String){
         
-        commentTextView.insertText( "@" + userNickName)
+        commentTextView.insertText( " @" + userNickName + " ")
 //        commentTextView.text.append( "@" + userNickName)
     }
 
     func addcomment() {
         
-        self.setUIEnable()
+        guard isPosting == false else {
+            return
+        }
         
-//        var parameters = [ "code" : "soccerboard"
-//            ,"tbl_name" : "soccerboard"
-//            ,"comment_board_name" : "7"
-//            ,"nickname" : "a"
-//            ,"page" : ""
-//            , "key" : ""
-//            , "keyfield" : ""
-//            , "period" : ""
-//            , "uid" : "1987159662"
-//            , "mode" : "W"
-//            , "comment" : ""
-//        ]
-//        
+        isPosting = true
+        
+        self.setUIDisable()
+        
         var parameters = SSajulClient.sharedInstance.ParametersForComment()
         parameters["comment"] = commentTextView.text
         
@@ -106,9 +101,19 @@ class CommentWriteCell: UITableViewCell , UITextViewDelegate {
             .responseString { response in
                 
                 if response.result.isSuccess == true {
-                    self.setUIDisable()
-                    self.commentTextView.text.removeAll()
-                    self.textViewDidChange(self.commentTextView)
+                    
+                    if response.description.containsString("history.back();"){
+                        
+                        self.delegate!.needLogin()
+                        
+                        self.setUIEnable()
+                        self.isPosting = false
+                        return
+                    }
+                    self.delegate!.commentDidPost()
+                    self.setUIReset()
+                    self.setUIEnable()
+                    self.isPosting = false
                 }
         }
         
@@ -117,16 +122,20 @@ class CommentWriteCell: UITableViewCell , UITextViewDelegate {
         
     }
     
-    func setUIEnable(){
+    func setUIDisable(){
         
         commentWriteButton.enabled = false
         commentTextView.editable = false
     }
-    func setUIDisable(){
+    func setUIEnable(){
         
         commentWriteButton.enabled = true
         commentTextView.editable = true
-        
+    }
+    
+    func setUIReset(){
+        self.commentTextView.text.removeAll()
+        self.textViewDidChange(self.commentTextView)
     }
     
 }

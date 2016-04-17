@@ -12,6 +12,10 @@ import Alamofire
 
 class LoginViewController: UIViewController {
 
+    
+    @IBOutlet weak var uiLoginID: UITextField!
+    @IBOutlet weak var uiPassword: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,41 +45,74 @@ class LoginViewController: UIViewController {
     
     @IBAction func uiLogin(sender: AnyObject) {
         
-        print("enter login")
-
+//        print("enter login")
+        
+        guard valideCheck() == true else {
+            let alertController = UIAlertController(title: "아이디/비번 입력이 잘못된듯...", message: " - 메시 -", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                print("OK")
+            }
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+            return
+        }
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         
         let url = SSajulClient.sharedInstance.urlForLogin()
         
         
-        let parameters = [ "login_id" : "z5000" ,"login_pwd" : "z007"]
+        var parameters = [ "login_id" : "" ,"login_pwd" : ""]
         
+        parameters["login_id"] = uiLoginID.text
+        parameters["login_pwd"] = uiPassword.text
         
         let _ = Alamofire.request(.POST, url, parameters: parameters)
             .responseString { response in
-                print("Success: \(response.result.isSuccess)")
-//                print("Response String: \(response.result.value)")
-                if let httpError = response.result.error {
-                    let statusCode = httpError.code
-                    print(statusCode)
-                }
-                
+       
                 if response.result.isSuccess == true {
                     self.uiClose(self)
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                     
-                    SSajulClient.sharedInstance.login()
+                    SSajulClient.sharedInstance.login(self.uiLoginID.text!,  loingPwd: self.uiPassword.text!)
                     
-                    print("enter success login")
+ 
+
+                } else {
+                    let alertController = UIAlertController(title: "엌...ㄷㄷㄷ 에러 나중에 다시좀...", message: " - 원인 : 나도모름 -", preferredStyle: UIAlertControllerStyle.Alert)
                     
-//                    SSajulClient.sharedInstance.showCookies()
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                        print("OK")
+                    }
+                    alertController.addAction(okAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
                 }
         }
-        
-//        debugPrint(request)
-        
                 
+    }
+    
+    
+    func valideCheck()-> Bool{
+        if uiLoginID.text?.characters.count == 0 {
+            return false
+        }
+        
+        if uiPassword.text?.characters.count == 0 {
+            return false
+        }
+        
+        return true
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.uiLoginID.text = NSUserDefaults.standardUserDefaults().objectForKey("login_id") as? String
+        self.uiPassword.text = NSUserDefaults.standardUserDefaults().objectForKey("login_pwd") as? String
+        
+
     }
   
     

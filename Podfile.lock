@@ -1,16 +1,16 @@
 PODS:
   - Alamofire (3.3.1)
   - Kanna (1.0.6)
-  - NextGrowingTextView (0.5.0)
+  - KMPlaceholderTextView (1.2.0)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
   - Kanna (~> 1.0.0)
-  - NextGrowingTextView
+  - KMPlaceholderTextView (~> 1.2.0)
 
 SPEC CHECKSUMS:
   Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
   Kanna: 9f30945bbd293a609f698ea164687ccc0990ff60
-  NextGrowingTextView: d67098d4f28844a920b68ecc2ed4ecdf733a0f3d
+  KMPlaceholderTextView: cae8ee889bd38d20587eee6b2623b8218f31b8f5
 
 COCOAPODS: 0.39.0

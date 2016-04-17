@@ -9,17 +9,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>KMPlaceholderTextView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Kanna.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>NextGrowingTextView-NextGrowingTextView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>NextGrowingTextView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -32,7 +27,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>7170ABFD27A49DACBC3E7D22EF4DF231</key>
+		<key>0F463994043031FD8C8CDE9D4AF8F316</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -42,17 +37,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8A02D3C1BC71C9871444B8A5FF142AAF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>B6312CAD7E18804AD5E11308495CFD52</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BAC782A63E20DD7D82331489A616C1EF</key>
+		<key>EC25B770E2E786F47106EE8F013163EA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
