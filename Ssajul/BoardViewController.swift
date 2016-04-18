@@ -61,18 +61,20 @@ class BoardViewcontroller: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "itemListSegue" {
+        if segue.identifier == "tabbarSergue" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let selectedBoard = boardList[indexPath.row] as Board!
                 
-                let controller = segue.destinationViewController as! ItemListViewConroller
+//                let controller = segue.destinationViewController as! ItemListViewConroller
                 
                 
                 SSajulClient.sharedInstance.selectedBoard = selectedBoard
-                controller.navigationItem.leftItemsSupplementBackButton = true
+//                controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
         
+      
+
 
     }
 

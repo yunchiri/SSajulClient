@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 import Alamofire
 import Kanna
-import NextGrowingTextView
+
 
 
 class ItemTableViewController: UITableViewController , UIWebViewDelegate , CommentWriteCellDelegate {

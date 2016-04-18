@@ -32,9 +32,9 @@ class ItemListViewConroller: UITableViewController {
         
         
 //        self.refreshControl?.addTarget(self, action: #selector(ItemListViewConroller.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-    self.refreshControl?.addTarget(self, action: #selector(ItemListViewConroller.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(ItemListViewConroller.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         
-
+        updateBoardList()
         
         
         self.tableView.estimatedRowHeight = 30
@@ -48,7 +48,7 @@ class ItemListViewConroller: UITableViewController {
         //        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
         
-        updateBoardList()
+
         
         if SSajulClient.sharedInstance.isLogin() == true {
             uiWriteContentButton.enabled = true

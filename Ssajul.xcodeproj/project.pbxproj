@@ -22,6 +22,8 @@
 		04D0FF1F1C7C84DE00B204C4 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1E1C7C84DE00B204C4 /* Comment.swift */; };
 		04D0FF221C7C946900B204C4 /* ItemListViewConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF211C7C946900B204C4 /* ItemListViewConroller.swift */; };
 		04D0FF251C7C94E000B204C4 /* SSajulClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF241C7C94E000B204C4 /* SSajulClient.swift */; };
+		04D6BCE71CC53E1B00925F4A /* BestBoardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6BCE61CC53E1B00925F4A /* BestBoardTableViewController.swift */; };
+		04D6BCEC1CC542F500925F4A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6BCEB1CC542F500925F4A /* String.swift */; };
 		04DCA7AC1CBDDF7900E2E184 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCA7AB1CBDDF7900E2E184 /* User.swift */; };
 		04DCA7AE1CBE7B1000E2E184 /* CommentWriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCA7AD1CBE7B1000E2E184 /* CommentWriteCell.swift */; };
 		04DCA7B01CC1E19600E2E184 /* CommentWriteCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCA7AF1CC1E19600E2E184 /* CommentWriteCellDelegate.swift */; };
@@ -63,6 +65,8 @@
 		04D0FF1E1C7C84DE00B204C4 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		04D0FF211C7C946900B204C4 /* ItemListViewConroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListViewConroller.swift; sourceTree = "<group>"; };
 		04D0FF241C7C94E000B204C4 /* SSajulClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSajulClient.swift; sourceTree = "<group>"; };
+		04D6BCE61CC53E1B00925F4A /* BestBoardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestBoardTableViewController.swift; sourceTree = "<group>"; };
+		04D6BCEB1CC542F500925F4A /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		04DCA7AB1CBDDF7900E2E184 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		04DCA7AD1CBE7B1000E2E184 /* CommentWriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentWriteCell.swift; sourceTree = "<group>"; };
 		04DCA7AF1CC1E19600E2E184 /* CommentWriteCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentWriteCellDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +121,8 @@
 		040CB4EB1C5F7CEC00C67432 /* Ssajul */ = {
 			isa = PBXGroup;
 			children = (
+				04D6BCE91CC542C000925F4A /* extension */,
+				04D6BCD71CC52D7800925F4A /* icons */,
 				4D9D699A1C80602A000F4104 /* Cell */,
 				04D0FF231C7C94AE00B204C4 /* Util */,
 				04D0FF201C7C934700B204C4 /* Controller */,
@@ -167,6 +173,7 @@
 				4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */,
 				047D24381CB291FC00148EBC /* LoginViewController.swift */,
 				048466CD1CC1EB1100A19919 /* ItemWriteViewController.swift */,
+				04D6BCE61CC53E1B00925F4A /* BestBoardTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -177,6 +184,21 @@
 				04D0FF241C7C94E000B204C4 /* SSajulClient.swift */,
 			);
 			name = Util;
+			sourceTree = "<group>";
+		};
+		04D6BCD71CC52D7800925F4A /* icons */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = icons;
+			sourceTree = "<group>";
+		};
+		04D6BCE91CC542C000925F4A /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				04D6BCEB1CC542F500925F4A /* String.swift */,
+			);
+			name = extension;
 			sourceTree = "<group>";
 		};
 		3CF13E5C983265C09A61FF89 /* Frameworks */ = {
@@ -361,6 +383,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04D6BCEC1CC542F500925F4A /* String.swift in Sources */,
 				047D24391CB291FC00148EBC /* LoginViewController.swift in Sources */,
 				4D9D699E1C89CCB3000F4104 /* ItemTableViewController.swift in Sources */,
 				04DCA7B01CC1E19600E2E184 /* CommentWriteCellDelegate.swift in Sources */,
@@ -369,6 +392,7 @@
 				4D9D69A01C8F201E000F4104 /* ContentHeaderCell.swift in Sources */,
 				04DCA7AC1CBDDF7900E2E184 /* User.swift in Sources */,
 				04DCA7AE1CBE7B1000E2E184 /* CommentWriteCell.swift in Sources */,
+				04D6BCE71CC53E1B00925F4A /* BestBoardTableViewController.swift in Sources */,
 				040CB4EF1C5F7CEC00C67432 /* BoardViewController.swift in Sources */,
 				4D9D699C1C80605F000F4104 /* ItemCell.swift in Sources */,
 				04D0FF1B1C7C830300B204C4 /* Board.swift in Sources */,
