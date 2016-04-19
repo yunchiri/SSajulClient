@@ -19,8 +19,9 @@ class ItemListViewConroller: UITableViewController {
 //    var selectedBoard : Board? = nil
     var currentPage : Int = 1
     
+    var uiWriteContentButton : UIBarButtonItem?
     
-    @IBOutlet weak var uiWriteContentButton: UIBarButtonItem!
+//    @IBOutlet weak var uiWriteContentButton: UIBarButtonItem!
 
 
     
@@ -38,10 +39,24 @@ class ItemListViewConroller: UITableViewController {
         
         
         self.tableView.estimatedRowHeight = 30
-         self.tableView.rowHeight = UITableViewAutomaticDimension;
+        self.tableView.rowHeight = UITableViewAutomaticDimension
         
+        self.tabBarController?.tabBar.translucent = false
+        self.tabBarController?.navigationController?.navigationBar.translucent = false
+        
+        self.uiWriteContentButton =  UIBarButtonItem(title: "글쓰기", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ItemListViewConroller.pushWriteViewController(_:)) );
+        self.tabBarController?.navigationItem.rightBarButtonItem = uiWriteContentButton
 
   
+    }
+    
+    func pushWriteViewController (sender: AnyObject){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let itemWriteVC = storyboard.instantiateViewControllerWithIdentifier("itemWriteVC") as! ItemWriteViewController
+        
+        self.presentViewController(itemWriteVC, animated: true, completion: nil)
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -51,12 +66,17 @@ class ItemListViewConroller: UITableViewController {
 
         
         if SSajulClient.sharedInstance.isLogin() == true {
-            uiWriteContentButton.enabled = true
+            self.uiWriteContentButton!.enabled = true
             
             
         }else{
-            uiWriteContentButton.enabled = false
+            self.uiWriteContentButton!.enabled = false
         }
+
+
+//        self.tabBarController?.navigationController?.navigationItem.leftBarButtonItem = uiWriteContentButton
+        
+        self.tabBarController?.navigationItem.title = SSajulClient.sharedInstance.selectedBoard?.name
         
         
         

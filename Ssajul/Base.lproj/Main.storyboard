@@ -250,14 +250,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="호나우도가 곧 전술이다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FmN-EC-x2L">
-                                <rect key="frame" x="115" y="113" width="161" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="누가 뭐래도 나는 호나우도요~" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lqi-6M-RDo">
+                                <rect key="frame" x="6" y="157" width="254" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="아아 여기까지 귀찮아서 못하겠습니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lqi-6M-RDo">
-                                <rect key="frame" x="13" y="156" width="254" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="이 앱은 호두팬용입니다. 호나우도가 짱입니까? " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZ4-eo-zj2">
+                                <rect key="frame" x="6" y="208" width="312" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="타 팬일경우 점점 쇠뇌 될것입니다. 적응하세요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gi-hO-n8f">
+                                <rect key="frame" x="6" y="252" width="312" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="호두짱! 메시 새가슴!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbC-ws-fVa">
+                                <rect key="frame" x="6" y="303" width="312" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="캔유삐레~~~" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jen-29-MVn">
+                                <rect key="frame" x="6" y="350" width="312" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -443,20 +461,20 @@
             </objects>
             <point key="canvasLocation" x="731" y="-159"/>
         </scene>
-        <!--글쓰기-->
+        <!--Item Write View Controller-->
         <scene sceneID="l9w-Eq-3aa">
             <objects>
-                <viewController id="6Ds-b7-skA" customClass="ItemWriteViewController" customModule="Ssajul" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="itemWriteVC" id="6Ds-b7-skA" customClass="ItemWriteViewController" customModule="Ssajul" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="H9j-TI-Xm3"/>
                         <viewControllerLayoutGuide type="bottom" id="Wko-ym-ylj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Joo-RO-GA1">
-                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WX4-qN-LaY" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                <rect key="frame" x="0.0" y="96" width="600" height="455"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WX4-qN-LaY" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
+                                <rect key="frame" x="0.0" y="96" width="600" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -464,35 +482,52 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="호두짱! 메시 새가슴!"/>
                                 </userDefinedRuntimeAttributes>
                             </textView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="제목" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GlS-PD-h7T">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="제목" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GlS-PD-h7T">
                                 <rect key="frame" x="0.0" y="65" width="600" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="skA-gn-6pp"/>
+                                    <constraint firstAttribute="height" constant="30" id="7RR-SD-mjy"/>
                                 </constraints>
+                                <color key="textColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <navigationBar opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QYk-RP-b7P">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="글쓰기" id="bHu-IZ-Iw0">
+                                        <barButtonItem key="leftBarButtonItem" title="취소" style="plain" id="gGH-wL-RAi">
+                                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="close:" destination="6Ds-b7-skA" id="1y1-eF-3zi"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="등록" id="0B0-b8-baY">
+                                            <connections>
+                                                <action selector="postContent:" destination="6Ds-b7-skA" id="rtr-wE-7jg"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="WX4-qN-LaY" firstAttribute="top" secondItem="H9j-TI-Xm3" secondAttribute="bottom" constant="32" id="6Nv-xR-9xp"/>
-                            <constraint firstAttribute="bottom" secondItem="WX4-qN-LaY" secondAttribute="bottom" id="818-Dq-Zwf"/>
-                            <constraint firstItem="GlS-PD-h7T" firstAttribute="top" secondItem="H9j-TI-Xm3" secondAttribute="bottom" constant="1" id="LIy-v9-SGh"/>
-                            <constraint firstItem="GlS-PD-h7T" firstAttribute="leading" secondItem="Joo-RO-GA1" secondAttribute="leading" id="X2d-yk-XIp"/>
-                            <constraint firstItem="WX4-qN-LaY" firstAttribute="top" secondItem="GlS-PD-h7T" secondAttribute="bottom" constant="1" id="fZr-rU-x9X"/>
-                            <constraint firstItem="WX4-qN-LaY" firstAttribute="leading" secondItem="Joo-RO-GA1" secondAttribute="leadingMargin" constant="-20" id="kfU-KS-Kg4"/>
-                            <constraint firstAttribute="trailing" secondItem="GlS-PD-h7T" secondAttribute="trailing" id="knH-mO-BqE"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="WX4-qN-LaY" secondAttribute="trailing" constant="-20" id="p50-YL-M9j"/>
+                            <constraint firstItem="QYk-RP-b7P" firstAttribute="trailing" secondItem="GlS-PD-h7T" secondAttribute="trailing" id="5g9-3s-vdG"/>
+                            <constraint firstItem="GlS-PD-h7T" firstAttribute="top" secondItem="QYk-RP-b7P" secondAttribute="bottom" constant="1" id="JQq-7e-1vS"/>
+                            <constraint firstItem="WX4-qN-LaY" firstAttribute="bottom" secondItem="Wko-ym-ylj" secondAttribute="top" id="QCp-Y0-7pn"/>
+                            <constraint firstItem="GlS-PD-h7T" firstAttribute="leading" secondItem="WX4-qN-LaY" secondAttribute="leading" id="a9n-hJ-gHT"/>
+                            <constraint firstItem="GlS-PD-h7T" firstAttribute="trailing" secondItem="WX4-qN-LaY" secondAttribute="trailing" id="eCy-de-tcB"/>
+                            <constraint firstItem="QYk-RP-b7P" firstAttribute="leading" secondItem="GlS-PD-h7T" secondAttribute="leading" id="kPr-0d-hWK"/>
+                            <constraint firstItem="QYk-RP-b7P" firstAttribute="leading" secondItem="Joo-RO-GA1" secondAttribute="leading" id="o2M-ru-vmY"/>
+                            <constraint firstItem="QYk-RP-b7P" firstAttribute="top" secondItem="H9j-TI-Xm3" secondAttribute="bottom" id="wab-15-tHL"/>
+                            <constraint firstItem="WX4-qN-LaY" firstAttribute="top" secondItem="GlS-PD-h7T" secondAttribute="bottom" constant="1" id="xTV-1R-8hD"/>
+                            <constraint firstAttribute="trailing" secondItem="QYk-RP-b7P" secondAttribute="trailing" id="ybf-jw-fyR"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="글쓰기" id="bHu-IZ-Iw0">
-                        <barButtonItem key="rightBarButtonItem" title="등록" id="0B0-b8-baY">
-                            <connections>
-                                <action selector="postContent:" destination="6Ds-b7-skA" id="rtr-wE-7jg"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
                         <outlet property="placeholderTextView" destination="WX4-qN-LaY" id="JTi-zu-c8G"/>
                         <outlet property="subjectTextField" destination="GlS-PD-h7T" id="sYO-WN-qnU"/>
@@ -500,12 +535,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X2T-zR-9PR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3582" y="-818"/>
+            <point key="canvasLocation" x="3510" y="-831"/>
         </scene>
         <!--게시물-->
         <scene sceneID="2yT-rS-z89">
             <objects>
-                <tableViewController title="게시물" id="ZnZ-ER-tyL" customClass="ItemListViewConroller" customModule="Ssajul" customModuleProvider="target" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rY4-7B-zmq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController title="게시물" clearsSelectionOnViewWillAppear="NO" id="ZnZ-ER-tyL" customClass="ItemListViewConroller" customModule="Ssajul" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="53" sectionHeaderHeight="28" sectionFooterHeight="28" id="VI6-ts-AhB">
                         <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -569,27 +605,16 @@
                             <outlet property="delegate" destination="ZnZ-ER-tyL" id="V72-u1-kyH"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="" image="BoardList" id="MnQ-LQ-dWC"/>
                     <toolbarItems>
                         <barButtonItem title="Item" id="3f7-I8-J79"/>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Title" id="fp3-c0-87l">
-                        <barButtonItem key="rightBarButtonItem" title="글쓰기" id="1RV-fB-94O">
-                            <connections>
-                                <segue destination="6Ds-b7-skA" kind="show" identifier="writeContentSegue" id="48u-QJ-5i4"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <navigationItem key="navigationItem" title="Title" id="Bnv-Ei-nwU"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="1Za-6G-mu8">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
-                    <connections>
-                        <outlet property="uiWriteContentButton" destination="1RV-fB-94O" id="lrh-Pl-nrE"/>
-                    </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rY4-7B-zmq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3146" y="-79"/>
         </scene>
@@ -615,7 +640,7 @@
         <scene sceneID="gQc-Jm-Kdg">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Xbq-hb-CoF" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="t2u-Aa-zfb">
                         <autoresizingMask key="autoresizingMask"/>

@@ -187,6 +187,11 @@ class ItemWriteViewController: UIViewController {
             }
         )
     }
+    
+    
+    @IBAction func close(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 
     func setUIDisable(){
         
@@ -209,6 +214,7 @@ class ItemWriteViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let loginViewController = storyboard.instantiateViewControllerWithIdentifier("loginVC") as! LoginViewController
+        
         
         self.presentViewController(loginViewController, animated: true, completion: nil)
         

@@ -73,6 +73,9 @@ class SSajulClient  {
     
     func logout() {
         _isLogin = false
+        
+        NSUserDefaults.standardUserDefaults().setObject( "", forKey: "login_pwd")
+        NSUserDefaults.standardUserDefaults().synchronize()
     }
     
     func isLogin() -> Bool {

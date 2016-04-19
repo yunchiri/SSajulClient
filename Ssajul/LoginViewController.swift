@@ -112,7 +112,15 @@ class LoginViewController: UIViewController {
         self.uiLoginID.text = NSUserDefaults.standardUserDefaults().objectForKey("login_id") as? String
         self.uiPassword.text = NSUserDefaults.standardUserDefaults().objectForKey("login_pwd") as? String
         
-
+        guard self.uiLoginID.text?.characters.count > 0 else {
+            return
+        }
+        
+        guard self.uiPassword.text?.characters.count > 0 else {
+            return
+        }
+        
+        self.uiLogin("")
     }
   
     

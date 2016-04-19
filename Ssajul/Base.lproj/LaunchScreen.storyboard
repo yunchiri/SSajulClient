@@ -23,9 +23,21 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="호두짱 메시새가슴!!!!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6mc-eZ-6WE">
+                                <rect key="frame" x="165" y="147" width="271" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="271" id="hvb-gR-cE8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="6mc-eZ-6WE" firstAttribute="centerX" secondItem="tbJ-Ps-jpg" secondAttribute="centerX" id="HX9-m6-9Fd"/>
+                            <constraint firstItem="6mc-eZ-6WE" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="127" id="Hzg-iq-MSn"/>
+                            <constraint firstItem="tbJ-Ps-jpg" firstAttribute="top" secondItem="6mc-eZ-6WE" secondAttribute="bottom" constant="64" id="fHr-Fu-RtB"/>
                             <constraint firstItem="tbJ-Ps-jpg" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="nUs-rZ-IK4"/>
                             <constraint firstItem="tbJ-Ps-jpg" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="poJ-aW-nWG"/>
                         </constraints>
