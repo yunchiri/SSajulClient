@@ -24,6 +24,9 @@
 		04D0FF251C7C94E000B204C4 /* SSajulClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF241C7C94E000B204C4 /* SSajulClient.swift */; };
 		04D6BCE71CC53E1B00925F4A /* BestBoardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6BCE61CC53E1B00925F4A /* BestBoardTableViewController.swift */; };
 		04D6BCEC1CC542F500925F4A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6BCEB1CC542F500925F4A /* String.swift */; };
+		04D6BCEE1CC6711F00925F4A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D6BCED1CC6711F00925F4A /* QuartzCore.framework */; };
+		04D6BCF21CC686EF00925F4A /* Clock-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D6BCF11CC686EF00925F4A /* Clock-25.png */; };
+		04D6BCF41CC6889B00925F4A /* Clock-30.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D6BCF31CC6889B00925F4A /* Clock-30.png */; };
 		04DCA7AC1CBDDF7900E2E184 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCA7AB1CBDDF7900E2E184 /* User.swift */; };
 		04DCA7AE1CBE7B1000E2E184 /* CommentWriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCA7AD1CBE7B1000E2E184 /* CommentWriteCell.swift */; };
 		04DCA7B01CC1E19600E2E184 /* CommentWriteCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCA7AF1CC1E19600E2E184 /* CommentWriteCellDelegate.swift */; };
@@ -67,6 +70,9 @@
 		04D0FF241C7C94E000B204C4 /* SSajulClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSajulClient.swift; sourceTree = "<group>"; };
 		04D6BCE61CC53E1B00925F4A /* BestBoardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestBoardTableViewController.swift; sourceTree = "<group>"; };
 		04D6BCEB1CC542F500925F4A /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		04D6BCED1CC6711F00925F4A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		04D6BCF11CC686EF00925F4A /* Clock-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Clock-25.png"; sourceTree = "<group>"; };
+		04D6BCF31CC6889B00925F4A /* Clock-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Clock-30.png"; sourceTree = "<group>"; };
 		04DCA7AB1CBDDF7900E2E184 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		04DCA7AD1CBE7B1000E2E184 /* CommentWriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentWriteCell.swift; sourceTree = "<group>"; };
 		04DCA7AF1CC1E19600E2E184 /* CommentWriteCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentWriteCellDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04D6BCEE1CC6711F00925F4A /* QuartzCore.framework in Frameworks */,
 				133CBCA475665740BB8A59FA /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,6 +196,8 @@
 		04D6BCD71CC52D7800925F4A /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				04D6BCF11CC686EF00925F4A /* Clock-25.png */,
+				04D6BCF31CC6889B00925F4A /* Clock-30.png */,
 			);
 			name = icons;
 			sourceTree = "<group>";
@@ -204,6 +213,7 @@
 		3CF13E5C983265C09A61FF89 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04D6BCED1CC6711F00925F4A /* QuartzCore.framework */,
 				06AC94D76EB323A467BA1EB6 /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -318,6 +328,8 @@
 				040CB4F91C5F7CEC00C67432 /* LaunchScreen.storyboard in Resources */,
 				040CB4F61C5F7CEC00C67432 /* Assets.xcassets in Resources */,
 				040CB4F41C5F7CEC00C67432 /* Main.storyboard in Resources */,
+				04D6BCF21CC686EF00925F4A /* Clock-25.png in Resources */,
+				04D6BCF41CC6889B00925F4A /* Clock-30.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

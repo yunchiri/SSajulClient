@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 class ItemCell: UITableViewCell {
 
@@ -16,9 +17,18 @@ class ItemCell: UITableViewCell {
     
     @IBOutlet weak var createAt: UILabel!
     
+    @IBOutlet weak var commentCount: UILabel!
+    
+    @IBOutlet weak var readCount: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+//        readCount.layer.backgroundColor  = UIColor.redColor().CGColor
+        self.commentCount.layer.cornerRadius = 10
+        self.commentCount.clipsToBounds = true
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -32,6 +42,18 @@ class ItemCell: UITableViewCell {
         self.content.text = item.title
         self.userName.text = item.userName
         self.createAt.text = item.createAt
+        self.commentCount.text = String(item.commentCount)
+        self.readCount.text = "조회 : " + String(item.readCount)
+        
+        
+        if item.commentCount > 100 {
+            self.commentCount.font = UIFont.boldSystemFontOfSize(11)
+        }else{
+            self.commentCount.font = UIFont.systemFontOfSize(11)
+        }
+        
     }
+    
+
 
 }

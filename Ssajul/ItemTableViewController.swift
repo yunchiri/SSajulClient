@@ -274,6 +274,12 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate , Comme
         
     }
     
+    @IBAction func share(sender: AnyObject) {
+        
+        let firstActivityItem = "my text"
+        let activityViewController : UIActivityViewController = UIActivityViewController(activityItems: [firstActivityItem], applicationActivities: nil)
+        self.presentViewController(activityViewController, animated: true, completion: nil)
+    }
     
     
 }

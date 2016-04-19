@@ -21,14 +21,20 @@ class BestBoardTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = SSajulClient.sharedInstance.selectedItem?.title
+//        self.title = SSajulClient.sharedInstance.selectedItem?.title
         
         self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
 
         
-        self.title = SSajulClient.sharedInstance.selectedItem?.title
+//        self.title = SSajulClient.sharedInstance.selectedItem?.title
         
         loadingContent()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+         self.tabBarController?.navigationItem.rightBarButtonItem?.enabled = false
     }
     
     
@@ -66,6 +72,19 @@ class BestBoardTableViewController: UITableViewController {
         
     }
     
+//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        var returnedView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 18)) //set these values as necessary
+//        returnedView.backgroundColor = UIColor.redColor()
+//        
+//        var label = UILabel(frame: CGRectMake(10, 5, tableView.frame.size.width, 18))
+//        label.text = "dd"
+//        returnedView.addSubview(label)
+//        
+//        return returnedView
+//    }
+//    
+    
+    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
  
@@ -81,7 +100,7 @@ class BestBoardTableViewController: UITableViewController {
         case 2:
             cell.textLabel?.text = commentBestList[indexPath.row].title
         default:
-            cell.textLabel?.text = "주멘( 오류 )"
+            cell.textLabel?.text = "주영( 오류 )"
         }
         
         cell.textLabel?.font = UIFont.systemFontOfSize(15)

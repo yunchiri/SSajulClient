@@ -14,9 +14,9 @@ struct Item {
     var userName : String = ""
     var userIP : String = ""
     var createAt : String = ""
-    var voteUp : Int?
-    var voteDown : Int?
-    var readCount : Int?
+    var voteUp : Int = 0
+    var voteDown : Int = 0
+    var readCount : Int = 0
     var title : String = ""
     var content : String = ""
     var commentCount : Int = 0

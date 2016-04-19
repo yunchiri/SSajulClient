@@ -239,17 +239,46 @@ class ItemListViewConroller: UITableViewController {
                         newItem.uid = preUid
                         
                         newItem.title = xxx.xpath("td[2]").first?.text as String!
+                        newItem.title = newItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+
+                        //comment parsing
+                        if newItem.title.containsString("[") == false || newItem.title.characters.last != "]" {
+                            newItem.commentCount = 0
+                        }else{
+                            var indexOfCommentCount = 1
+                            for char in newItem.title.characters.reverse() {
+                                if char == "[" {
+                                    break;
+                                }
+                                indexOfCommentCount = indexOfCommentCount + 1;
+                            }
+                            let commentStartIndex = newItem.title.endIndex.advancedBy( -indexOfCommentCount )
+                            let commentCountString = newItem.title.substringFromIndex(  commentStartIndex )
+                            
+                            let commentCount = String(String(commentCountString.characters.dropLast()).characters.dropFirst())
+                            newItem.commentCount = Int(commentCount)!
+                            
+                            
+                            newItem.title.removeRange(Range.init(start: commentStartIndex, end: newItem.title.endIndex ))
+                            newItem.title = newItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())                            
+                        }
+                        
                         
                         newItem.userName = xxx.xpath("td[3]").first?.text as String!
                         
                         newItem.createAt = xxx.xpath("td[4]").first?.text as String!
+                        
+                        if let readCount = Int((xxx.xpath("td[5]").first?.text)!) {
+                            newItem.readCount = readCount
+                        }
+                        
+                        //div comment
 
-                        newItem.readCount = Int((xxx.xpath("td[5]").first?.text)!)!
                         
                         let upAndDown = (xxx.xpath("td[6]").first?.text)!
                         
-                        newItem.voteUp = Int(upAndDown.substringToIndex( upAndDown.startIndex.advancedBy(1)))
-                        newItem.voteDown = Int(upAndDown.substringFromIndex( upAndDown.endIndex.advancedBy(-1)))
+                        newItem.voteUp = Int(upAndDown.substringToIndex( upAndDown.startIndex.advancedBy(1)))!
+                        newItem.voteDown = Int(upAndDown.substringFromIndex( upAndDown.endIndex.advancedBy(-1)))!
                         
                         
                         self.itemList.append(newItem)
