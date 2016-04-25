@@ -26,6 +26,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="호두짱 메시새가슴!!!!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6mc-eZ-6WE">
                                 <rect key="frame" x="165" y="147" width="271" height="41"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="Aao-3O-RFe"/>
                                     <constraint firstAttribute="width" constant="271" id="hvb-gR-cE8"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="31"/>

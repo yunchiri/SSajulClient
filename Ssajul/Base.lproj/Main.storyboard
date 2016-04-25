@@ -6,6 +6,7 @@
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Master-->
@@ -224,7 +225,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.99607843139999996" green="0.74117647060000003" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="1" green="0.81631819250000004" blue="0.046883317450000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstItem="B91-TW-i1C" firstAttribute="leading" secondItem="NKS-Nh-T0B" secondAttribute="trailing" constant="5" id="3ug-qC-Ve5"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="MR6-ri-3NV" secondAttribute="trailing" constant="47" id="4dY-qk-CxN"/>
@@ -248,8 +249,8 @@
                                         <mask key="constraints">
                                             <exclude reference="ho7-Bv-7yR"/>
                                             <exclude reference="jBj-jZ-OvI"/>
-                                            <exclude reference="W3E-vo-Vog"/>
                                             <exclude reference="3ug-qC-Ve5"/>
+                                            <exclude reference="W3E-vo-Vog"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -283,7 +284,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0jH-kG-EEw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2708" y="852"/>
+            <point key="canvasLocation" x="2363" y="1622"/>
         </scene>
         <!--나의 기록-->
         <scene sceneID="z8e-Nt-UZ1">
@@ -334,7 +335,39 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vvu-ac-eMQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1159" y="684"/>
+            <point key="canvasLocation" x="4411" y="-422"/>
+        </scene>
+        <!--나의 기록-->
+        <scene sceneID="xXU-YY-OHM">
+            <objects>
+                <tableViewController id="qme-E6-JGm" customClass="HistoryTableViewController" customModule="Ssajul" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ea3-nL-ot2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="historyCell" id="yRr-je-SZf">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yRr-je-SZf" id="tl4-AY-REK">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Hwl-YI-Pjo" kind="show" identifier="historySegue" id="Aug-1r-Gbn"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="qme-E6-JGm" id="AA2-tw-Das"/>
+                            <outlet property="delegate" destination="qme-E6-JGm" id="WMi-iT-sVw"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="나의 기록" image="Person" id="HKm-mm-jLK"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qee-Ti-VlJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3362" y="700"/>
         </scene>
         <!--베스트-->
         <scene sceneID="hNB-yX-fRu">
@@ -370,7 +403,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="88l-5v-7Mf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1968" y="815"/>
+            <point key="canvasLocation" x="2593" y="700"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="FZq-Gy-T96">
@@ -521,21 +554,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WX4-qN-LaY" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
-                                <rect key="frame" x="0.0" y="96" width="600" height="504"/>
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="호두짱! 메시 새가슴!"/>
                                 </userDefinedRuntimeAttributes>
                             </textView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="제목" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GlS-PD-h7T">
-                                <rect key="frame" x="0.0" y="65" width="600" height="30"/>
+                                <rect key="frame" x="0.0" y="65" width="600" height="41"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="7RR-SD-mjy"/>
+                                    <constraint firstAttribute="height" constant="41" id="7RR-SD-mjy"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <navigationBar opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QYk-RP-b7P">
@@ -551,11 +584,16 @@
                                                 <action selector="close:" destination="6Ds-b7-skA" id="1y1-eF-3zi"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="등록" id="0B0-b8-baY">
-                                            <connections>
-                                                <action selector="postContent:" destination="6Ds-b7-skA" id="rtr-wE-7jg"/>
-                                            </connections>
-                                        </barButtonItem>
+                                        <rightBarButtonItems>
+                                            <barButtonItem title="등록" id="0B0-b8-baY">
+                                                <connections>
+                                                    <action selector="postContent:" destination="6Ds-b7-skA" id="rtr-wE-7jg"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem enabled="NO" title="사진올리기" id="bBS-0U-SzE">
+                                                <color key="tintColor" red="0.52549019610000003" green="0.74509803919999995" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -570,7 +608,7 @@
                             <constraint firstItem="QYk-RP-b7P" firstAttribute="leading" secondItem="GlS-PD-h7T" secondAttribute="leading" id="kPr-0d-hWK"/>
                             <constraint firstItem="QYk-RP-b7P" firstAttribute="leading" secondItem="Joo-RO-GA1" secondAttribute="leading" id="o2M-ru-vmY"/>
                             <constraint firstItem="QYk-RP-b7P" firstAttribute="top" secondItem="H9j-TI-Xm3" secondAttribute="bottom" id="wab-15-tHL"/>
-                            <constraint firstItem="WX4-qN-LaY" firstAttribute="top" secondItem="GlS-PD-h7T" secondAttribute="bottom" constant="1" id="xTV-1R-8hD"/>
+                            <constraint firstItem="WX4-qN-LaY" firstAttribute="top" secondItem="GlS-PD-h7T" secondAttribute="bottom" constant="2" id="xTV-1R-8hD"/>
                             <constraint firstAttribute="trailing" secondItem="QYk-RP-b7P" secondAttribute="trailing" id="ybf-jw-fyR"/>
                         </constraints>
                     </view>
@@ -581,7 +619,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X2T-zR-9PR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3510" y="-831"/>
+            <point key="canvasLocation" x="1814" y="-959"/>
         </scene>
         <!--게시물-->
         <scene sceneID="2yT-rS-z89">
@@ -635,7 +673,7 @@
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mex-gP-uKe">
                                             <rect key="frame" x="561" y="9" width="31" height="21"/>
-                                            <color key="backgroundColor" red="0.99607843139999996" green="0.74117647060000003" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.52549019610000003" green="0.74509803919999995" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="31" id="jqE-AL-33Y"/>
                                                 <constraint firstAttribute="height" constant="21" id="wn2-wc-G5u"/>
@@ -703,7 +741,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rY4-7B-zmq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3317" y="-73"/>
+            <point key="canvasLocation" x="1830" y="700"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="dJE-Bw-0oI">
@@ -721,7 +759,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V4H-Ww-Rwt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-541" y="900"/>
+            <point key="canvasLocation" x="3635" y="-444"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="gQc-Jm-Kdg">
@@ -736,12 +774,12 @@
                     <connections>
                         <segue destination="ZnZ-ER-tyL" kind="relationship" relationship="viewControllers" id="Iez-Xr-yGt"/>
                         <segue destination="g7l-lI-MaV" kind="relationship" relationship="viewControllers" id="3h9-pZ-U8c"/>
-                        <segue destination="x7s-Wb-ngK" kind="relationship" relationship="viewControllers" id="XFS-f3-rrd"/>
+                        <segue destination="qme-E6-JGm" kind="relationship" relationship="viewControllers" id="9Dh-qa-27m"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ckg-Ru-PCM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2334" y="-79"/>
+            <point key="canvasLocation" x="1823" y="-138"/>
         </scene>
     </scenes>
     <resources>
@@ -751,6 +789,6 @@
         <image name="ThumbUp" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="56i-Zy-fSr"/>
+        <segue reference="Aug-1r-Gbn"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,7 +9,7 @@
 import UIKit
 import KMPlaceholderTextView
 import Alamofire
-
+import RealmSwift
 
 class ItemWriteViewController: UIViewController {
     var isPosting :Bool = false
@@ -19,6 +19,7 @@ class ItemWriteViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
 
@@ -32,6 +33,7 @@ class ItemWriteViewController: UIViewController {
         super.viewWillDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        
     }
     
     func keyboardWasShown(notification: NSNotification)
@@ -108,6 +110,7 @@ class ItemWriteViewController: UIViewController {
             multipartFormData: { multipartFormData in
                 
                 multipartFormData.appendBodyPart(data: "1".dataUsingEncoding(CFStringConvertEncodingToNSStringEncoding( 0x0422 ), allowLossyConversion: false)!, name :"nickname")
+                multipartFormData.appendBodyPart(data: "1".dataUsingEncoding(CFStringConvertEncodingToNSStringEncoding( 0x0422 ), allowLossyConversion: false)!, name :"comment_yn")                
                 multipartFormData.appendBodyPart(data: (SSajulClient.sharedInstance.selectedBoard?.boardID.dataUsingEncoding(CFStringConvertEncodingToNSStringEncoding( 0x0422 ), allowLossyConversion: false)!)!, name :"code")
                 multipartFormData.appendBodyPart(data:self.subjectTextField.text!.dataUsingEncoding(CFStringConvertEncodingToNSStringEncoding( 0x0422 ), allowLossyConversion: false)!, name :"subject")
                 multipartFormData.appendBodyPart(data:self.placeholderTextView.text.dataUsingEncoding(CFStringConvertEncodingToNSStringEncoding( 0x0422 ), allowLossyConversion: false)!, name :"comment")
@@ -160,14 +163,11 @@ class ItemWriteViewController: UIViewController {
                         }
                         
 
-                        
-                        
-                        
                         self.setUIReset()
                         self.setUIEnable()
                         self.isPosting = false
                         
-                        self.navigationController?.popViewControllerAnimated(true)
+                        self.dismissViewControllerAnimated(true, completion: nil)
                         
                     }
                 case .Failure(let encodingError):

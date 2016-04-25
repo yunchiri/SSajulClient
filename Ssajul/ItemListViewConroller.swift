@@ -13,7 +13,7 @@ import Kanna
 
 
 
-class ItemListViewConroller: UITableViewController {
+class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate{
 
     var itemList = [Item]()
 //    var selectedBoard : Board? = nil
@@ -46,7 +46,8 @@ class ItemListViewConroller: UITableViewController {
         
         self.uiWriteContentButton =  UIBarButtonItem(title: "글쓰기", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ItemListViewConroller.pushWriteViewController(_:)) );
         self.tabBarController?.navigationItem.rightBarButtonItem = uiWriteContentButton
-
+        
+        
   
     }
     
@@ -62,7 +63,7 @@ class ItemListViewConroller: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         //        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
-        
+        self.tabBarController?.delegate = self;
 
         
         if SSajulClient.sharedInstance.isLogin() == true {
@@ -82,6 +83,9 @@ class ItemListViewConroller: UITableViewController {
         
     }
     
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        self.tableView.setContentOffset(CGPoint.zero, animated:true)
+    }
     
 
     

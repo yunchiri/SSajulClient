@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import Kanna
 
-class BestBoardTableViewController: UITableViewController {
+class BestBoardTableViewController: UITableViewController ,UITabBarControllerDelegate{
 
      var realtimeBestList = [Item]()
      var todayBestList = [Item]()
@@ -24,7 +24,7 @@ class BestBoardTableViewController: UITableViewController {
 //        self.title = SSajulClient.sharedInstance.selectedItem?.title
         
         self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-
+        
         
 //        self.title = SSajulClient.sharedInstance.selectedItem?.title
         
@@ -35,6 +35,7 @@ class BestBoardTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         
          self.tabBarController?.navigationItem.rightBarButtonItem?.enabled = false
+        self.tabBarController?.delegate = self;
     }
     
     
@@ -49,6 +50,11 @@ class BestBoardTableViewController: UITableViewController {
         self.loadingContent()
         refreshControl.endRefreshing()
     }
+    
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        self.tableView.setContentOffset(CGPoint.zero, animated:true)
+    }
+    
     
     // MARK: - Table view data source
     

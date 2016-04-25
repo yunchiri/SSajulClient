@@ -7,12 +7,21 @@
 //
 
 import Foundation
-
+import WebKit
 import Alamofire
+import RealmSwift
 
 class SSajulClient  {
     static let sharedInstance = SSajulClient()
     
+    
+    
+//    enum historyType : String {
+//        case content
+//        case comment
+//        case watch
+//    }
+
     var _isLogin : Bool = false
     
     var selectedBoard :Board?
@@ -20,6 +29,7 @@ class SSajulClient  {
     
     var boundaryPart = "pIGWeRaGJ9VVoeGq"
     
+    let webView2 : WKWebView = WKWebView()
     
     func getBoardList() -> Array<Board>{
         
@@ -246,6 +256,21 @@ class SSajulClient  {
         
         return notlogin
     
+    }
+    
+    func saveWatching() {
+        
+
+        let history = History()
+//        history.type = historyType.comment.rawValue
+        history.boardId = (selectedBoard?.boardID)!
+        history.uid = (selectedItem?.uid)!
+        history.title = (selectedItem?.title)!
+        
+         let realm = try! Realm()       
+        try! realm.write {
+            realm.add(history)
+        }
     }
     
     

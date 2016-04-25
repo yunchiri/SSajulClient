@@ -78,6 +78,7 @@ class LoginViewController: UIViewController {
                     
                     SSajulClient.sharedInstance.login(self.uiLoginID.text!,  loingPwd: self.uiPassword.text!)
                     
+//                    SSajulClient.sharedInstance.showCookies()
  
 
                 } else {

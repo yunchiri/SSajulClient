@@ -2,15 +2,23 @@ PODS:
   - Alamofire (3.3.1)
   - Kanna (1.0.6)
   - KMPlaceholderTextView (1.2.0)
+  - Realm (0.99.0):
+    - Realm/Headers (= 0.99.0)
+  - Realm/Headers (0.99.0)
+  - RealmSwift (0.99.0):
+    - Realm (= 0.99.0)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
   - Kanna (~> 1.0.0)
   - KMPlaceholderTextView (~> 1.2.0)
+  - RealmSwift
 
 SPEC CHECKSUMS:
   Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
   Kanna: 9f30945bbd293a609f698ea164687ccc0990ff60
   KMPlaceholderTextView: cae8ee889bd38d20587eee6b2623b8218f31b8f5
+  Realm: cf275f109b94e5399896960c90285a043edb3d56
+  RealmSwift: f40e5634bbc74f063163561d02acc4aa040d40a5
 
 COCOAPODS: 0.39.0

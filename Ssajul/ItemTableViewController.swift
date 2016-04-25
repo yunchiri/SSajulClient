@@ -13,7 +13,7 @@ import Kanna
 
 
 
-class ItemTableViewController: UITableViewController , UIWebViewDelegate , CommentWriteCellDelegate {
+class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigationDelegate, CommentWriteCellDelegate {
     
     
     @IBOutlet weak var inputContainerView: UIView!
@@ -33,7 +33,7 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate , Comme
     //    var selectedItem : Item? = nil
     
     var commentList = [Comment]()
-    let webView2 = UIWebView()
+    let webView2 = SSajulClient.sharedInstance.webView2
     
     var contentSize : CGFloat = 0
     var isContentAdd : Bool = false
@@ -48,21 +48,29 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate , Comme
         
         webView2.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         webView2.frame.size = CGSizeMake(100, 100)
-        webView2.delegate = self
+        webView2.UIDelegate = self
+        webView2.navigationDelegate = self
         webView2.scrollView.scrollEnabled = true
         webView2.scrollView.bounces = false
         //webView2.backgroundColor = UIColor.blueColor()
         //
         self.tableView.estimatedRowHeight = 50
         self.tableView.rowHeight = UITableViewAutomaticDimension;
-        
+
         
         loadingContent();
         
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        SSajulClient.sharedInstance.saveWatching()
+    }
+    
     func handleRefresh(refreshControl : UIRefreshControl){
+        
         self.loadingContent()
         refreshControl.endRefreshing()
     }
@@ -92,6 +100,7 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate , Comme
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         
         if indexPath.row == CellType.header.rawValue {
             
@@ -135,9 +144,7 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate , Comme
     
     func loadingContent()  {
         
-        if commentList.count > 0 {
-                commentList.removeAll()
-        }
+
         
         let url = NSURL(string: SSajulClient.sharedInstance.urlForContent( ))!
         
@@ -167,8 +174,12 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate , Comme
                     //comment item
                     
                     //let commentParameter = doc.css("#viewWriteCommentFrm")
-
+                    
                     let commentHtml = doc.xpath("//div[3]/ul/li")
+                    
+                    if self.commentList.count > 0 {
+                        self.commentList.removeAll()
+                    }
                     
                     for comment in  commentHtml{
                         guard comment.xpath("p").count >= 2 else {
@@ -196,7 +207,7 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate , Comme
         var commentDetailList = commentDetail.characters.split("-").map(String.init)
         
         if commentDetailList.count > 3 {
-           
+            
             for var y in 1..<commentDetailList.count - 2 {
                 commentDetailList[0] = commentDetailList[0] + "-" + commentDetailList[y]
             }
@@ -219,14 +230,29 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate , Comme
     }
     
     
-    func webViewDidFinishLoad(webView: UIWebView) {
-        contentSize = webView.scrollView.contentSize.height
-        
-        self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
-        
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-    }
+    //    func webViewDidFinishLoad(webView: UIWebView) {
+    //        contentSize = webView.scrollView.contentSize.height
+    //
+    //        self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+    //
+    //        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    //    }
     
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        //contentSize = 200
+        
+        webView.evaluateJavaScript("document.height") { (result, error) in
+            if error == nil {
+//                print(result)
+                self.contentSize =   result as! CGFloat
+                self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+                
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            }
+        }
+        
+        
+    }
     
     //댓글
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -274,12 +300,6 @@ class ItemTableViewController: UITableViewController , UIWebViewDelegate , Comme
         
     }
     
-    @IBAction func share(sender: AnyObject) {
-        
-        let firstActivityItem = "my text"
-        let activityViewController : UIActivityViewController = UIActivityViewController(activityItems: [firstActivityItem], applicationActivities: nil)
-        self.presentViewController(activityViewController, animated: true, completion: nil)
-    }
     
     
 }
