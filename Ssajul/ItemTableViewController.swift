@@ -40,27 +40,9 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.title = SSajulClient.sharedInstance.selectedItem?.title
-        
-        self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        
-        
-        webView2.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        webView2.frame.size = CGSizeMake(100, 100)
-        webView2.UIDelegate = self
-        webView2.navigationDelegate = self
-        webView2.scrollView.scrollEnabled = true
-        webView2.scrollView.bounces = false
-        //webView2.backgroundColor = UIColor.blueColor()
-        //
-        self.tableView.estimatedRowHeight = 50
-        self.tableView.rowHeight = UITableViewAutomaticDimension;
 
-        
-        loadingContent();
-        
-        
+        setUp()
+        loadingContent();        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -76,7 +58,22 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     }
     
     
-    
+    func setUp(){
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        
+        self.title = SSajulClient.sharedInstance.selectedItem?.title
+        webView2.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        webView2.frame.size = CGSizeMake(100, 100)
+        webView2.UIDelegate = self
+        webView2.navigationDelegate = self
+        webView2.scrollView.scrollEnabled = true
+        webView2.scrollView.bounces = false
+        
+        
+        self.tableView.estimatedRowHeight = 50
+        self.tableView.rowHeight = UITableViewAutomaticDimension;
+        
+    }
     
     
     @IBAction func addComent(sender: AnyObject) {
@@ -154,15 +151,48 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         Alamofire.request(.GET, url)
             .responseString(encoding: NSUTF8StringEncoding  ) { response in
                 
+                guard let doc = Kanna.HTML(html: response.description, encoding: NSUTF8StringEncoding) else { return }
                 
-                if let doc = Kanna.HTML(html: response.description, encoding: NSUTF8StringEncoding){
+                
                     
                     
-                    
-                    let content : XMLElement = doc.css("div#articleView").first!
-                    
-                    let htmlCode =  SSajulClient.sharedInstance.createHTML(content.toHTML!)
-                    
+                
+                let content : XMLElement = doc.css("div#articleView").first!
+                
+                let htmlCode =  SSajulClient.sharedInstance.createHTML(content.toHTML!)
+                
+//                let dispatch_group = dispatch_group_create()
+//                let highPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+//                let mediumPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//                
+//                //content
+//                
+//                
+//                dispatch_group_async(dispatch_group, highPriorityQueue, {
+//                    self.webView2.loadHTMLString(htmlCode, baseURL: nil)
+//                })
+//                
+//                
+//                dispatch_group_async(dispatch_group,mediumPriorityQueue , {
+//                    let commentHtml = doc.xpath("//div[3]/ul/li")
+//                    
+//                    if self.commentList.count > 0 {
+//                        self.commentList.removeAll()
+//                    }
+//                    
+//                    for comment in  commentHtml{
+//                        guard comment.xpath("p").count >= 2 else {
+//                            continue
+//                        }
+//                        self.commentList.append(self.createComment(comment))
+//                    }
+//                    
+//                })
+//                
+//                dispatch_group_notify(dispatch_group, dispatch_get_main_queue(), {
+//                    self.tableView.reloadData()
+//                })
+                
                     
                     //content
                     dispatch_async(dispatch_get_main_queue(), {
@@ -188,7 +218,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                         self.commentList.append(self.createComment(comment))
                     }
                     self.tableView.reloadData()
-                }
+                
         }
     }
     
@@ -229,21 +259,12 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         return newComment
     }
     
-    
-    //    func webViewDidFinishLoad(webView: UIWebView) {
-    //        contentSize = webView.scrollView.contentSize.height
-    //
-    //        self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
-    //
-    //        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-    //    }
+
     
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        //contentSize = 200
-        
         webView.evaluateJavaScript("document.height") { (result, error) in
             if error == nil {
-//                print(result)
+
                 self.contentSize =   result as! CGFloat
                 self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
                 
@@ -287,35 +308,92 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         
     }
     
-   override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        
+        if SSajulClient.sharedInstance.isLogin() == false {
+            return false
+        }
+        
+        if indexPath.row == CellType.header.rawValue {
+            return true
+        }
+        
+        if indexPath.row == commentList.count + 2 {
+            return false
+        }
+        
+        if indexPath.row == CellType.body.rawValue{
+            return false
+        }
+        
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        
+        if cell is CommentCell {
+            
+//            if cell._comment?.userID == SSajulClient.sharedInstance.getLoginID() {
+                return true
+//            }
+        }
+        
+        
+        
+        return false
+    }
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+
+
         
         let delete = UITableViewRowAction(style: .Normal, title: "삭제") { (action, index) in
             print("delete")
+            
+            if index.row == CellType.header.rawValue{
+                
+            }
+            //delete this comment
         }
-    
+        
         
         delete.backgroundColor = UIColor.redColor()
+//
+//        let voteUp = UITableViewRowAction(style: .Normal, title: "추천") { (action, index) in
+//            print("voteUp")
+//            
+//            
+//        }
+//        
+//        
+//        voteUp.backgroundColor = UIColor.greenColor()
+//        
+//        
+//        let voteDown = UITableViewRowAction(style: .Normal, title: "비추천") { (action, index) in
+//            print("voteDown")
+//            
+//            
+//        }
+//        
+//        
+//        voteDown.backgroundColor = UIColor.grayColor()
+//        
+//        
+//        let cell = tableView.cellForRowAtIndexPath(indexPath)
+//        
+//        if cell is CommentCell {
+//            let comment = (cell as! CommentCell)._comment
+//            if comment?.userID == SSajulClient.sharedInstance.getLoginID() {
+//                return [voteDown, voteUp ,delete]
+//            }
+//        }
         
-        let voteUp = UITableViewRowAction(style: .Normal, title: "추천") { (action, index) in
-            print("voteUp")
-        }
+        return [ delete ]
         
-        
-        voteUp.backgroundColor = UIColor.greenColor()
-
-        
-        let voteDown = UITableViewRowAction(style: .Normal, title: "비추천") { (action, index) in
-            print("voteDown")
-        }
-        
-        
-        voteDown.backgroundColor = UIColor.magentaColor()
-    
-        return [delete,voteUp, voteDown]
     }
+
+
+  
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
+
         //guard indexPath.row == CellType.body
         
     }

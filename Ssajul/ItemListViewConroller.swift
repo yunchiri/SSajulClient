@@ -74,9 +74,6 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate{
             self.uiWriteContentButton!.enabled = false
         }
 
-
-//        self.tabBarController?.navigationController?.navigationItem.leftBarButtonItem = uiWriteContentButton
-        
         self.tabBarController?.navigationItem.title = SSajulClient.sharedInstance.selectedBoard?.name
         
         
@@ -142,12 +139,7 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate{
                 let selectedItem = itemList[indexPath.row] as Item
                 
                 let itemController = segue.destinationViewController as! ItemTableViewController
-                
-                
-//                itemController.selectedBoard = selectedBoard
-//                itemController.selectedItem = selectedItem
-                
-                //SSajulClient.sharedInstance.selectedBoard = selectedBoard
+
                 SSajulClient.sharedInstance.selectedItem = selectedItem
                 
                 itemController.navigationItem.leftItemsSupplementBackButton = true
@@ -284,11 +276,14 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate{
 
                         
                         let upAndDown = (xxx.xpath("td[6]").first?.text)!
+                        if let voteUp = Int(upAndDown.substringToIndex( upAndDown.startIndex.advancedBy(1))) {
+                                newItem.voteUp = voteUp
+                        }
                         
-                        newItem.voteUp = Int(upAndDown.substringToIndex( upAndDown.startIndex.advancedBy(1)))!
-                        newItem.voteDown = Int(upAndDown.substringFromIndex( upAndDown.endIndex.advancedBy(-1)))!
-                        
-                        
+                        if let voteDown = Int(upAndDown.substringFromIndex( upAndDown.endIndex.advancedBy(-1))){
+                                newItem.voteDown = voteDown
+                        }
+
                         self.itemList.append(newItem)
                         
                     }
