@@ -260,11 +260,15 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate{
                             let commentCountString = newItem.title.substringFromIndex(  commentStartIndex )
                             
                             let commentCount = String(String(commentCountString.characters.dropLast()).characters.dropFirst())
-                            newItem.commentCount = Int(commentCount)!
                             
-                            
-                            newItem.title.removeRange(Range.init(start: commentStartIndex, end: newItem.title.endIndex ))
-                            newItem.title = newItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())                            
+                            if  let commentCountInt = Int(commentCount) {
+                                newItem.commentCount = commentCountInt
+                                newItem.title.removeRange(Range.init(start: commentStartIndex, end: newItem.title.endIndex ))
+                                newItem.title = newItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                            }else {
+                                newItem.commentCount = 0
+                            }
+                     
                         }
                         
                         

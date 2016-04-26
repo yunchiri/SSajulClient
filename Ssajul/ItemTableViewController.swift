@@ -287,6 +287,40 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         
     }
     
+   override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        let delete = UITableViewRowAction(style: .Normal, title: "삭제") { (action, index) in
+            print("delete")
+        }
+    
+        
+        delete.backgroundColor = UIColor.redColor()
+        
+        let voteUp = UITableViewRowAction(style: .Normal, title: "추천") { (action, index) in
+            print("voteUp")
+        }
+        
+        
+        voteUp.backgroundColor = UIColor.greenColor()
+
+        
+        let voteDown = UITableViewRowAction(style: .Normal, title: "비추천") { (action, index) in
+            print("voteDown")
+        }
+        
+        
+        voteDown.backgroundColor = UIColor.magentaColor()
+    
+        return [delete,voteUp, voteDown]
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        //guard indexPath.row == CellType.body
+        
+    }
+    
+    
     func  commentDidPost() {
         self.loadingContent()
     }
