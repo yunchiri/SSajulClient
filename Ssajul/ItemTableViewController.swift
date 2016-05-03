@@ -159,7 +159,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                 
                 let content : XMLElement = doc.css("div#articleView").first!
                 
-                let htmlCode =  SSajulClient.sharedInstance.createHTML(content.toHTML!)
+                let htmlCode =  SSajulClient.sharedInstance.createHTML2(content.toHTML!)
                 
 //                let dispatch_group = dispatch_group_create()
 //                let highPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
@@ -259,20 +259,34 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         return newComment
     }
     
-
     
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+    func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
+//        print("didCommitNavigation");
         webView.evaluateJavaScript("document.height") { (result, error) in
             if error == nil {
+//                print(result as! CGFloat)
+                self.contentSize =   result as! CGFloat
+                self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+                
+//                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            }
+        }
 
+        
+    }
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+//        print("didfinish Navigation");
+        webView.evaluateJavaScript("document.height") { (result, error) in
+            if error == nil {
+                print(result as! CGFloat)
                 self.contentSize =   result as! CGFloat
                 self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
                 
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             }
         }
-        
-        
+
     }
     
     //댓글
@@ -413,5 +427,12 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     }
     
     
+    @IBAction func share(sender: AnyObject) {
+        
+                 let firstActivityItem = SSajulClient.sharedInstance.urlForContent()
+                 let activityViewController : UIActivityViewController = UIActivityViewController(activityItems: [firstActivityItem], applicationActivities: nil)
+              self.presentViewController(activityViewController, animated: true, completion: nil)
+
+    }
     
 }

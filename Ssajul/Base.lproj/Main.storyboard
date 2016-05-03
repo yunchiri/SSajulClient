@@ -274,7 +274,7 @@
                     <navigationItem key="navigationItem" title="Title" id="gPN-Ue-o3n">
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="7ly-va-S10">
                             <connections>
-                                <action selector="share:" destination="Hwl-YI-Pjo" id="GOr-In-0OE"/>
+                                <action selector="share:" destination="Hwl-YI-Pjo" id="dDc-2t-N4r"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

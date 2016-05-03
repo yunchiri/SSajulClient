@@ -111,6 +111,34 @@ class SSajulClient  {
         
         return html
     }
+    
+    func createHTML2(content : String) -> String{
+        
+        let contentAsync = content.stringByReplacingOccurrencesOfString("src=", withString: "data-aload=")
+        
+        
+        let html = "<html>"
+            + "<head>"
+            
+            
+            + "<script> function aload(t){\"use strict\";t=t||window.document.querySelectorAll(\"[data-aload]\"),void 0===t.length&&(t=[t]);var a,e=0,r=t.length;for(e;r>e;e+=1)a=t[e],a[\"LINK\"!==a.tagName?\"src\":\"href\"]=a.getAttribute(\"data-aload\"),a.removeAttribute(\"data-aload\");return t}"
+            + "window.onload = function () {          aload();        }; </script>"
+            + "<script data-aload=\"http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js\"></script>"
+            + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
+            + "<meta name=\"viewport\""
+            + "\tcontent=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi\" />"
+            
+            
+            + "<style type=\"text/css\">"
+            + "#articleView * {"
+            + "\tmax-width: 100%; !important;"
+            + "}"
+            + "</style>"
+            + "</head><body>"
+            + "\(contentAsync) </body></html>"
+        
+        return html
+    }
 
     
     //cookie utils
