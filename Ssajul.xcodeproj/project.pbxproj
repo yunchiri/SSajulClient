@@ -19,6 +19,7 @@
 		046625091C96EA20006BB90F /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046625081C96EA20006BB90F /* CommentCell.swift */; };
 		047D24391CB291FC00148EBC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047D24381CB291FC00148EBC /* LoginViewController.swift */; };
 		048466CE1CC1EB1100A19919 /* ItemWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048466CD1CC1EB1100A19919 /* ItemWriteViewController.swift */; };
+		04A1EB8B1CDA49C400022201 /* SSajulDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1EB8A1CDA49C400022201 /* SSajulDatabase.swift */; };
 		04D0FF1B1C7C830300B204C4 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1A1C7C830300B204C4 /* Board.swift */; };
 		04D0FF1D1C7C84C300B204C4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1C1C7C84C300B204C4 /* Item.swift */; };
 		04D0FF1F1C7C84DE00B204C4 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1E1C7C84DE00B204C4 /* Comment.swift */; };
@@ -66,6 +67,7 @@
 		046625081C96EA20006BB90F /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		047D24381CB291FC00148EBC /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		048466CD1CC1EB1100A19919 /* ItemWriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemWriteViewController.swift; sourceTree = "<group>"; };
+		04A1EB8A1CDA49C400022201 /* SSajulDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSajulDatabase.swift; sourceTree = "<group>"; };
 		04D0FF1A1C7C830300B204C4 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		04D0FF1C1C7C84C300B204C4 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		04D0FF1E1C7C84DE00B204C4 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				04D0FF241C7C94E000B204C4 /* SSajulClient.swift */,
+				04A1EB8A1CDA49C400022201 /* SSajulDatabase.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				046625091C96EA20006BB90F /* CommentCell.swift in Sources */,
 				040973D41CCBAF8B008ABCA9 /* History.swift in Sources */,
 				04D0FF1F1C7C84DE00B204C4 /* Comment.swift in Sources */,
+				04A1EB8B1CDA49C400022201 /* SSajulDatabase.swift in Sources */,
 				04D0FF221C7C946900B204C4 /* ItemListViewConroller.swift in Sources */,
 				04D0FF251C7C94E000B204C4 /* SSajulClient.swift in Sources */,
 				04D0FF1D1C7C84C300B204C4 /* Item.swift in Sources */,

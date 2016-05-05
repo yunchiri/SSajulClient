@@ -25,6 +25,9 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
         
         self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 53
+        
         
 //        self.title = SSajulClient.sharedInstance.selectedItem?.title
         
@@ -93,28 +96,36 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
- 
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier("bestCell", forIndexPath: indexPath)
+      
+            let cell = tableView.dequeueReusableCellWithIdentifier("itemCell", forIndexPath: indexPath) as! ItemCell
         
         
         switch indexPath.section {
         case 0:
-            cell.textLabel?.text = realtimeBestList[indexPath.row].title
+//            cell.textLabel?.text = realtimeBestList[indexPath.row].title
+            cell.setItem(realtimeBestList[indexPath.row])
         case 1:
-            cell.textLabel?.text = todayBestList[indexPath.row].title
+//            cell.textLabel?.text = todayBestList[indexPath.row].title
+            cell.setItem(todayBestList[indexPath.row])
         case 2:
-            cell.textLabel?.text = commentBestList[indexPath.row].title
+//            cell.textLabel?.text = commentBestList[indexPath.row].title
+            cell.setItem(commentBestList[indexPath.row])
         default:
             cell.textLabel?.text = "주영( 오류 )"
         }
         
-        cell.textLabel?.font = UIFont.systemFontOfSize(15)
-        cell.textLabel?.adjustsFontSizeToFitWidth = true
+//        cell.textLabel?.font = UIFont.systemFontOfSize(15)
+//        cell.textLabel?.adjustsFontSizeToFitWidth = true
         
         return cell
     }
     
+//    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        
+//        
+//        return UITableViewAutomaticDimension;
+//
+//    }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
@@ -161,22 +172,6 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
             }
         }
         
-//        if segue.identifier == "writeContentSegue"{
-//            
-//            print( SSajulClient.sharedInstance.selectedBoard?.name )
-//            
-//            if SSajulClient.sharedInstance.selectedBoard?.boardID == "recomboard" {
-//                
-//                let alertController = UIAlertController(title: "이 게시판에는 글 못씀", message: "아마 꾸레들이 점령한듯...", preferredStyle: UIAlertControllerStyle.Alert)
-//                
-//                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
-//                    print("OK")
-//                }
-//                alertController.addAction(okAction)
-//                self.presentViewController(alertController, animated: true, completion: nil)
-//                
-//            }
-//        }
     }
     
     
@@ -214,6 +209,34 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
                         
                         newBestItem.uid = uid!
                         newBestItem.title = bestHref.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
+
+                        newBestItem.title = newBestItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                        
+                        //comment parsing
+                        if newBestItem.title.containsString("[") == false || newBestItem.title.characters.last != "]" {
+                            newBestItem.commentCount = 0
+                        }else{
+                            var indexOfCommentCount = 1
+                            for char in newBestItem.title.characters.reverse() {
+                                if char == "[" {
+                                    break;
+                                }
+                                indexOfCommentCount = indexOfCommentCount + 1;
+                            }
+                            let commentStartIndex = newBestItem.title.endIndex.advancedBy( -indexOfCommentCount )
+                            let commentCountString = newBestItem.title.substringFromIndex(  commentStartIndex )
+                            
+                            let commentCount = String(String(commentCountString.characters.dropLast()).characters.dropFirst())
+                            
+                            if  let commentCountInt = Int(commentCount) {
+                                newBestItem.commentCount = commentCountInt
+                                newBestItem.title.removeRange(Range.init(start: commentStartIndex, end: newBestItem.title.endIndex ))
+                                newBestItem.title = newBestItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                            }else {
+                                newBestItem.commentCount = 0
+                            }
+                            
+                        }
                         
                         if self.realtimeBestList.count < 10 {
                             self.realtimeBestList.append(newBestItem)

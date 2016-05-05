@@ -28,10 +28,6 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     }
     
     var commentWriteCell : CommentWriteCell? = nil
-    
-    //    var selectedBoard : Board? = nil
-    //    var selectedItem : Item? = nil
-    
     var commentList = [Comment]()
     let webView2 = SSajulClient.sharedInstance.webView2
     
@@ -140,9 +136,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     
     
     func loadingContent()  {
-        
 
-        
         let url = NSURL(string: SSajulClient.sharedInstance.urlForContent( ))!
         
         
@@ -152,59 +146,25 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
             .responseString(encoding: NSUTF8StringEncoding  ) { response in
                 
                 guard let doc = Kanna.HTML(html: response.description, encoding: NSUTF8StringEncoding) else { return }
-                
-                
-                    
-                    
+   
                 
                 let content : XMLElement = doc.css("div#articleView").first!
                 
-                let htmlCode =  SSajulClient.sharedInstance.createHTML2(content.toHTML!)
+                let htmlCode =  SSajulClient.sharedInstance.createHTML3(content.toHTML!)
                 
-//                let dispatch_group = dispatch_group_create()
-//                let highPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-//                let mediumPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//                
+                let dispatch_group = dispatch_group_create()
+                let highPriorityQueue = dispatch_get_main_queue()
+                let mediumPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//
 //                //content
 //                
 //                
-//                dispatch_group_async(dispatch_group, highPriorityQueue, {
-//                    self.webView2.loadHTMLString(htmlCode, baseURL: nil)
-//                })
-//                
-//                
-//                dispatch_group_async(dispatch_group,mediumPriorityQueue , {
-//                    let commentHtml = doc.xpath("//div[3]/ul/li")
-//                    
-//                    if self.commentList.count > 0 {
-//                        self.commentList.removeAll()
-//                    }
-//                    
-//                    for comment in  commentHtml{
-//                        guard comment.xpath("p").count >= 2 else {
-//                            continue
-//                        }
-//                        self.commentList.append(self.createComment(comment))
-//                    }
-//                    
-//                })
-//                
-//                dispatch_group_notify(dispatch_group, dispatch_get_main_queue(), {
-//                    self.tableView.reloadData()
-//                })
+                dispatch_group_async(dispatch_group, highPriorityQueue, {
+                    self.webView2.loadHTMLString(htmlCode, baseURL: nil)
+                })
                 
-                    
-                    //content
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.webView2.loadHTMLString(htmlCode, baseURL: nil)
-                    })
-                    
-                    //comment
-                    
-                    //comment item
-                    
-                    //let commentParameter = doc.css("#viewWriteCommentFrm")
-                    
+                
+                dispatch_group_async(dispatch_group,mediumPriorityQueue , {
                     let commentHtml = doc.xpath("//div[3]/ul/li")
                     
                     if self.commentList.count > 0 {
@@ -217,7 +177,32 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                         }
                         self.commentList.append(self.createComment(comment))
                     }
+                    
+                })
+                
+                dispatch_group_notify(dispatch_group, dispatch_get_main_queue(), {
                     self.tableView.reloadData()
+                })
+                
+                    
+//                    //content
+//                    dispatch_async(dispatch_get_main_queue(), {
+//                        self.webView2.loadHTMLString(htmlCode, baseURL: nil)
+//                    })
+//                    
+//                    let commentHtml = doc.xpath("//div[3]/ul/li")
+//                    
+//                    if self.commentList.count > 0 {
+//                        self.commentList.removeAll()
+//                    }
+//                    
+//                    for comment in  commentHtml{
+//                        guard comment.xpath("p").count >= 2 else {
+//                            continue
+//                        }
+//                        self.commentList.append(self.createComment(comment))
+//                    }
+//                    self.tableView.reloadData()
                 
         }
     }
@@ -279,10 +264,14 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
 //        print("didfinish Navigation");
         webView.evaluateJavaScript("document.height") { (result, error) in
             if error == nil {
-                print(result as! CGFloat)
-                self.contentSize =   result as! CGFloat
-                self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+//                print(result as! CGFloat)
                 
+                let finishContentSize = result as! CGFloat
+                
+                if self.contentSize != finishContentSize {
+                    self.contentSize =   result as! CGFloat
+                    self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+                }
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             }
         }
