@@ -1,24 +1,27 @@
 PODS:
   - Alamofire (3.3.1)
+  - BTNavigationDropdownMenu (0.3)
   - Kanna (1.0.6)
   - KMPlaceholderTextView (1.2.0)
-  - Realm (0.100.0):
-    - Realm/Headers (= 0.100.0)
-  - Realm/Headers (0.100.0)
-  - RealmSwift (0.100.0):
-    - Realm (= 0.100.0)
+  - Realm (0.101.0):
+    - Realm/Headers (= 0.101.0)
+  - Realm/Headers (0.101.0)
+  - RealmSwift (0.101.0):
+    - Realm (= 0.101.0)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
+  - BTNavigationDropdownMenu
   - Kanna (~> 1.0.0)
   - KMPlaceholderTextView (~> 1.2.0)
   - RealmSwift
 
 SPEC CHECKSUMS:
   Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  BTNavigationDropdownMenu: c36d20785253699046fdd295698c24b1d1c18f53
   Kanna: 9f30945bbd293a609f698ea164687ccc0990ff60
   KMPlaceholderTextView: cae8ee889bd38d20587eee6b2623b8218f31b8f5
-  Realm: b13b548e712d28a66678970c45cd245ebb94ba3b
-  RealmSwift: 1bb0ba2ceaa06b65d740b4f91bfa06e3fd1b805c
+  Realm: b21596d6d7e1c054f6fae967d27263d2593ca309
+  RealmSwift: 5247501bcd68b9db3a718cba808e1ce45ba67034
 
 COCOAPODS: 0.39.0

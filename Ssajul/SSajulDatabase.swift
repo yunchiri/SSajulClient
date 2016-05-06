@@ -21,10 +21,11 @@ class SSajulDatabase{
 //        history.uid = (selectedItem?.uid)!
 //        history.title = (selectedItem?.title)!
         
-        let realm = try! Realm(History)
-        try! realm.write {
-            realm.add(history)
-        }
+//        let realm = try! Realm(History)
+//        
+//        try! realm.write {
+//            realm.add(history)
+//        }
     }
     
     

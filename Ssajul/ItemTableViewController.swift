@@ -44,7 +44,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        SSajulClient.sharedInstance.saveWatching()
+       // SSajulClient.sharedInstance.saveWatching()
     }
     
     func handleRefresh(refreshControl : UIRefreshControl){

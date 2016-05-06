@@ -215,6 +215,25 @@ class SSajulClient  {
         return String(format:  "http://www.soccerline.co.kr/slboard/list.php?page=%d&code=%@&keyfield=&key=&period=&", page, boardId)
     }
     
+    func urlForBoardItemSearchedList(page : Int, key : String, keyfield : String) -> String{
+
+        
+//        return "http://www.soccerline.co.kr/slboard/list.php?page=1&code=locker&key=77&keyfield=subject&period=0|1987508143"
+        if selectedBoard == nil { return "http://127.0.0.1" }
+//        let x = NSURL(fileURLWithFileSystemRepresentation: <#T##UnsafePointer<Int8>#>, isDirectory: <#T##Bool#>, relativeToURL: <#T##NSURL?#>)
+//        let encodingKey = "용두".dataUsingEncoding( CFStringConvertEncodingToNSStringEncoding( 0x0422 ))
+//        let urf8Key =  encodingKey.
+        let boardId = selectedBoard!.boardID
+        
+        let url = String(format:  "http://www.soccerline.co.kr/slboard/list.php?page=%d&code=%@&key=%@&keyfield=%@&period=0|1987508143", page, boardId,  "%BD%CE%C1%D9%BA%E4", keyfield)
+        let urlString = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        
+//        let urlString = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLPathAllowedCharacterSet())!
+        
+            return urlString
+        
+    }
+    
     func urlForCommentWrite() -> String{
         
         return  "https://www.soccerline.co.kr/slboard/comment_write.php"
