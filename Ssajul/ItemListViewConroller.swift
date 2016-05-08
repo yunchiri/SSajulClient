@@ -10,13 +10,25 @@ import UIKit
 import Alamofire
 import Kanna
 
+struct searchController{
+    var searchingKey : String = ""
+    var isSearch : Bool = false
+    
+    struct searchType {
+        let title = "subject"
+        let nickname = "nickname"
+        let userId = "id"
+
+    }
+}
 
 
-
-class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,UISearchBarDelegate, UISearchResultsUpdating{
+class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,UISearchBarDelegate{
     
     var itemList = [Item]()
     var isLoading : Bool = false
+    var isSearching : Bool = false
+    var searchingKey : String = ""
     //    var selectedBoard : Board? = nil
     var currentPage : Int = 1
     
@@ -31,9 +43,7 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         
         
         self.title = SSajulClient.sharedInstance.selectedBoard?.name
-        
-        
-        //        self.refreshControl?.addTarget(self, action: #selector(ItemListViewConroller.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+
 
         updateBoardList()
         
@@ -45,58 +55,6 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         
         setUpTableView()
         setUpSearchBarController()
-        
-    }
-    func setUpTableView(){
-        self.refreshControl?.addTarget(self, action: #selector(ItemListViewConroller.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-        self.tableView.estimatedRowHeight = 30
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        
-        self.tabBarController?.tabBar.translucent = false
-        self.tabBarController?.navigationController?.navigationBar.translucent = false
-    }
-    func setUpSearchBarController(){
-        searchController.searchBar.delegate = self
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.scopeButtonTitles = ["제목", "필명", "아이디"]
-        
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = true
-        searchController.dimsBackgroundDuringPresentation = true
-        searchController.searchBar.sizeToFit()
-        
-        self.tableView.tableHeaderView = searchController.searchBar
-    }
-    
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        print("serarch update" + String(searchController.searchBar.selectedScopeButtonIndex))
-    }
-    
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-        print("searchBarTextDidEndEditing")
-        
-        
-    }
-    
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        
-        print("searchBarCancelButtonClicked")
-    }
-    
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        //        searchBar.selectedScopeButtonIndex
-        print("searchBarSearchButtonClicked")
-    }
-    
-    
-    
-    
-    func pushWriteViewController (sender: AnyObject){
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        let itemWriteVC = storyboard.instantiateViewControllerWithIdentifier("itemWriteVC") as! ItemWriteViewController
-        
-        self.presentViewController(itemWriteVC, animated: true, completion: nil)
         
     }
     
@@ -116,9 +74,84 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         
         self.tabBarController?.navigationItem.title = SSajulClient.sharedInstance.selectedBoard?.name
         
-        
+        if searchingKey.isEmpty == true {
+            self.title = SSajulClient.sharedInstance.selectedBoard?.name
+        }else{
+            self.title = searchingKey + "검색"
+        }
         
     }
+    
+//    deinit{
+//        self.searchController.
+//    }
+    
+    
+    func setUpTableView(){
+//        self.tabBarController?.navigationController?.hidesBarsWhenVerticallyCompact = true
+        
+        self.refreshControl?.addTarget(self, action: #selector(ItemListViewConroller.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.estimatedRowHeight = 30
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        
+        self.tabBarController?.tabBar.translucent = false
+        self.tabBarController?.navigationController?.navigationBar.translucent = false
+    }
+    func setUpSearchBarController(){
+        searchController.searchBar.delegate = self
+//        searchController.searchResultsUpdater = self
+        searchController.searchBar.scopeButtonTitles = ["제목", "필명", "아이디"]
+        
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = true
+        searchController.dimsBackgroundDuringPresentation = true
+        searchController.searchBar.sizeToFit()
+        
+        self.tableView.tableHeaderView = searchController.searchBar
+    }
+    
+//    func updateSearchResultsForSearchController(searchController: UISearchController) {
+//        print("serarch update" + String(searchController.searchBar.selectedScopeButtonIndex))
+//    }
+//    
+//    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+//        print("searchBarTextDidEndEditing")
+//    }
+//    
+//    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+//        print("searchBarCancelButtonClicked")
+//    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        //        searchBar.selectedScopeButtonIndex
+//        print("searchBarSearchButtonClicked")
+        
+        guard searchBar.text?.isEmpty == false else {
+            return
+        }
+        
+        searchingKey = searchBar.text!
+        self.title = searchingKey + " 검색중"
+        self.searchController.searchBar.placeholder = searchingKey
+        isSearching = true
+        currentPage = 1
+        itemList.removeAll()
+        updateBoardList()
+    }
+    
+    
+    
+    
+    func pushWriteViewController (sender: AnyObject){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let itemWriteVC = storyboard.instantiateViewControllerWithIdentifier("itemWriteVC") as! ItemWriteViewController
+        
+        self.presentViewController(itemWriteVC, animated: true, completion: nil)
+        
+    }
+    
+
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         self.tableView.setContentOffset(CGPoint.zero, animated:true)
@@ -219,11 +252,49 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
     }
     
     
-    func parsing(url : String){
-        
+
+
+    func updateBoardList(){
+        //let url = SSajulClient.sharedInstance.urlForBoardItemList( currentPage)
+        var url = ""
         if isLoading == true { return }
         isLoading = true
+        
+        if isSearching == true {
+            //print( self.searchController.searchBar.text )
             
+            var searchType = ""
+            
+            switch self.searchController.searchBar.selectedScopeButtonIndex {
+            case 0 :
+                searchType = "subject"
+            case 1 :
+                searchType = "name"
+            case 2 :
+                searchType = "mem_id"
+            default:
+                searchType = "subject"
+            }
+            //subject
+            //name
+            //mem_id
+            
+            url = SSajulClient.sharedInstance.urlForBoardItemSearchedList(currentPage, key: searchingKey , keyfield: searchType)
+        }else{
+            url = SSajulClient.sharedInstance.urlForBoardItemList(currentPage)
+        }
+
+//        let url = SSajulClient.sharedInstance.urlForBoardItemSearchedList(currentPage, key: "77", keyfield: "subject")
+        
+        //if isSearching
+        
+        parsing(url)
+    }
+    
+    func parsing(url : String){
+        
+
+        
         Alamofire.request(.GET, url)
             .responseString(encoding:CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ) { response in
                 
@@ -300,6 +371,8 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
                             if  let commentCountInt = Int(commentCount) {
                                 newItem.commentCount = commentCountInt
                                 newItem.title.removeRange(Range.init(start: commentStartIndex, end: newItem.title.endIndex ))
+                                
+//                                newItem.title.removeRange(Range.init( commentStartIndex ..< newItem.title.endIndex ))
                                 newItem.title = newItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
                             }else {
                                 newItem.commentCount = 0
@@ -332,18 +405,7 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
                 
         }
     }
-
-
-
-    func updateBoardList(){
-        //let url = SSajulClient.sharedInstance.urlForBoardItemList( currentPage)
-        let url = SSajulClient.sharedInstance.urlForBoardItemSearchedList(currentPage, key: "77", keyfield: "subject")
-        
-        //if isSearching
-
-        parsing(url)
-        
-
-    }
+    
+    
     
 }

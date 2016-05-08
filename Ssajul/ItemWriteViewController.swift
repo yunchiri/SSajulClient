@@ -56,6 +56,9 @@ class ItemWriteViewController: UIViewController {
         placeholderTextView.scrollIndicatorInsets = contentInsets
     }
     
+    
+    
+    
 
     @IBAction func postContent(sender: AnyObject) {
         if valideCheck() == false {
@@ -64,6 +67,9 @@ class ItemWriteViewController: UIViewController {
         
         writeContent()
     }
+    
+    
+    
     
     func valideCheck() -> Bool{
         if subjectTextField.text?.characters.count < 3 {
@@ -219,5 +225,95 @@ class ItemWriteViewController: UIViewController {
         self.presentViewController(loginViewController, animated: true, completion: nil)
         
     }
+    
+
+    @IBAction func insertMultimedia(sender: AnyObject) {
+        
+        //Create the AlertController
+        let actionSheetController: UIAlertController = UIAlertController(title: "링크추가", message: "무슨 링크 추가할래요?", preferredStyle: .ActionSheet)
+        
+        //Create and add the Cancel action
+        let cancelAction: UIAlertAction = UIAlertAction(title: "주영", style: .Cancel) { action -> Void in
+            //Just dismiss the action sheet
+        }
+        actionSheetController.addAction(cancelAction)
+        //Create and add first option action
+        let insertImageAction: UIAlertAction = UIAlertAction(title: "이미지링크", style: .Default)
+        { action -> Void in
+            
+//            self.performSegueWithIdentifier("segue_setup_customer", sender: self)
+            self.showInputMultimediaLink("img")
+            
+        }
+        actionSheetController.addAction(insertImageAction)
+        
+        let insertYoutubeAction: UIAlertAction = UIAlertAction(title: "Youtube", style: .Default)
+        { action -> Void in
+            
+            //            self.performSegueWithIdentifier("segue_setup_customer", sender: self)
+            self.showInputMultimediaLink("youtube")
+            
+        }
+        
+        actionSheetController.addAction(insertYoutubeAction)
+        
+        
+        //Create and add a second option action
+        let insertMultimedia: UIAlertAction = UIAlertAction(title: "멀티미디어링크", style: .Default)
+        { action -> Void in
+            
+            //self.performSegueWithIdentifier("segue_setup_provider", sender: self)
+            self.showInputMultimediaLink("multi")
+            
+        }
+        actionSheetController.addAction(insertMultimedia)
+        presentViewController(actionSheetController, animated: true, completion: nil)
+        //We need to provide a popover sourceView when using it on iPad
+    }
+    
+    func showInputMultimediaLink(type : String){
+        //Present the AlertController
+        
+        //<img src="http://ddd" width=20 border=0>
+        //<EMBED SRC="http://dd" autostart="false">
+
+        let alert=UIAlertController(title: "링크추가", message: "", preferredStyle: UIAlertControllerStyle.Alert);
+        //default input textField (no configuration...)
+        alert.addTextFieldWithConfigurationHandler(nil);
+        //no event handler (just close dialog box)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {(action:UIAlertAction) in
+            
+            let inputString = ((alert.textFields![0] as UITextField).text)!
+            var linkString = ""
+            if type == "img" {
+                
+                let data = NSData.init(contentsOfURL: NSURL.init(string:  inputString)!)
+                let image = UIImage.init(data: data!)
+                let width : CGFloat = (image?.size.width)!;
+                
+                linkString = "<img src=\"" + inputString + "\" width=" + String(width) + " border=0>"
+            }
+            
+            if type == "youtube"{
+                
+                let fixInputString = inputString.stringByReplacingOccurrencesOfString("youtu.be", withString: "youtube.com/embed")
+                //<embed width="480" height="320" src="https://www.youtube.com/embed/k87VvXQ8M0o" frameborder="0" allowfullscreen></embed>
+                linkString = "<embed width=\"480\" height=\"320\" src=\"" + fixInputString + "\"  frameborder=\"0\" allowfullscreen></embed>"
+            }
+            if type == "multi"{
+                linkString = "<EMBED SRC=\"" + inputString + "\" autostart=\"false\">"
+            }
+            
+            self.placeholderTextView.insertText( linkString)
+        }));
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil));
+        //event handler with closure
+
+        presentViewController(alert, animated: true, completion: nil);
+
+    }
+    
+    
+    
     
 }

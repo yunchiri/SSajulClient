@@ -250,7 +250,15 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         webView.evaluateJavaScript("document.height") { (result, error) in
             if error == nil {
 //                print(result as! CGFloat)
+                guard result is CGFloat else {
+                    return
+                }
+                
                 self.contentSize =   result as! CGFloat
+                
+                if self.contentSize < 300 {
+                    self.contentSize = self.contentSize + 300
+                }
                 self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
                 
 //                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -346,25 +354,38 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
 
 
+        if indexPath.row == CellType.header.rawValue{
+            let deleteItem = UITableViewRowAction(style: .Normal, title: "글삭제") { (action, index) in
+                print("delete header")
+                
+                
+            }
+            
+            deleteItem.backgroundColor = UIColor.redColor()
+            
+            return [deleteItem]
+        }
+        
         
         let delete = UITableViewRowAction(style: .Normal, title: "삭제") { (action, index) in
             print("delete")
             
-            if index.row == CellType.header.rawValue{
-                
-            }
+            
             //delete this comment
         }
+        
+
+        
         
         
         delete.backgroundColor = UIColor.redColor()
 //
-//        let voteUp = UITableViewRowAction(style: .Normal, title: "추천") { (action, index) in
-//            print("voteUp")
-//            
-//            
-//        }
-//        
+        let voteUp = UITableViewRowAction(style: .Normal, title: "추천") { (action, index) in
+            print("voteUp")
+            
+            
+        }
+//
 //        
 //        voteUp.backgroundColor = UIColor.greenColor()
 //        
@@ -388,7 +409,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
 //            }
 //        }
         
-        return [ delete ]
+        return [ delete , voteUp ]
         
     }
 

@@ -287,57 +287,6 @@
             <point key="canvasLocation" x="2363" y="1622"/>
         </scene>
         <!--나의 기록-->
-        <scene sceneID="z8e-Nt-UZ1">
-            <objects>
-                <viewController id="x7s-Wb-ngK" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7fQ-f8-szq"/>
-                        <viewControllerLayoutGuide type="bottom" id="VHf-P4-dJP"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="55y-Gi-KaF">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="누가 뭐래도 나는 호나우도요~" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lqi-6M-RDo">
-                                <rect key="frame" x="6" y="157" width="254" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="이 앱은 호두팬용입니다. 호나우도가 짱입니까? " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZ4-eo-zj2">
-                                <rect key="frame" x="6" y="208" width="312" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="타 팬일경우 점점 쇠뇌 될것입니다. 적응하세요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gi-hO-n8f">
-                                <rect key="frame" x="6" y="252" width="312" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="호두짱! 메시 새가슴!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbC-ws-fVa">
-                                <rect key="frame" x="6" y="303" width="312" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="캔유삐레~~~" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jen-29-MVn">
-                                <rect key="frame" x="6" y="350" width="312" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="나의 기록" image="Person" id="gxo-fc-Nox"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vvu-ac-eMQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4411" y="-422"/>
-        </scene>
-        <!--나의 기록-->
         <scene sceneID="xXU-YY-OHM">
             <objects>
                 <tableViewController id="qme-E6-JGm" customClass="HistoryTableViewController" customModule="Ssajul" customModuleProvider="target" sceneMemberID="viewController">
@@ -363,7 +312,7 @@
                             <outlet property="delegate" destination="qme-E6-JGm" id="WMi-iT-sVw"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="나의 기록" image="Person" id="HKm-mm-jLK"/>
+                    <tabBarItem key="tabBarItem" enabled="NO" title="나의 기록" image="Person" id="HKm-mm-jLK"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qee-Ti-VlJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -542,7 +491,7 @@
                                     <constraint firstAttribute="height" constant="40" id="9P8-GE-63Y"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.52549019610000003" green="0.74509803919999995" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -672,8 +621,11 @@
                                                     <action selector="postContent:" destination="6Ds-b7-skA" id="rtr-wE-7jg"/>
                                                 </connections>
                                             </barButtonItem>
-                                            <barButtonItem enabled="NO" title="사진올리기" id="bBS-0U-SzE">
+                                            <barButtonItem title="자료올리기" id="bBS-0U-SzE">
                                                 <color key="tintColor" red="0.52549019610000003" green="0.74509803919999995" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <action selector="insertMultimedia:" destination="6Ds-b7-skA" id="Ce0-DD-Wgt"/>
+                                                </connections>
                                             </barButtonItem>
                                         </rightBarButtonItems>
                                     </navigationItem>
@@ -871,6 +823,6 @@
         <image name="ThumbUp" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Fss-xh-6lZ"/>
+        <segue reference="Aug-1r-Gbn"/>
     </inferredMetricsTieBreakers>
 </document>

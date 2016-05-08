@@ -46,10 +46,23 @@ class ItemCell: UITableViewCell {
         self.readCount.text = "조회 : " + String(item.readCount)
         
         
-        if item.commentCount > 100 {
+        if item.commentCount > 10 {
             self.commentCount.font = UIFont.boldSystemFontOfSize(11)
-        }else{
+            self.commentCount.backgroundColor = UIColor.init(red: 0.996, green: 0.812, blue: 0.196, alpha: 1)
+        }else if item.commentCount > 0{
             self.commentCount.font = UIFont.systemFontOfSize(11)
+            self.commentCount.backgroundColor = UIColor.init(red: 0.529, green: 0.737, blue: 0.149, alpha: 1)
+        }else{
+            self.commentCount.font = UIFont.systemFontOfSize(10)
+            self.commentCount.backgroundColor = UIColor.init(red: 0.702, green: 0.788, blue: 0.647, alpha: 1)
+        }
+        
+        if item.readCount > 150 {
+            self.readCount.font = UIFont.boldSystemFontOfSize(10)
+            self.readCount.backgroundColor = UIColor.yellowColor()
+        }else{
+            self.readCount.font = UIFont.systemFontOfSize(10)
+            self.readCount.backgroundColor = UIColor.clearColor()
         }
         
     }
