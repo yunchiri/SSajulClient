@@ -8,9 +8,12 @@
 
 import UIKit
 
-class BoardViewcontroller: UITableViewController {
+
+class BoardViewcontroller: UITableViewController{
 
     @IBOutlet weak var uiLogin: UIBarButtonItem!
+    
+
     
     var itemListViewConroller : ItemListViewConroller? = nil
 //    var itemViewController: ItemViewController? = nil
@@ -20,6 +23,7 @@ class BoardViewcontroller: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -113,6 +117,8 @@ class BoardViewcontroller: UITableViewController {
 //        }
 //    }
 
+
+    
 
 }
 

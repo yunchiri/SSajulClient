@@ -17,7 +17,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     
     
     @IBOutlet weak var inputContainerView: UIView!
-    
+    var isLoading : Bool = false
     
     enum CellType : Int {
         case header = 0
@@ -45,7 +45,17 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         super.viewDidAppear(animated)
         
        // SSajulClient.sharedInstance.saveWatching()
+
+        
     }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        webView2.stopLoading()
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    }
+    
+    
     
     func handleRefresh(refreshControl : UIRefreshControl){
         
@@ -70,6 +80,8 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         
     }
+    
+    
     
     
     @IBAction func addComent(sender: AnyObject) {
@@ -123,6 +135,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
             
             commentWriteCell = cell2
             cell2.delegate = self
+            
             return cell2
         }
         
@@ -130,13 +143,19 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! CommentCell
         
         cell.setComment(commentList[indexPath.row - 2])
+
         return cell
     }
     
     
     
     func loadingContent()  {
-
+        
+        if isLoading == true {
+            return
+        }
+        
+        isLoading = true
         let url = NSURL(string: SSajulClient.sharedInstance.urlForContent( ))!
         
         
@@ -182,6 +201,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                 
                 dispatch_group_notify(dispatch_group, dispatch_get_main_queue(), {
                     self.tableView.reloadData()
+                    self.isLoading = false
                 })
                 
                     
@@ -247,6 +267,10 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     
     func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
 //        print("didCommitNavigation");
+        if isLoading == true {
+            return
+        }
+        
         webView.evaluateJavaScript("document.height") { (result, error) in
             if error == nil {
 //                print(result as! CGFloat)
@@ -257,11 +281,11 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                 self.contentSize =   result as! CGFloat
                 
                 if self.contentSize < 300 {
-                    self.contentSize = self.contentSize + 300
+                    self.contentSize = 300
                 }
+                
                 self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
                 
-//                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             }
         }
 
@@ -273,18 +297,26 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         webView.evaluateJavaScript("document.height") { (result, error) in
             if error == nil {
 //                print(result as! CGFloat)
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                
                 
                 let finishContentSize = result as! CGFloat
                 
                 if self.contentSize != finishContentSize {
                     self.contentSize =   result as! CGFloat
+                    
+//                    guard self.isLoading == true else{
+//                        return
+//                    }
+                    
                     self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
                 }
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             }
         }
+        self.isLoading = true
 
     }
+
     
     //댓글
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

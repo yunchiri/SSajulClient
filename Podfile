@@ -7,3 +7,5 @@ pod ‘Kanna’, ‘~> 1.0.0’
 pod 'KMPlaceholderTextView', '~> 1.2.0' 
 pod 'RealmSwift'
 pod ‘BTNavigationDropdownMenu’
+pod 'Google-Mobile-Ads-SDK', '~> 7.0'
+pod 'ActiveLabel'

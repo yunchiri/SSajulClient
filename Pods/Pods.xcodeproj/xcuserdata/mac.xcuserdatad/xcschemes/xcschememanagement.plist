@@ -4,67 +4,60 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>ActiveLabel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>BTNavigationDropdownMenu.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>7</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>KMPlaceholderTextView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>Kanna.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 		<key>Realm.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
 		<key>RealmSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>6</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>394DF5FF33575CD0076E7BEA63CBA0E8</key>
+		<key>2611FF8B7A1EA438C3C60AE458AD6A2E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3C02B696B76CAE751C5BB2CBA946F075</key>
+		<key>31C84A3832DB4AEB429573AACE8E3E73</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7435D3B8114DAB3B3B188B68D3FC595B</key>
+		<key>5D64EFD8F4A12C16EC5BA047E92A1C2D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -74,22 +67,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9B266777FFDAD2B553A61544FA18C9DF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>B6312CAD7E18804AD5E11308495CFD52</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D37D6077FB1370FA289FA10054CE22E6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D762677758F098F3EB5FB9525FEA24D8</key>
+		<key>E0346471F7D831C4C21AD0A87638EAE1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

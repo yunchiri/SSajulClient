@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import ActiveLabel
 
 class CommentCell: UITableViewCell {
 
-    @IBOutlet weak var content: UILabel!
+    @IBOutlet weak var content: ActiveLabel!
     @IBOutlet weak var userInfo: UILabel!
     @IBOutlet weak var userName: UILabel!
     
@@ -20,12 +21,15 @@ class CommentCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+
+        
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-
+//        print("selecte")
         // Configure the view for the selected state
     }
     
@@ -48,8 +52,15 @@ class CommentCell: UITableViewCell {
         guard self._comment?.userName != nil else {
             return ""
         }
+        guard self._comment?.userID != nil else{
+            return ""
+        }
         
-        return _comment!.userName!
+        return (_comment?.userID)! + "(" + _comment!.userName! + ")"
+    }
+    
+    func openWebView(){
+        print("open webview")
     }
     
 }

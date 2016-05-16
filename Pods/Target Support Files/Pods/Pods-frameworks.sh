@@ -84,6 +84,7 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods/ActiveLabel.framework"
   install_framework "Pods/Alamofire.framework"
   install_framework "Pods/BTNavigationDropdownMenu.framework"
   install_framework "Pods/KMPlaceholderTextView.framework"
@@ -92,6 +93,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/RealmSwift.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods/ActiveLabel.framework"
   install_framework "Pods/Alamofire.framework"
   install_framework "Pods/BTNavigationDropdownMenu.framework"
   install_framework "Pods/KMPlaceholderTextView.framework"

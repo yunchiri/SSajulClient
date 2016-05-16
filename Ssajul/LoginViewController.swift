@@ -71,7 +71,7 @@ class LoginViewController: UIViewController {
         
         let _ = Alamofire.request(.POST, url, parameters: parameters)
             .responseString { response in
-       
+                    
                 if response.result.isSuccess == true {
                     self.uiClose(self)
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false

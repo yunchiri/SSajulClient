@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RMx-3f-FxP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="t1B-GJ-vHU">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -9,10 +9,30 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
+        <!--Tab Bar Controller-->
+        <scene sceneID="WwS-9n-Bee">
+            <objects>
+                <tabBarController hidesBottomBarWhenPushed="YES" id="t1B-GJ-vHU" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="eD7-oQ-MzT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="RMx-3f-FxP" kind="relationship" relationship="viewControllers" id="EOt-MQ-lqR"/>
+                        <segue destination="fab-PQ-DL3" kind="relationship" relationship="viewControllers" id="mly-0u-6gJ"/>
+                        <segue destination="kqk-hc-VCg" kind="relationship" relationship="viewControllers" id="0TC-bC-pEX"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dsk-eG-a5S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1690.5" y="-356"/>
+        </scene>
         <!--Master-->
         <scene sceneID="pY4-Hu-kfo">
             <objects>
                 <navigationController title="Master" id="RMx-3f-FxP" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="게시판" image="BoardList" selectedImage="BoardList" id="hN4-0p-fFM"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Pmd-2v-anx">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -22,7 +42,36 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8fS-aE-onr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-38" y="-630"/>
+            <point key="canvasLocation" x="-504" y="-678"/>
+        </scene>
+        <!--설정-->
+        <scene sceneID="nge-4U-P3h">
+            <objects>
+                <tableViewController id="kqk-hc-VCg" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7dp-Gd-suV">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Dwv-6Q-po1">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dwv-6Q-po1" id="aIl-2j-yan">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="kqk-hc-VCg" id="Z2K-cW-EQ2"/>
+                            <outlet property="delegate" destination="kqk-hc-VCg" id="dZn-it-R7c"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="설정" image="Ball" id="tjV-7z-Zmf"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qXP-EY-wZm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-436.5" y="-27"/>
         </scene>
         <!--글-->
         <scene sceneID="cX2-3H-oWq">
@@ -66,18 +115,23 @@
                                     <outlet property="webView" destination="UiV-Q3-37P" id="yMo-Ph-DPZ"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="68" id="7Ic-VB-1D0" customClass="CommentCell" customModule="Ssajul" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="68" id="7Ic-VB-1D0" customClass="CommentCell" customModule="Ssajul" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="321" width="600" height="68"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Ic-VB-1D0" id="CYB-V9-pwF">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="67"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" text="Label" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Abf-a2-yfb">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="300" verticalCompressionResistancePriority="300" text="Label" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Abf-a2-yfb" customClass="ActiveLabel" customModule="ActiveLabel">
                                             <rect key="frame" x="8" y="8" width="584" height="19"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="hashtagColor">
+                                                    <color key="value" red="0.52549019610000003" green="0.74509803919999995" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="userName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMz-aS-Drh">
                                             <rect key="frame" x="8" y="45" width="298" height="14"/>
@@ -286,7 +340,7 @@
             </objects>
             <point key="canvasLocation" x="2363" y="1622"/>
         </scene>
-        <!--나의 기록-->
+        <!--History Table View Controller-->
         <scene sceneID="xXU-YY-OHM">
             <objects>
                 <tableViewController id="qme-E6-JGm" customClass="HistoryTableViewController" customModule="Ssajul" customModuleProvider="target" sceneMemberID="viewController">
@@ -312,11 +366,11 @@
                             <outlet property="delegate" destination="qme-E6-JGm" id="WMi-iT-sVw"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" enabled="NO" title="나의 기록" image="Person" id="HKm-mm-jLK"/>
+                    <navigationItem key="navigationItem" id="aLg-Vy-Xno"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qee-Ti-VlJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3362" y="700"/>
+            <point key="canvasLocation" x="414" y="748"/>
         </scene>
         <!--베스트-->
         <scene sceneID="hNB-yX-fRu">
@@ -434,7 +488,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="88l-5v-7Mf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2593" y="700"/>
+            <point key="canvasLocation" x="3510" y="700"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="FZq-Gy-T96">
@@ -775,7 +829,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rY4-7B-zmq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1830" y="700"/>
+            <point key="canvasLocation" x="2748" y="700"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="dJE-Bw-0oI">
@@ -798,7 +852,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="gQc-Jm-Kdg">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Xbq-hb-CoF" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="Xbq-hb-CoF" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="t2u-Aa-zfb">
@@ -808,15 +862,34 @@
                     <connections>
                         <segue destination="ZnZ-ER-tyL" kind="relationship" relationship="viewControllers" id="Iez-Xr-yGt"/>
                         <segue destination="g7l-lI-MaV" kind="relationship" relationship="viewControllers" id="3h9-pZ-U8c"/>
-                        <segue destination="qme-E6-JGm" kind="relationship" relationship="viewControllers" id="9Dh-qa-27m"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ckg-Ru-PCM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1823" y="-138"/>
         </scene>
+        <!--나의 기록-->
+        <scene sceneID="zHX-FO-PuD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fab-PQ-DL3" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="나의 기록" image="Person" id="HKm-mm-jLK"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="K52-d3-J3Q">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="qme-E6-JGm" kind="relationship" relationship="rootViewController" id="rta-H0-TeX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5cl-aw-U7A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-504" y="748"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="Ball" width="25" height="25"/>
         <image name="BoardList" width="25" height="25"/>
         <image name="Clock-30.png" width="30" height="30"/>
         <image name="Person" width="25" height="25"/>

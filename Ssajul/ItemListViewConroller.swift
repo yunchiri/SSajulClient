@@ -9,26 +9,19 @@
 import UIKit
 import Alamofire
 import Kanna
+import GoogleMobileAds
 
 struct searchController{
-    var searchingKey : String = ""
-    var isSearch : Bool = false
     
-    struct searchType {
-        let title = "subject"
-        let nickname = "nickname"
-        let userId = "id"
-
-    }
 }
 
 
-class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,UISearchBarDelegate{
+class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,UISearchBarDelegate, UISearchResultsUpdating, GADInterstitialDelegate{
     
     var itemList = [Item]()
     var isLoading : Bool = false
     var isSearching : Bool = false
-    var searchingKey : String = ""
+//    var searchingKey : String = ""
     //    var selectedBoard : Board? = nil
     var currentPage : Int = 1
     
@@ -36,6 +29,8 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
     let searchController = UISearchController(searchResultsController: nil)
     //    @IBOutlet weak var uiWriteContentButton: UIBarButtonItem!
     
+    /// The interstitial ad.
+    var interstitial: GADInterstitial!
     
     
     override func viewDidLoad() {
@@ -56,6 +51,9 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         setUpTableView()
         setUpSearchBarController()
         
+        loadInterstitial()
+
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -74,21 +72,14 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         
         self.tabBarController?.navigationItem.title = SSajulClient.sharedInstance.selectedBoard?.name
         
-        if searchingKey.isEmpty == true {
-            self.title = SSajulClient.sharedInstance.selectedBoard?.name
-        }else{
-            self.title = searchingKey + "검색"
+        if SSajulClient.sharedInstance.isShowIntertitialAfter2Hour() == true {
+            showInterstitial()
         }
-        
     }
-    
-//    deinit{
-//        self.searchController.
-//    }
     
     
     func setUpTableView(){
-//        self.tabBarController?.navigationController?.hidesBarsWhenVerticallyCompact = true
+
         
         self.refreshControl?.addTarget(self, action: #selector(ItemListViewConroller.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.estimatedRowHeight = 30
@@ -97,43 +88,39 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         self.tabBarController?.tabBar.translucent = false
         self.tabBarController?.navigationController?.navigationBar.translucent = false
     }
+    
     func setUpSearchBarController(){
         searchController.searchBar.delegate = self
 //        searchController.searchResultsUpdater = self
         searchController.searchBar.scopeButtonTitles = ["제목", "필명", "아이디"]
         
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = true
-        searchController.dimsBackgroundDuringPresentation = true
+
         searchController.searchBar.sizeToFit()
         
         self.tableView.tableHeaderView = searchController.searchBar
     }
     
-//    func updateSearchResultsForSearchController(searchController: UISearchController) {
-//        print("serarch update" + String(searchController.searchBar.selectedScopeButtonIndex))
-//    }
-//    
-//    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-//        print("searchBarTextDidEndEditing")
-//    }
-//    
-//    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-//        print("searchBarCancelButtonClicked")
-//    }
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        print("serarch update" + String(searchController.searchBar.selectedScopeButtonIndex))
+        
+        
+    }
+
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        //        searchBar.selectedScopeButtonIndex
-//        print("searchBarSearchButtonClicked")
-        
-        guard searchBar.text?.isEmpty == false else {
-            return
-        }
-        
-        searchingKey = searchBar.text!
-        self.title = searchingKey + " 검색중"
-        self.searchController.searchBar.placeholder = searchingKey
+
+//        searchingKey = searchBar.text!
+//        self.title = searchingKey + " 검색중"
+//        self.searchController.searchBar.placeholder = searchingKey
         isSearching = true
+        currentPage = 1
+        itemList.removeAll()
+        updateBoardList()
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        isSearching = false
         currentPage = 1
         itemList.removeAll()
         updateBoardList()
@@ -229,7 +216,7 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
                 let alertController = UIAlertController(title: "이 게시판에는 글 못씀", message: "아마 꾸레들이 점령한듯...", preferredStyle: UIAlertControllerStyle.Alert)
                 
                 let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
-                    print("OK")
+//                    print("OK")
                 }
                 alertController.addAction(okAction)
                 self.presentViewController(alertController, animated: true, completion: nil)
@@ -260,7 +247,8 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         if isLoading == true { return }
         isLoading = true
         
-        if isSearching == true {
+        
+        if self.searchController.active == true && isSearching == true {
             //print( self.searchController.searchBar.text )
             
             var searchType = ""
@@ -279,7 +267,7 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
             //name
             //mem_id
             
-            url = SSajulClient.sharedInstance.urlForBoardItemSearchedList(currentPage, key: searchingKey , keyfield: searchType)
+            url = SSajulClient.sharedInstance.urlForBoardItemSearchedList(currentPage, key: self.searchController.searchBar.text! , keyfield: searchType)
         }else{
             url = SSajulClient.sharedInstance.urlForBoardItemList(currentPage)
         }
@@ -406,6 +394,52 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         }
     }
     
+    
+    
+    //AD
+    func showInterstitial(){
+        
+        if self.interstitial == nil {
+            return
+        }
+        
+        if self.interstitial!.isReady {
+            self.interstitial.presentFromRootViewController(self)
+            SSajulClient.sharedInstance.saveShowIntertitialDateTime()
+        }
+
+        
+    }
+    
+
+    
+    
+    func loadInterstitial() {
+        self.interstitial = GADInterstitial(adUnitID: "ca-app-pub-8030062085508715/4144217788")
+        
+        
+        self.interstitial.delegate = self
+        
+        // Request test ads on devices you specify. Your test device ID is printed to the console when
+        // an ad request is made. GADInterstitial automatically returns test ads when running on a
+        // simulator.
+        self.interstitial.loadRequest(GADRequest());
+    }
+    
+    
+    
+    func interstitialDidReceiveAd(ad: GADInterstitial!) {
+        //print("receiver")
+    }
+    func interstitialDidFailToReceiveAdWithError(interstitial: GADInterstitial,
+                                                 error: GADRequestError) {
+        //print("\(#function): \(error.localizedDescription)")
+    }
+    
+    func interstitialDidDismissScreen(interstitial: GADInterstitial) {
+        //        print(#function)
+        //        startNewGame()
+    }
     
     
 }

@@ -325,6 +325,32 @@ class SSajulClient  {
     
     }
     
+    
+    func isShowIntertitialAfter2Hour() -> Bool{
+        var result :  Bool = false
+        
+        if let lastShowInterstitialTime = NSUserDefaults.standardUserDefaults().objectForKey("lastShowInterstitialTime") {
+            
+            let inteval = NSDate().timeIntervalSinceDate(lastShowInterstitialTime as! NSDate)
+            
+            if inteval > 7200 {
+                result = true
+            }
+        }else{
+            saveShowIntertitialDateTime()
+        }
+        
+        
+        return result
+    }
+    
+    
+    func saveShowIntertitialDateTime(){
+        dispatch_async(dispatch_get_global_queue( QOS_CLASS_UTILITY, 0)) {
+            NSUserDefaults.standardUserDefaults().setObject(NSDate(), forKey: "lastShowInterstitialTime")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+    }
 
     
     

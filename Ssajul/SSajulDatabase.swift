@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import RealmSwift
+//import RealmSwift
 
 class SSajulDatabase{
     static let sharedInstance = SSajulClient()
