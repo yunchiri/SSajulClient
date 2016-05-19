@@ -21,11 +21,11 @@ class HistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        self.title = SSajulClient.sharedInstance.selectedItem?.title
+        self.title = "2"
         
         self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         
-        
+        self.tableView.contentInset = UIEdgeInsetsMake( 0, 50, 0, 0)
         //        self.title = SSajulClient.sharedInstance.selectedItem?.title
         setUp()
         //        loadingContent()
@@ -38,7 +38,7 @@ class HistoryTableViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.tabBarController?.navigationItem.rightBarButtonItem?.enabled = false
+//        self.tabBarController?.navigationItem.rightBarButtonItem?.enabled = false
     }
     
     func setUp(){
@@ -65,7 +65,8 @@ class HistoryTableViewController: UITableViewController {
             //            self.selectedCellLabel.text = items[indexPath]
         }
         
-        self.tabBarController?.navigationItem.titleView = menuView
+        self.navigationItem.titleView = menuView
+//        self.tabBarController?.navigationItem.titleView = menuView
     }
     
     

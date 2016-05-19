@@ -52,6 +52,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         webView2.stopLoading()
+        self.isLoading = false
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     }
     
@@ -173,7 +174,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                 
                 let dispatch_group = dispatch_group_create()
                 let highPriorityQueue = dispatch_get_main_queue()
-                let mediumPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+                let mediumPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 //
 //                //content
 //                
@@ -284,8 +285,10 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                     self.contentSize = 300
                 }
                 
-                self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
-                
+//                self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+                })
             }
         }
 
@@ -293,7 +296,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     }
     
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-//        print("didfinish Navigation");
+        print("didfinish Navigation");
         webView.evaluateJavaScript("document.height") { (result, error) in
             if error == nil {
 //                print(result as! CGFloat)
@@ -304,12 +307,16 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                 
                 if self.contentSize != finishContentSize {
                     self.contentSize =   result as! CGFloat
+                    print("didfinish Navigation is Loaing : " + self.isLoading.description);
                     
-//                    guard self.isLoading == true else{
-//                        return
-//                    }
+                    guard self.isLoading == false else{
+                        return
+                    }
                     
-                    self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+                    })
+                    
                 }
             }
         }
