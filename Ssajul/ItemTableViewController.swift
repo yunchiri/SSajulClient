@@ -313,7 +313,6 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                 }
             }
         }
-        self.isLoading = true
 
     }
 

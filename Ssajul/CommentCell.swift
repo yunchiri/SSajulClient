@@ -40,7 +40,9 @@ class CommentCell: UITableViewCell {
         self.userName.text = comment.userName
         
         if SSajulClient.sharedInstance.getLoginID() == comment.userID {
-            self.backgroundColor =  UIColor(red: 39.0, green: 44.0, blue: 79.0, alpha: 1.0)
+            self.backgroundColor =  UIColor.whiteColor()
+        }else{
+            self.backgroundColor =  UIColor.groupTableViewBackgroundColor()
         }
     }
     

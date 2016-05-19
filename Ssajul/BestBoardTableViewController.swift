@@ -17,6 +17,9 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
      var commentBestList = [Item]()
     
     var bestItemList = [Item]()
+
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +35,7 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
 //        self.title = SSajulClient.sharedInstance.selectedItem?.title
         
         loadingContent()
+        setUpAdmob()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -54,10 +58,23 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
         refreshControl.endRefreshing()
     }
     
+    func setUpAdmob(){
+        
+    }
+    
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         self.tableView.setContentOffset(CGPoint.zero, animated:true)
     }
     
+    
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView.init(frame: CGRectMake(0, 0, 320, 50))
+        
+        view.backgroundColor = UIColor.blueColor()
+        
+        return view
+    }
     
     // MARK: - Table view data source
     

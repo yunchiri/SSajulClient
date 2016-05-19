@@ -77,6 +77,11 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         }
     }
     
+    deinit{
+        if let superView = searchController.view.superview{
+            superView.removeFromSuperview()
+        }
+    }
     
     func setUpTableView(){
 
@@ -107,6 +112,7 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         
     }
 
+    // MARK: - SearchBar
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
 
@@ -138,13 +144,16 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         
     }
     
-
+    // MARK: - Tabbar
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-        self.tableView.setContentOffset(CGPoint.zero, animated:true)
+        if self.tableView.numberOfRowsInSection(0) > 0 {
+            let indexPath = NSIndexPath(forItem: 0, inSection: 0)
+            self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+        }
     }
     
-    
+    //
     
     func handleRefresh(refreshControl : UIRefreshControl){
         currentPage = 1

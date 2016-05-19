@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="t1B-GJ-vHU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="t1B-GJ-vHU">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -340,7 +340,7 @@
             </objects>
             <point key="canvasLocation" x="2363" y="1622"/>
         </scene>
-        <!--History Table View Controller-->
+        <!--test-->
         <scene sceneID="xXU-YY-OHM">
             <objects>
                 <tableViewController id="qme-E6-JGm" customClass="HistoryTableViewController" customModule="Ssajul" customModuleProvider="target" sceneMemberID="viewController">
@@ -366,7 +366,7 @@
                             <outlet property="delegate" destination="qme-E6-JGm" id="WMi-iT-sVw"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="aLg-Vy-Xno"/>
+                    <navigationItem key="navigationItem" title="test" id="aLg-Vy-Xno"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qee-Ti-VlJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -376,10 +376,15 @@
         <scene sceneID="hNB-yX-fRu">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="g7l-lI-MaV" customClass="BestBoardTableViewController" customModule="Ssajul" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="53" sectionHeaderHeight="28" sectionFooterHeight="28" id="QI8-aS-BuT">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" id="QI8-aS-BuT">
                         <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Q5g-3v-d4Y" customClass="ADBannerView">
+                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemCell" rowHeight="53" id="B6P-ja-hld" customClass="ItemCell" customModule="Ssajul" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="600" height="53"/>
@@ -548,7 +553,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" red="0.52549019610000003" green="0.74509803919999995" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.65295847799999995" green="0.74509803919999995" blue="0.2410108732" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Zk2-UC-bD6" firstAttribute="leading" secondItem="KuP-Rg-t57" secondAttribute="leading" id="2hF-iG-SNs"/>
                             <constraint firstAttribute="leadingMargin" secondItem="znM-Gb-qaL" secondAttribute="leading" id="3vF-GG-gKP"/>
@@ -896,6 +901,6 @@
         <image name="ThumbUp" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Aug-1r-Gbn"/>
+        <segue reference="Fss-xh-6lZ"/>
     </inferredMetricsTieBreakers>
 </document>
