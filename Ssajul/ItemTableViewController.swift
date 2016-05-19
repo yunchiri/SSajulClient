@@ -296,7 +296,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     }
     
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        print("didfinish Navigation");
+//        print("didfinish Navigation");
         webView.evaluateJavaScript("document.height") { (result, error) in
             if error == nil {
 //                print(result as! CGFloat)
@@ -307,7 +307,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                 
                 if self.contentSize != finishContentSize {
                     self.contentSize =   result as! CGFloat
-                    print("didfinish Navigation is Loaing : " + self.isLoading.description);
+//                    print("didfinish Navigation is Loaing : " + self.isLoading.description);
                     
                     guard self.isLoading == false else{
                         return

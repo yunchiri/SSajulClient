@@ -2,14 +2,14 @@ PODS:
   - ActiveLabel (0.5.0)
   - Alamofire (3.4.0)
   - BTNavigationDropdownMenu (0.3)
-  - Google-Mobile-Ads-SDK (7.8.0)
+  - Google-Mobile-Ads-SDK (7.8.1)
   - Kanna (1.0.6)
   - KMPlaceholderTextView (1.2.0)
-  - Realm (0.102.0):
-    - Realm/Headers (= 0.102.0)
-  - Realm/Headers (0.102.0)
-  - RealmSwift (0.102.0):
-    - Realm (= 0.102.0)
+  - Realm (0.103.0):
+    - Realm/Headers (= 0.103.0)
+  - Realm/Headers (0.103.0)
+  - RealmSwift (0.103.0):
+    - Realm (= 0.103.0)
 
 DEPENDENCIES:
   - ActiveLabel
@@ -24,10 +24,10 @@ SPEC CHECKSUMS:
   ActiveLabel: c7b011767b5660faacf8a3629174a9a775886b8d
   Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
   BTNavigationDropdownMenu: c36d20785253699046fdd295698c24b1d1c18f53
-  Google-Mobile-Ads-SDK: 36b88dd2373f0ee4583e65971cb07b6965c29eef
+  Google-Mobile-Ads-SDK: 3c2a6656117989469bfe7645640aa1de024a4c6c
   Kanna: 9f30945bbd293a609f698ea164687ccc0990ff60
   KMPlaceholderTextView: cae8ee889bd38d20587eee6b2623b8218f31b8f5
-  Realm: 5d219f9037e3ec2019c599b8227bfc95433cb10e
-  RealmSwift: e6f436f9fea1c57b9ad6d1c46d57562c845f3c4c
+  Realm: 99c44c3a9e075638478d4134e28d9026a6de07c4
+  RealmSwift: daaa1789eb581f2f8c2a05a25f463a6f70df5a5f
 
 COCOAPODS: 0.39.0

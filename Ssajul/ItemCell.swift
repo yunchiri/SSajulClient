@@ -21,6 +21,9 @@ class ItemCell: UITableViewCell {
     
     @IBOutlet weak var readCount: UILabel!
     
+    @IBOutlet weak var voteUpAndDown: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -44,7 +47,7 @@ class ItemCell: UITableViewCell {
         self.createAt.text = item.createAt
         self.commentCount.text = String(item.commentCount)
         self.readCount.text = "조회 : " + String(item.readCount)
-        
+        self.voteUpAndDown.text = "추천 : " + String(item.voteUp) + " / " + String(item.voteDown)
         
         if item.commentCount > 10 {
             self.commentCount.font = UIFont.boldSystemFontOfSize(11)
@@ -63,6 +66,12 @@ class ItemCell: UITableViewCell {
         }else{
             self.readCount.font = UIFont.systemFontOfSize(10)
             self.readCount.backgroundColor = UIColor.clearColor()
+        }
+        
+        if item.voteUp + item.voteDown > 0 {
+            self.voteUpAndDown.backgroundColor = UIColor.init(red: 0.996, green: 0.812, blue: 0.196, alpha: 1)
+        }else{
+            self.voteUpAndDown.backgroundColor = UIColor.clearColor()
         }
         
     }

@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import Kanna
 
+
 class BestBoardTableViewController: UITableViewController ,UITabBarControllerDelegate{
 
      var realtimeBestList = [Item]()
@@ -36,6 +37,7 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
         
         loadingContent()
         setUpAdmob()
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -68,13 +70,13 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
     
     
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView.init(frame: CGRectMake(0, 0, 320, 50))
-        
-        view.backgroundColor = UIColor.blueColor()
-        
-        return view
-    }
+//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let view = UIView.init(frame: CGRectMake(0, 0, 320, 50))
+//        
+//        view.backgroundColor = UIColor.blueColor()
+//        
+//        return view
+//    }
     
     // MARK: - Table view data source
     
