@@ -2,7 +2,7 @@
 //  ItemTableViewController.swift
 //  Ssajul
 //
-//  Created by 서 홍원 on 2016. 3. 4..
+//  Created by 김영칠 on 2016. 3. 4..
 //  Copyright © 2016년 youngchill. All rights reserved.
 //
 
@@ -10,8 +10,9 @@ import UIKit
 import WebKit
 import Alamofire
 import Kanna
-
-
+import ChameleonFramework
+import SVProgressHUD
+import GoogleMobileAds
 
 class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigationDelegate, CommentWriteCellDelegate {
     
@@ -36,27 +37,32 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUp()
-        loadingContent();        
+        loadingContent();
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-       // SSajulClient.sharedInstance.saveWatching()
-
-        
+        // SSajulClient.sharedInstance.saveWatching()
+        SVProgressHUD.setMinimumDismissTimeInterval(1)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        SSajulDatabase.sharedInstance.saveReadHistory(SSajulClient.sharedInstance.selectedBoard!, item: SSajulClient.sharedInstance.selectedItem!)
+        
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
         webView2.stopLoading()
         self.isLoading = false
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        webView2.removeFromSuperview()
     }
-    
-    
     
     func handleRefresh(refreshControl : UIRefreshControl){
         
@@ -82,12 +88,26 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         
     }
     
+    deinit{
+        webView2.removeFromSuperview()
+    }
     
+    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+    }
     
     
     @IBAction func addComent(sender: AnyObject) {
         self.tableView.endEditing(true)
     }
+    
+    @IBAction func getContentLast(sender: AnyObject) {
+        if self.tableView.numberOfRowsInSection(0) > 0 {
+            let indexPath = NSIndexPath(forItem: self.commentList.count + 2, inSection: 0)
+            self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+        }
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -101,7 +121,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return commentList.count + 3
+        return commentList.count + 3 + 1 //1 is ad
     }
     
     
@@ -130,7 +150,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
             return cell
         }
         
-        if indexPath.row == commentList.count + 2 {
+        if indexPath.row == commentList.count + 3 {
             
             let cell2 = tableView.dequeueReusableCellWithIdentifier("commentWriteCell", forIndexPath: indexPath) as! CommentWriteCell
             
@@ -140,11 +160,27 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
             return cell2
         }
         
+        if indexPath.row == commentList.count + 2 {
+            
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("admobNativeCell", forIndexPath: indexPath) as! AdCell
+            
+            
+            cell.nativeExpressAdvieW.adUnitID = "ca-app-pub-8030062085508715/5496621388"
+            cell.nativeExpressAdvieW.rootViewController = self
+            
+            let request = GADRequest()
+            //request.testDevices = [kGADSimulatorID]
+            cell.nativeExpressAdvieW.loadRequest(request)
+            
+            return cell
+        }
+        
         
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! CommentCell
         
         cell.setComment(commentList[indexPath.row - 2])
-
+        
         return cell
     }
     
@@ -165,26 +201,74 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         Alamofire.request(.GET, url)
             .responseString(encoding: NSUTF8StringEncoding  ) { response in
                 
-                guard let doc = Kanna.HTML(html: response.description, encoding: NSUTF8StringEncoding) else { return }
-   
                 
-                let content : XMLElement = doc.css("div#articleView").first!
+                
+                if response.result.isFailure == true{
+                    self.isLoading = false
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    return
+                }
+                
+                guard let doc = Kanna.HTML(html: response.description, encoding: NSUTF8StringEncoding) else {
+                    self.isLoading = false
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    return
+                }
+                
+                guard doc.text?.containsString("이미 삭제") == false else {
+                    self.isLoading = false
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    
+                    let alertController = UIAlertController(title: "번개처럼 삭제~", message: " - 주멘 -", preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+//                        print("OK")
+                    }
+                    alertController.addAction(okAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    
+                    return
+                }
+                
+                guard doc.text?.containsString("Bad Gateway") == false else {
+                    self.isLoading = false
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    
+                    let alertController = UIAlertController(title: "502 Bad Gateway 탈세급 오류", message: " - 어리둥절 -", preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                        print("OK")
+                    }
+                    alertController.addAction(okAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    
+                    return
+                }
+                
+                
+                guard let content:XMLElement =  doc.css("div#articleView").first else {
+                    self.isLoading = false
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    return
+                }
+                
+//                let content : XMLElement = doc.css("div#articleView").first!
                 
                 let htmlCode =  SSajulClient.sharedInstance.createHTML3(content.toHTML!)
                 
                 let dispatch_group = dispatch_group_create()
                 let highPriorityQueue = dispatch_get_main_queue()
-                let mediumPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-//
-//                //content
-//                
-//                
+//                let mediumPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+                //
+                //                //content
+                //
+                //
                 dispatch_group_async(dispatch_group, highPriorityQueue, {
                     self.webView2.loadHTMLString(htmlCode, baseURL: nil)
                 })
                 
                 
-                dispatch_group_async(dispatch_group,mediumPriorityQueue , {
+                dispatch_group_async(dispatch_group,highPriorityQueue , {
                     let commentHtml = doc.xpath("//div[3]/ul/li")
                     
                     if self.commentList.count > 0 {
@@ -196,6 +280,8 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                             continue
                         }
                         self.commentList.append(self.createComment(comment))
+                        
+                        SSajulClient.sharedInstance.selectedItem?.commentCount = self.commentList.count
                     }
                     
                 })
@@ -205,25 +291,25 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                     self.isLoading = false
                 })
                 
-                    
-//                    //content
-//                    dispatch_async(dispatch_get_main_queue(), {
-//                        self.webView2.loadHTMLString(htmlCode, baseURL: nil)
-//                    })
-//                    
-//                    let commentHtml = doc.xpath("//div[3]/ul/li")
-//                    
-//                    if self.commentList.count > 0 {
-//                        self.commentList.removeAll()
-//                    }
-//                    
-//                    for comment in  commentHtml{
-//                        guard comment.xpath("p").count >= 2 else {
-//                            continue
-//                        }
-//                        self.commentList.append(self.createComment(comment))
-//                    }
-//                    self.tableView.reloadData()
+                
+                //                    //content
+                //                    dispatch_async(dispatch_get_main_queue(), {
+                //                        self.webView2.loadHTMLString(htmlCode, baseURL: nil)
+                //                    })
+                //
+                //                    let commentHtml = doc.xpath("//div[3]/ul/li")
+                //
+                //                    if self.commentList.count > 0 {
+                //                        self.commentList.removeAll()
+                //                    }
+                //
+                //                    for comment in  commentHtml{
+                //                        guard comment.xpath("p").count >= 2 else {
+                //                            continue
+                //                        }
+                //                        self.commentList.append(self.createComment(comment))
+                //                    }
+                //                    self.tableView.reloadData()
                 
         }
     }
@@ -234,18 +320,32 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         
         
         var newComment = Comment()
+
+        guard let content = (commentHTML.xpath("p").first?.text) else {
+            return newComment
+        }
         
-        let commentDetail = (commentHTML.xpath("p").last?.text)!
         
-        newComment.content = (commentHTML.xpath("p").first?.text)!
+        newComment.content = content
+
+        
+        guard let commentDetail = (commentHTML.xpath("p").last?.text) else {
+            
+            return newComment
+        }
+        
+        
         newComment.userInfo = commentDetail
+        
         
         var commentDetailList = commentDetail.characters.split("-").map(String.init)
         
+        
         if commentDetailList.count > 3 {
             
-            for var y in 1..<commentDetailList.count - 2 {
-                commentDetailList[0] = commentDetailList[0] + "-" + commentDetailList[y]
+            
+            for idxDashInId in 1..<commentDetailList.count - 2 {
+                commentDetailList[0] = commentDetailList[0] + "-" + commentDetailList[idxDashInId]
             }
             
         }
@@ -267,14 +367,14 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     
     
     func webView(webView: WKWebView, didCommitNavigation navigation: WKNavigation!) {
-//        print("didCommitNavigation");
+        //        print("didCommitNavigation");
         if isLoading == true {
             return
         }
         
         webView.evaluateJavaScript("document.height") { (result, error) in
             if error == nil {
-//                print(result as! CGFloat)
+                //                print(result as! CGFloat)
                 guard result is CGFloat else {
                     return
                 }
@@ -285,21 +385,21 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                     self.contentSize = 300
                 }
                 
-//                self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+                //                self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadRowsAtIndexPaths( [NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
                 })
             }
         }
-
+        
         
     }
     
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-//        print("didfinish Navigation");
+        //        print("didfinish Navigation");
         webView.evaluateJavaScript("document.height") { (result, error) in
             if error == nil {
-//                print(result as! CGFloat)
+                //                print(result as! CGFloat)
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 
                 
@@ -307,7 +407,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                 
                 if self.contentSize != finishContentSize {
                     self.contentSize =   result as! CGFloat
-//                    print("didfinish Navigation is Loaing : " + self.isLoading.description);
+                    //                    print("didfinish Navigation is Loaing : " + self.isLoading.description);
                     
                     guard self.isLoading == false else{
                         return
@@ -320,9 +420,9 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                 }
             }
         }
-
+        
     }
-
+    
     
     //댓글
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -331,6 +431,10 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         }
         
         if indexPath.row == commentList.count + 2 {
+            return 132
+        }
+        
+        if indexPath.row == commentList.count + 3 {
             return 120
         }
         return UITableViewAutomaticDimension
@@ -359,13 +463,15 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         
-        if SSajulClient.sharedInstance.isLogin() == false {
-            return false
-        }
+
         
         if indexPath.row == CellType.header.rawValue {
             return true
         }
+        
+//        if SSajulClient.sharedInstance.isLogin() == false {
+//            return false
+//        }
         
         if indexPath.row == commentList.count + 2 {
             return false
@@ -379,9 +485,9 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         
         if cell is CommentCell {
             
-//            if cell._comment?.userID == SSajulClient.sharedInstance.getLoginID() {
-                return true
-//            }
+            //            if cell._comment?.userID == SSajulClient.sharedInstance.getLoginID() {
+            return true
+            //            }
         }
         
         
@@ -390,18 +496,31 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-
-
+        
+        
         if indexPath.row == CellType.header.rawValue{
-            let deleteItem = UITableViewRowAction(style: .Normal, title: "글삭제") { (action, index) in
-                print("delete header")
+//            let deleteItem = UITableViewRowAction(style: .Normal, title: "글삭제") { (action, index) in
+//                print("delete header")
+//                
+//                
+//            }ㅇ//            deleteItem.backgroundColor = UIColor.redColor()
+            
+            
+            let favoriteItem = UITableViewRowAction(style: .Default, title: "관심글") { (action, index) in
                 
+                SSajulDatabase.sharedInstance.saveFavoriteHistory(SSajulClient.sharedInstance.selectedBoard!, item: SSajulClient.sharedInstance.selectedItem!)
+                SVProgressHUD.showSuccessWithStatus("꼴꼴꼬르르를르ㅡㄹ르~~")
+  
+                
+                tableView.setEditing(false, animated: true)
                 
             }
             
-            deleteItem.backgroundColor = UIColor.redColor()
+            favoriteItem.backgroundColor = FlatLime()
             
-            return [deleteItem]
+            
+//            return [deleteItem, favoriteItem]
+            return [favoriteItem]
         }
         
         
@@ -412,57 +531,39 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
             //delete this comment
         }
         
-
+        
         
         
         
         delete.backgroundColor = UIColor.redColor()
-//
+        //
         let voteUp = UITableViewRowAction(style: .Normal, title: "추천") { (action, index) in
             print("voteUp")
             
             
         }
-//
-//        
-//        voteUp.backgroundColor = UIColor.greenColor()
-//        
-//        
-//        let voteDown = UITableViewRowAction(style: .Normal, title: "비추천") { (action, index) in
-//            print("voteDown")
-//            
-//            
-//        }
-//        
-//        
-//        voteDown.backgroundColor = UIColor.grayColor()
-//        
-//        
-//        let cell = tableView.cellForRowAtIndexPath(indexPath)
-//        
-//        if cell is CommentCell {
-//            let comment = (cell as! CommentCell)._comment
-//            if comment?.userID == SSajulClient.sharedInstance.getLoginID() {
-//                return [voteDown, voteUp ,delete]
-//            }
-//        }
+
         
         return [ delete , voteUp ]
         
     }
-
-
-  
+    
+    
+    
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-
+        
         //guard indexPath.row == CellType.body
         
     }
     
     
     func  commentDidPost() {
+        
+        
+        SSajulDatabase.sharedInstance.saveCommentHistory(SSajulClient.sharedInstance.selectedBoard!, item: SSajulClient.sharedInstance.selectedItem!)
         self.loadingContent()
+        SVProgressHUD.showSuccessWithStatus("")
     }
     
     func needLogin() {
@@ -477,10 +578,10 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     
     @IBAction func share(sender: AnyObject) {
         
-                 let firstActivityItem = SSajulClient.sharedInstance.urlForContent()
-                 let activityViewController : UIActivityViewController = UIActivityViewController(activityItems: [firstActivityItem], applicationActivities: nil)
-              self.presentViewController(activityViewController, animated: true, completion: nil)
-
+        let firstActivityItem = SSajulClient.sharedInstance.urlForContent()
+        let activityViewController : UIActivityViewController = UIActivityViewController(activityItems: [firstActivityItem], applicationActivities: nil)
+        self.presentViewController(activityViewController, animated: true, completion: nil)
+        
     }
     
 }

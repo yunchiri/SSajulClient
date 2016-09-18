@@ -19,6 +19,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ChameleonFramework.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>CocoaLumberjack.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Colours.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>KMPlaceholderTextView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -29,7 +44,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods.xcscheme</key>
+		<key>PagingMenuController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Ssajul.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -44,10 +64,20 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SVProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2611FF8B7A1EA438C3C60AE458AD6A2E</key>
+		<key>24CAC349573DB0DE0BC60EEFB14F8B8D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2DE712EAA78E910FE3A8F77D833F0767</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,7 +87,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5D64EFD8F4A12C16EC5BA047E92A1C2D</key>
+		<key>5172ACAB7FEA22813859DC97CA0AA16F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>54FD5C1F2EAFFBE465D531CF72DFCA77</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5D9D297325978BDCEA36E78ABC869009</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,12 +107,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>8D3EA261F0A9E918CEFDE3CA4808AB4D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A629B6649701A9A1709934D25EB5CCC9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B6312CAD7E18804AD5E11308495CFD52</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E0346471F7D831C4C21AD0A87638EAE1</key>
+		<key>D082FD9722F53B9C3A1229257D4008F7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

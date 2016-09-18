@@ -7,26 +7,80 @@
 //
 
 import Foundation
-//import RealmSwift
+import RealmSwift
 
 class SSajulDatabase{
-    static let sharedInstance = SSajulClient()
+    static let sharedInstance = SSajulDatabase()
     
-    func saveWatching() {
+    func saveReadHistory(board : Board, item : Item) {
         
         
         let history = History()
-        //        history.type = historyType.comment.rawValue
-//        history.boardId = (selectedBoard?.boardID)!
-//        history.uid = (selectedItem?.uid)!
-//        history.title = (selectedItem?.title)!
         
-//        let realm = try! Realm(History)
-//        
-//        try! realm.write {
-//            realm.add(history)
-//        }
+        history.type = HistoryType.Read
+        
+        history.key = "(\(history.type) \(item.uid)"
+        history.setBoard(board)
+        history.setItem(item)
+        
+        history.updateAt = NSDate()
+        
+        
+        let realm = try! Realm()
+        
+        try! realm.write {
+            realm.add(history, update: true)
+        }
     }
+    
+    
+    func saveFavoriteHistory(board : Board, item : Item) {
+        
+        
+        let history = History()
+        
+        history.type = HistoryType.Favorite
+        
+        history.key = "(\(history.type) \(item.uid)"        
+        history.setBoard(board)
+        history.setItem(item)
+        
+        history.updateAt = NSDate()
+        
+        
+        let realm = try! Realm()
+        
+        try! realm.write {
+        realm.add(history, update: true)
+        }
+    }
+    
+    func saveWirteHistory(){
+        
+    }
+    
+    func saveCommentHistory(board : Board, item : Item) {
+        
+        
+        let history = History()
+        
+        history.type = HistoryType.Comment
+        
+        history.key = "(\(history.type) \(item.uid)"
+        history.setBoard(board)
+        history.setItem(item)
+        
+        history.updateAt = NSDate()
+        
+        
+        let realm = try! Realm()
+        
+        try! realm.write {
+            realm.add(history, update: true)
+        }
+        
+    }
+    
     
     
 }

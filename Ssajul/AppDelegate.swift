@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import ChameleonFramework
+import Fabric
+import Crashlytics
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,10 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-//        let splitViewController = self.window!.rootViewController as! UISplitViewController
-//        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-//        navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
-//        splitViewController.delegate = self
+//        Fabric.with([Crashlytics.self])
+
+        
+//        Chameleon.setGlobalThemeUsingPrimaryColor(FlatNavyBlueDark(),
+//                                                  withSecondaryColor: FlatWhiteDark(),
+//                                                  andContentStyle: UIContentStyle.Contrast)
+//        
         return true
     }
 

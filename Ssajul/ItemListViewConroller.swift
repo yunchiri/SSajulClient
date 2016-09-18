@@ -10,13 +10,15 @@ import UIKit
 import Alamofire
 import Kanna
 import GoogleMobileAds
+import ChameleonFramework
+import WebKit
 
 struct searchController{
     
 }
 
 
-class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,UISearchBarDelegate, UISearchResultsUpdating, GADInterstitialDelegate{
+class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate,GADInterstitialDelegate{
     
     var itemList = [Item]()
     var isLoading : Bool = false
@@ -43,7 +45,7 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         updateBoardList()
         
         
-
+        
         
         self.uiWriteContentButton =  UIBarButtonItem(title: "글쓰기", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ItemListViewConroller.pushWriteViewController(_:)) );
         self.tabBarController?.navigationItem.rightBarButtonItem = uiWriteContentButton
@@ -51,7 +53,9 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         setUpTableView()
         setUpSearchBarController()
         
-        loadInterstitial()
+
+        
+//        loadInterstitial()
 
         
     }
@@ -72,15 +76,17 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         
         self.tabBarController?.navigationItem.title = SSajulClient.sharedInstance.selectedBoard?.name
         
-        if SSajulClient.sharedInstance.isShowIntertitialAfter2Hour() == true {
-            showInterstitial()
-        }
+//        if SSajulClient.sharedInstance.isShowIntertitialAfter2Hour() == true {
+//            showInterstitial()
+//        }
     }
     
     deinit{
         if let superView = searchController.view.superview{
             superView.removeFromSuperview()
         }
+        
+        
     }
     
     func setUpTableView(){
@@ -97,7 +103,22 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
     func setUpSearchBarController(){
         searchController.searchBar.delegate = self
 //        searchController.searchResultsUpdater = self
-        searchController.searchBar.scopeButtonTitles = ["제목", "필명", "아이디"]
+        if SSajulClient.sharedInstance.isLogin() == true {
+            searchController.searchBar.scopeButtonTitles = ["제목", "필명", "아이디","내가쓴글"]
+        }else{
+            searchController.searchBar.scopeButtonTitles = ["제목", "필명", "아이디"]
+        }
+        
+        
+        
+//        let textFieldInsideSearchBar = searchController.searchBar.valueForKey("searchField") as? UITextField
+//        textFieldInsideSearchBar?.textColor = UIColor.whiteColor()
+        
+        
+        searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSForegroundColorAttributeName : FlatBlackDark()], forState: UIControlState.Normal)
+        
+        searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSForegroundColorAttributeName : FlatWhite()], forState: UIControlState.Selected)
+        
         
         searchController.obscuresBackgroundDuringPresentation = false
 
@@ -150,6 +171,11 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         if self.tableView.numberOfRowsInSection(0) > 0 {
             let indexPath = NSIndexPath(forItem: 0, inSection: 0)
             self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+            
+            if self.tableView.contentOffset.y == self.searchController.searchBar.frame.height {
+                handleRefresh(self.refreshControl!)
+                
+            }
         }
     }
     
@@ -183,6 +209,24 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        
+        
+        
+        if itemList[indexPath.row].title == "ADMOBNATIVE" {
+            let cell = tableView.dequeueReusableCellWithIdentifier("admobNativeCell", forIndexPath: indexPath) as! AdCell
+            
+            
+            cell.nativeExpressAdvieW.adUnitID = "ca-app-pub-8030062085508715/2596335385"
+            cell.nativeExpressAdvieW.rootViewController = self
+            
+            let request = GADRequest()
+            //request.testDevices = [kGADSimulatorID]
+            cell.nativeExpressAdvieW.loadRequest(request)
+            
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("itemCell", forIndexPath: indexPath) as! ItemCell
         
         
@@ -192,8 +236,18 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         return cell
     }
     
+
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     
+        if itemList[indexPath.row].title == "ADMOBNATIVE" {
+
+            return 80
+        }
+        
+        
+        return UITableViewAutomaticDimension
+    }
     
     
     // MARK: - Navigation
@@ -269,6 +323,8 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
                 searchType = "name"
             case 2 :
                 searchType = "mem_id"
+            case 3 :
+                searchType = "myContent"
             default:
                 searchType = "subject"
             }
@@ -285,124 +341,163 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         
         //if isSearching
         
-        parsing(url)
+        getItemList(url)
     }
     
-    func parsing(url : String){
+    func getItemListWebviewEngine(url : String){
         
-
+        SSajulClient.sharedInstance.webView2.navigationDelegate = self
+        SSajulClient.sharedInstance.webView2.loadRequest(NSURLRequest.init(URL: NSURL.init(string: url)!))
         
+    }
+    
+    func getItemList(url : String){
+        
+        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         Alamofire.request(.GET, url)
             .responseString(encoding:CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ) { response in
                 
-                if let doc = Kanna.HTML(html: response.description, encoding: NSUTF8StringEncoding){
-                    
-                    let element : XMLElement? = doc.css("table.te2").first
-                    
-                    guard element != nil else {
-                        self.isLoading = false
-                        return
+                if response.result.isFailure == true{
+//                    self.isLoading = false
+                    if ((response.result.error?.description.containsString("serialized")) == true){
+                        self.getItemListWebviewEngine(url)
                     }
                     
-                    
-                    for xxx in  (element as XMLElement?)!.css("tr"){
-                        
-                        let verifyItem = xxx.toHTML as String!
-                        
-                        if verifyItem.containsString("<tr height=\"2\">"){ continue }
-                        
-                        if verifyItem.containsString("<tr height=\"20\">") {continue}
-                        
-                        if verifyItem.containsString("<td colspan=\"8\"") {continue}
-                        
-                        
-                        
-                        
-                        let searchCharacter: Character = "="
-                        let searchCharacterQueto: Character = "&"
-                        
-                        let href = xxx.xpath("td[2]/a/@href").first?.text as String!
-                        
-                        let indexOfStart = href.lowercaseString.characters.indexOf(searchCharacter)!.advancedBy(1)
-                        let indexOfEnd = href.lowercaseString.characters.indexOf(searchCharacterQueto)!.advancedBy(0)
-                        let range = Range.init(start: indexOfStart, end: indexOfEnd)
-                        
-                        let preUid = href.substringWithRange(range)
-                        
-                        //                        newItem.uid = href.substringWithRange(range)
-                        
-                        if self.itemList.count > 0 {
-                            
-                            if self.itemList.contains({ (Item) -> Bool in
-                                if Item.uid == preUid { return true }
-                                return false
-                            }) == true {
-                                //                                print("exist uid")
-                                continue
-                            }
-                            
-                        }
-                        var newItem = Item()
-                        
-                        newItem.uid = preUid
-                        
-                        newItem.title = xxx.xpath("td[2]").first?.text as String!
-                        newItem.title = newItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-                        
-                        //comment parsing
-                        if newItem.title.containsString("[") == false || newItem.title.characters.last != "]" {
-                            newItem.commentCount = 0
-                        }else{
-                            var indexOfCommentCount = 1
-                            for char in newItem.title.characters.reverse() {
-                                if char == "[" {
-                                    break;
-                                }
-                                indexOfCommentCount = indexOfCommentCount + 1;
-                            }
-                            let commentStartIndex = newItem.title.endIndex.advancedBy( -indexOfCommentCount )
-                            let commentCountString = newItem.title.substringFromIndex(  commentStartIndex )
-                            
-                            let commentCount = String(String(commentCountString.characters.dropLast()).characters.dropFirst())
-                            
-                            if  let commentCountInt = Int(commentCount) {
-                                newItem.commentCount = commentCountInt
-                                newItem.title.removeRange(Range.init(start: commentStartIndex, end: newItem.title.endIndex ))
-                                
-//                                newItem.title.removeRange(Range.init( commentStartIndex ..< newItem.title.endIndex ))
-                                newItem.title = newItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-                            }else {
-                                newItem.commentCount = 0
-                            }
-                            
-                        }
-                        
-                        
-                        newItem.userName = xxx.xpath("td[3]").first?.text as String!
-                        newItem.createAt = xxx.xpath("td[4]").first?.text as String!
-                        
-                        if let readCount = Int((xxx.xpath("td[5]").first?.text)!) {
-                            newItem.readCount = readCount
-                        }
-                        let upAndDown = (xxx.xpath("td[6]").first?.text)!
-                        if let voteUp = Int(upAndDown.substringToIndex( upAndDown.startIndex.advancedBy(1))) {
-                            newItem.voteUp = voteUp
-                        }
-                        
-                        if let voteDown = Int(upAndDown.substringFromIndex( upAndDown.endIndex.advancedBy(-1))){
-                            newItem.voteDown = voteDown
-                        }
-                        
-                        self.itemList.append(newItem)
-                        
-                    }
-                    self.tableView.reloadData()
-                    self.isLoading = false
+                    return
                 }
+                
+                self.parsing(response.description)
+                
                 
         }
     }
     
+    func parsing(htmlString : String) {
+        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        
+        if let doc = Kanna.HTML(html: htmlString, encoding: NSUTF8StringEncoding){
+            
+            guard let element : XMLElement? = doc.css("table.te2").first else {
+                self.isLoading = false
+                return
+            }
+            
+            
+            guard element != nil else {
+                self.isLoading = false
+                return
+            }
+            
+            
+            for xxx in  (element as XMLElement?)!.css("tr"){
+                
+                let verifyItem = xxx.toHTML as String!
+                
+                if verifyItem.containsString("<tr height=\"2\">"){ continue }
+                
+                if verifyItem.containsString("<tr height=\"20\">") {continue}
+                
+                if verifyItem.containsString("<td colspan=\"8\"") {continue}
+                
+                
+                
+                
+                let searchCharacter: Character = "="
+                let searchCharacterQueto: Character = "&"
+                
+                guard let href = xxx.xpath("td[2]/a/@href").first?.text as String! else {
+                    continue
+                }
+                
+                let indexOfStart = href.lowercaseString.characters.indexOf(searchCharacter)!.advancedBy(1)
+                let indexOfEnd = href.lowercaseString.characters.indexOf(searchCharacterQueto)!.advancedBy(0)
+                let range = Range.init(indexOfStart ..< indexOfEnd)// Range.init(start: indexOfStart, end: indexOfEnd)
+                
+                
+                let preUid = href.substringWithRange(range)
+                
+                
+                if self.itemList.count > 0 {
+                    
+                    if self.itemList.contains({ (Item) -> Bool in
+                        if Item.uid == preUid { return true }
+                        return false
+                    }) == true {
+                        continue
+                    }
+                    
+                }
+                
+                var newItem = Item()
+                
+                newItem.uid = preUid
+                
+                newItem.title = xxx.xpath("td[2]").first?.text as String!
+                
+                newItem.title = newItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                
+                //comment parsing
+                if newItem.title.containsString("[") == false || newItem.title.characters.last != "]" {
+                    newItem.commentCount = 0
+                }else{
+                    var indexOfCommentCount = 1
+                    for char in newItem.title.characters.reverse() {
+                        if char == "[" {
+                            break;
+                        }
+                        indexOfCommentCount = indexOfCommentCount + 1;
+                    }
+                    let commentStartIndex = newItem.title.endIndex.advancedBy( -indexOfCommentCount )
+                    let commentCountString = newItem.title.substringFromIndex(  commentStartIndex )
+                    
+                    let commentCount = String(String(commentCountString.characters.dropLast()).characters.dropFirst())
+                    
+                    if  let commentCountInt = Int(commentCount) {
+                        newItem.commentCount = commentCountInt
+                        //                                newItem.title.removeRange(Range.init(start: commentStartIndex, end: newItem.title.endIndex ))
+                        
+                        newItem.title.removeRange(Range.init( commentStartIndex ..< newItem.title.endIndex ))
+                        newItem.title = newItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                    }else {
+                        newItem.commentCount = 0
+                    }
+                    
+                }
+                
+                
+                newItem.userName = xxx.xpath("td[3]").first?.text as String!
+                newItem.createAt = xxx.xpath("td[4]").first?.text as String!
+                
+                if let readCount = Int((xxx.xpath("td[5]").first?.text)!) {
+                    newItem.readCount = readCount
+                }
+                if let upAndDown = (xxx.xpath("td[6]").first?.text) {
+                    if let voteUp = Int(upAndDown.substringToIndex( upAndDown.startIndex.advancedBy(1))) {
+                        newItem.voteUp = voteUp
+                    }
+                    
+                    if let voteDown = Int(upAndDown.substringFromIndex( upAndDown.endIndex.advancedBy(-1))){
+                        newItem.voteDown = voteDown
+                    }
+                }
+                
+                
+                self.itemList.append(newItem)
+                
+            }
+            if itemList.count > 20 {
+                var adItem = Item()
+                adItem.title = "ADMOBNATIVE"
+
+                self.itemList.insert( adItem , atIndex: itemList.count - 10)
+            }
+            
+            self.tableView.reloadData()
+            self.isLoading = false
+        }
+    }
     
     
     //AD
@@ -420,7 +515,15 @@ class ItemListViewConroller: UITableViewController , UITabBarControllerDelegate,
         
     }
     
-
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+  
+        SSajulClient.sharedInstance.webView2.evaluateJavaScript("document.documentElement.outerHTML.toString()",
+                                                                completionHandler: { (html: AnyObject?, error: NSError?) in
+                                                                    self.parsing(html as! String)
+//                                                                    print(html)
+        })
+        
+    }
     
     
     func loadInterstitial() {

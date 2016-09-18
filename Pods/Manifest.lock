@@ -1,33 +1,65 @@
 PODS:
-  - ActiveLabel (0.5.0)
-  - Alamofire (3.4.0)
-  - BTNavigationDropdownMenu (0.3)
-  - Google-Mobile-Ads-SDK (7.8.1)
+  - ActiveLabel (0.6.0)
+  - Alamofire (3.4.1)
+  - BTNavigationDropdownMenu (0.4.1)
+  - ChameleonFramework/Default (2.1.0)
+  - ChameleonFramework/Swift (2.1.0):
+    - ChameleonFramework/Default
+  - CocoaLumberjack/Core (2.3.0)
+  - CocoaLumberjack/Default (2.3.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.3.0):
+    - CocoaLumberjack/Default
+  - CocoaLumberjack/Swift (2.3.0):
+    - CocoaLumberjack/Extensions
+  - Colours/Swift (5.13.0)
+  - Crashlytics (3.7.3):
+    - Fabric (~> 1.6.3)
+  - Fabric (1.6.8)
+  - Google-Mobile-Ads-SDK (7.9.1)
   - Kanna (1.0.6)
-  - KMPlaceholderTextView (1.2.0)
-  - Realm (0.103.0):
-    - Realm/Headers (= 0.103.0)
-  - Realm/Headers (0.103.0)
-  - RealmSwift (0.103.0):
-    - Realm (= 0.103.0)
+  - KMPlaceholderTextView (1.2.2)
+  - PagingMenuController (0.10.2)
+  - Realm (1.0.2):
+    - Realm/Headers (= 1.0.2)
+  - Realm/Headers (1.0.2)
+  - RealmSwift (1.0.2):
+    - Realm (= 1.0.2)
+  - SVProgressHUD (2.0.3)
 
 DEPENDENCIES:
   - ActiveLabel
   - Alamofire (~> 3.0)
   - BTNavigationDropdownMenu
+  - ChameleonFramework/Swift
+  - CocoaLumberjack/Swift
+  - Colours/Swift
+  - Crashlytics
+  - Fabric
   - Google-Mobile-Ads-SDK (~> 7.0)
   - Kanna (~> 1.0.0)
   - KMPlaceholderTextView (~> 1.2.0)
+  - PagingMenuController (~> 0.10.2)
   - RealmSwift
+  - SVProgressHUD
 
 SPEC CHECKSUMS:
-  ActiveLabel: c7b011767b5660faacf8a3629174a9a775886b8d
-  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
-  BTNavigationDropdownMenu: c36d20785253699046fdd295698c24b1d1c18f53
-  Google-Mobile-Ads-SDK: 3c2a6656117989469bfe7645640aa1de024a4c6c
+  ActiveLabel: ec8c7a0995ab2d789ab74b72b105397dc079ff97
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  BTNavigationDropdownMenu: 093f3cbfad1572f2c222bdf8d17584d1e13380d4
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
+  Colours: f24220c38f13deac88612667e9b4a7fb96b871d4
+  Crashlytics: 76f6beaff70acf226139582c09c78461597c2b98
+  Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
+  Google-Mobile-Ads-SDK: 575583d7eae25793bb81ad8673737d1b4ecbedc5
   Kanna: 9f30945bbd293a609f698ea164687ccc0990ff60
-  KMPlaceholderTextView: cae8ee889bd38d20587eee6b2623b8218f31b8f5
-  Realm: 99c44c3a9e075638478d4134e28d9026a6de07c4
-  RealmSwift: daaa1789eb581f2f8c2a05a25f463a6f70df5a5f
+  KMPlaceholderTextView: bbff031935d84f7eedb585e7f77120020fbae9e8
+  PagingMenuController: febfbf42fa015ef1378626e57b63fc8d7a268485
+  Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
+  RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 5ffb1c897ae6edf748ced02dd024b6e2c13defa7
+
+COCOAPODS: 1.0.1

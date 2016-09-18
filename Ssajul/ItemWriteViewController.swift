@@ -157,7 +157,22 @@ class ItemWriteViewController: UIViewController {
                             self.isPosting = false
                             return
                         }
-                        
+     
+                        if response.description.containsString("제목은 반드시"){
+                            
+                            let alertController = UIAlertController(title: "제목은 2글자", message: "이상되야되요", preferredStyle: UIAlertControllerStyle.Alert)
+                            
+                            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                                print("OK")
+                            }
+                            alertController.addAction(okAction)
+                            self.presentViewController(alertController, animated: true, completion: nil)
+                            
+                            
+                            self.setUIEnable()
+                            self.isPosting = false
+                            return
+                        }
 
                         
                         if response.description.containsString("history.back();"){
@@ -287,9 +302,7 @@ class ItemWriteViewController: UIViewController {
             var linkString = ""
             if type == "img" {
                 
-                let data = NSData.init(contentsOfURL: NSURL.init(string:  inputString)!)
-                let image = UIImage.init(data: data!)
-                let width : CGFloat = (image?.size.width)!;
+                let width : CGFloat = 600;
                 
                 linkString = "<img src=\"" + inputString + "\" width=" + String(width) + " border=0>"
             }

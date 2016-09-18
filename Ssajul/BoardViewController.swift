@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import GoogleMobileAds
 
 class BoardViewcontroller: UITableViewController{
 
@@ -20,10 +20,10 @@ class BoardViewcontroller: UITableViewController{
 
     
     var boardList = SSajulClient.sharedInstance.getBoardList()
-
+    var extraBoardList = SSajulClient.sharedInstance.getExtraBoardList()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -53,6 +53,15 @@ class BoardViewcontroller: UITableViewController{
     // MARK: - Segues
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        
+        if self.tableView.indexPathForSelectedRow?.section == 1 {
+            let indexPath = self.tableView.indexPathForSelectedRow
+            let selectedBoard = extraBoardList[indexPath!.row] as Board!
+            let extraSiteUrl : NSURL = NSURL(string:   selectedBoard.boardID)!
+            UIApplication.sharedApplication().openURL(extraSiteUrl)
+            return false
+        }
+        
         if identifier == "loginSegue" {
             if SSajulClient.sharedInstance.isLogin() == true {
                 SSajulClient.sharedInstance.logout()
@@ -68,12 +77,8 @@ class BoardViewcontroller: UITableViewController{
         if segue.identifier == "tabbarSergue" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let selectedBoard = boardList[indexPath.row] as Board!
-                
-//                let controller = segue.destinationViewController as! ItemListViewConroller
-                
-                
                 SSajulClient.sharedInstance.selectedBoard = selectedBoard
-//                controller.navigationItem.leftItemsSupplementBackButton = true
+
             }
         }
         
@@ -85,14 +90,49 @@ class BoardViewcontroller: UITableViewController{
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return boardList.count
+        
+        if section == 0 {
+            return boardList.count
+            
+        }
+        
+        if section == 1 {
+            return extraBoardList.count
+            
+        }
+        return 0
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+            
+            let boardID = extraBoardList[indexPath.row].name as String!
+            
+            cell.textLabel!.text = boardID
+            return cell
+        }
+        
+        if boardList[indexPath.row].name == "ADMOBNATIVE" {
+            let cell = tableView.dequeueReusableCellWithIdentifier("admobNativeCell", forIndexPath: indexPath) as! AdCell
+            
+            
+            cell.nativeExpressAdvieW.adUnitID = "ca-app-pub-8030062085508715/2596335385"
+            cell.nativeExpressAdvieW.rootViewController = self
+            
+            let request = GADRequest()
+            //request.testDevices = [kGADSimulatorID]
+            cell.nativeExpressAdvieW.loadRequest(request)
+            
+            return cell
+        }
+        
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
         let boardID = boardList[indexPath.row].name as String!
@@ -107,15 +147,18 @@ class BoardViewcontroller: UITableViewController{
     }
     
 
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        if boardList[indexPath.row].name == "ADMOBNATIVE" {
+            
+            return 80
+        }
+        
+        
+        return UITableViewAutomaticDimension
+    }
+    
 
-//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if editingStyle == .Delete {
-//            objects.removeAtIndex(indexPath.row)
-//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-//        } else if editingStyle == .Insert {
-//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-//        }
-//    }
 
 
     

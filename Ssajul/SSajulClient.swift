@@ -29,14 +29,27 @@ class SSajulClient  {
     
     var boundaryPart = "pIGWeRaGJ9VVoeGq"
     
-    let webView2 : WKWebView = WKWebView()
+    let config = WKWebViewConfiguration()
+    var webView2 : WKWebView// = WKWebView()
+    
+    
+    
+    
+    init(){
+        config.selectionGranularity = .Character
+        self.webView2 = WKWebView(frame: CGRect.zero, configuration: config)
+        
+    }
     
     func getBoardList() -> Array<Board>{
         
         
 //soccermingboard
 //columnboard
-        return [Board(name: "해외축구게시판", boardID: "soccerboard")
+        return
+             [ Board(name: "ADMOBNATIVE" , boardID:  "ADMOBNATIVE")
+            , Board(name: "전체 게시판", boardID: "totalboard")
+            , Board(name: "해외축구게시판", boardID: "soccerboard")
             , Board(name: "국내축구게시판", boardID: "kookdaeboard")
             , Board(name: "축구동영상게시판", boardID: "soccermingboard")
             , Board(name: "축구칼럼게시판", boardID: "columnboard")
@@ -46,6 +59,17 @@ class SSajulClient  {
             , Board(name: "게임게시판", boardID: "gameboard")
             , Board(name: "투표게시판", boardID: "pollboard")
             , Board(name: "라커룸추천", boardID: "locker_recom")        
+        ]
+    }
+    
+    func getExtraBoardList() -> Array<Board>{
+        
+        
+        //soccermingboard
+        //columnboard
+        return
+            [   Board(name: "다음 해외스포츠", boardID : "http://sports.media.daum.net/sports/worldsoccer")
+                , Board(name: "네이버 해외축구", boardID : "http://sports.news.naver.com/wfootball/index.nhn")
         ]
     }
     
@@ -112,7 +136,7 @@ class SSajulClient  {
         return html
     }
     
-    func createHTML2(content : String) -> String{
+    func createHTML33(content : String) -> String{
         
         let contentAsync = content.stringByReplacingOccurrencesOfString("src=", withString: "data-aload=")
         
@@ -140,7 +164,7 @@ class SSajulClient  {
         return html
     }
 
-    func createHTML3(content : String) -> String{
+    func createHTML2(content : String) -> String{
         
         let html = "<html>"
             + "<head>"
@@ -160,6 +184,49 @@ class SSajulClient  {
         return html
     }
     
+    
+    func createHTML3(content : String) -> String{
+        
+        let types: NSTextCheckingType = .Link
+        let detector = try? NSDataDetector(types: types.rawValue)
+        let content2 = content.stringByReplacingOccurrencesOfString("<br>", withString: " <br> ")
+//         content2 = content.stringByReplacingOccurrencesOfString("\n", withString: "")
+//         content2 = content.stringByReplacingOccurrencesOfString("\r", withString: "")
+//         content2 = content.stringByReplacingOccurrencesOfString("\t", withString: "")
+//        content2 = content.stringByReplacingOccurrencesOfString("\r\n", withString: "")
+        var content3 = content2
+        let matches = detector!.matchesInString(content2, options: .ReportCompletion, range: NSMakeRange(0, content2.characters.count))
+        
+        for match in matches {
+            
+            
+            if content.containsString("img") == true || content.containsString("embed") == true { break }
+            print(match.URL!)
+            var urlx = match.URL?.absoluteString
+            
+            urlx = urlx?.stringByReplacingOccurrencesOfString("amp;", withString: "")
+            
+            let link = "\r <a href =\"" + urlx! + "\"> " + urlx!  + "</a>"
+            content3 = content2.stringByReplacingOccurrencesOfString((match.URL?.absoluteString)!, withString: link )
+        }
+        
+        
+        let html = "<html>"
+            + "<head>"
+            + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
+            + "<meta name=\"viewport\""
+            + "\tcontent=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi\" />"
+            
+            
+            + "<style type=\"text/css\">"
+            + "#articleView * {"
+            + "\tmax-width: 100%; !important;"
+            + "}"
+            + "</style>"
+            + "</head><body>"
+            + "\(content3) </body></html>"
+        return html
+    }
     
     //cookie utils
     
@@ -219,13 +286,22 @@ class SSajulClient  {
 
         if selectedBoard == nil { return "http://127.0.0.1" }
         
-        guard let encodingKey = key.stringByAddingPercentEscapesUsingEncoding(CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ) else {
+        var newKey = key
+        var newKeyfiled = keyfield
+        if keyfield == "myContent" {
+            newKeyfiled = "mem_id"
+            newKey = SSajulClient.sharedInstance.getLoginID()
+        }
+        
+        
+        guard let encodingKey = newKey.stringByAddingPercentEscapesUsingEncoding(CFStringConvertEncodingToNSStringEncoding( 0x0422 ) )
+             else {
             return "http://127.0.0.1"
         }
         
         let boardId = selectedBoard!.boardID
         
-        let url = String(format:  "http://www.soccerline.co.kr/slboard/list.php?page=%d&code=%@&key=%@&keyfield=%@&period=0|1987508143", page, boardId,  encodingKey, keyfield)
+        let url = String(format:  "http://www.soccerline.co.kr/slboard/list.php?page=%d&code=%@&key=%@&keyfield=%@&period=0|1987508143", page, boardId,  encodingKey, newKeyfiled)
         let urlString = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         
 //        let urlString = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLPathAllowedCharacterSet())!

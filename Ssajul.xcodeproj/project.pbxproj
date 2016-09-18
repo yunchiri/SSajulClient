@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		040973D21CC7D0DD008ABCA9 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040973D11CC7D0DD008ABCA9 /* HistoryTableViewController.swift */; };
+		0401EFB21D24112100851222 /* messi.png in Resources */ = {isa = PBXBuildFile; fileRef = 0401EFB11D24112100851222 /* messi.png */; };
+		0401EFB51D2415CF00851222 /* ItemListAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401EFB41D2415CF00851222 /* ItemListAdViewController.swift */; };
 		040973D41CCBAF8B008ABCA9 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040973D31CCBAF8B008ABCA9 /* History.swift */; };
 		040CB4ED1C5F7CEC00C67432 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CB4EC1C5F7CEC00C67432 /* AppDelegate.swift */; };
 		040CB4EF1C5F7CEC00C67432 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CB4EE1C5F7CEC00C67432 /* BoardViewController.swift */; };
@@ -15,12 +16,20 @@
 		040CB4F61C5F7CEC00C67432 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 040CB4F51C5F7CEC00C67432 /* Assets.xcassets */; };
 		040CB4F91C5F7CEC00C67432 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040CB4F71C5F7CEC00C67432 /* LaunchScreen.storyboard */; };
 		040CB5041C5F7CEC00C67432 /* SsajulTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CB5031C5F7CEC00C67432 /* SsajulTests.swift */; };
-		042C21F21CEE1A98008100EF /* JGSettingsManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042C21F01CEE1A62008100EF /* JGSettingsManager.framework */; };
-		042C21F31CEE1A98008100EF /* JGSettingsManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 042C21F01CEE1A62008100EF /* JGSettingsManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0425B7E01D08642E00308734 /* HistoryTableViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0425B7DF1D08642E00308734 /* HistoryTableViewBase.swift */; };
+		042CD7121CEF6C4A00519EE0 /* ronaldo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 042CD7111CEF6C4A00519EE0 /* ronaldo.jpg */; };
+		042CD7141CEF6F8D00519EE0 /* ronaldo-pirelli.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 042CD7131CEF6F8D00519EE0 /* ronaldo-pirelli.jpg */; };
 		046625091C96EA20006BB90F /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046625081C96EA20006BB90F /* CommentCell.swift */; };
+		046ED1101D350E7100F7D6A6 /* coachronaldo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 046ED10F1D350E7100F7D6A6 /* coachronaldo.jpg */; };
+		046ED1121D350EDC00F7D6A6 /* champs.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 046ED1111D350EDC00F7D6A6 /* champs.jpg */; };
+		047742591D63482A00C6B267 /* coaches-300x169.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 047742581D63482A00C6B267 /* coaches-300x169.jpg */; };
+		0477425B1D6348D100C6B267 /* epl-predictions-1471019967-800.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0477425A1D6348D100C6B267 /* epl-predictions-1471019967-800.jpg */; };
 		047D24391CB291FC00148EBC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047D24381CB291FC00148EBC /* LoginViewController.swift */; };
+		0483C70E1D10655F00D053BE /* AdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0483C70D1D10655F00D053BE /* AdCell.swift */; };
 		048466CE1CC1EB1100A19919 /* ItemWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048466CD1CC1EB1100A19919 /* ItemWriteViewController.swift */; };
 		04A1EB8B1CDA49C400022201 /* SSajulDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1EB8A1CDA49C400022201 /* SSajulDatabase.swift */; };
+		04B72B2F1D0733D7003A6934 /* HistoryOfFavoriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B72B2E1D0733D7003A6934 /* HistoryOfFavoriteController.swift */; };
+		04B72B311D073545003A6934 /* HistoryOfCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B72B301D073545003A6934 /* HistoryOfCommentController.swift */; };
 		04D0FF1B1C7C830300B204C4 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1A1C7C830300B204C4 /* Board.swift */; };
 		04D0FF1D1C7C84C300B204C4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1C1C7C84C300B204C4 /* Item.swift */; };
 		04D0FF1F1C7C84DE00B204C4 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1E1C7C84DE00B204C4 /* Comment.swift */; };
@@ -33,16 +42,11 @@
 		04D6BCF41CC6889B00925F4A /* Clock-30.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D6BCF31CC6889B00925F4A /* Clock-30.png */; };
 		04DCA7AE1CBE7B1000E2E184 /* CommentWriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCA7AD1CBE7B1000E2E184 /* CommentWriteCell.swift */; };
 		04DCA7B01CC1E19600E2E184 /* CommentWriteCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCA7AF1CC1E19600E2E184 /* CommentWriteCellDelegate.swift */; };
+		04EFEC921D044A9A00FE9DF3 /* PagingMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EFEC911D044A9A00FE9DF3 /* PagingMenuViewController.swift */; };
+		04EFEC941D044B0C00FE9DF3 /* HistoryOfReadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EFEC931D044B0C00FE9DF3 /* HistoryOfReadController.swift */; };
 		04F1CC0D1CEDE25F00AD5D87 /* BestBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1CC0C1CEDE25F00AD5D87 /* BestBoardViewController.swift */; };
-		04F1CC171CEE17F400AD5D87 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04F1CC0F1CEE17F400AD5D87 /* Info.plist */; };
-		04F1CC181CEE17F400AD5D87 /* JGSettingsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1CC111CEE17F400AD5D87 /* JGSettingsTableController.swift */; };
-		04F1CC191CEE17F400AD5D87 /* JGUserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1CC121CEE17F400AD5D87 /* JGUserDefault.swift */; };
-		04F1CC1A1CEE17F400AD5D87 /* SegmentedControlTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1CC131CEE17F400AD5D87 /* SegmentedControlTableCell.swift */; };
-		04F1CC1B1CEE17F400AD5D87 /* StepperTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1CC141CEE17F400AD5D87 /* StepperTableCell.swift */; };
-		04F1CC1C1CEE17F400AD5D87 /* SwitchTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1CC151CEE17F400AD5D87 /* SwitchTableCell.swift */; };
-		04F1CC1D1CEE17F400AD5D87 /* TextTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1CC161CEE17F400AD5D87 /* TextTableCell.swift */; };
 		04F1CC1F1CEE188400AD5D87 /* SettingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1CC1E1CEE188400AD5D87 /* SettingTableView.swift */; };
-		133CBCA475665740BB8A59FA /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06AC94D76EB323A467BA1EB6 /* Pods.framework */; };
+		159C1F1FF3E816E76889C0A1 /* Pods_Ssajul.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA16834B36E2D1DCE21D98 /* Pods_Ssajul.framework */; };
 		4D9D699C1C80605F000F4104 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9D699B1C80605F000F4104 /* ItemCell.swift */; };
 		4D9D699E1C89CCB3000F4104 /* ItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */; };
 		4D9D69A01C8F201E000F4104 /* ContentHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9D699F1C8F201E000F4104 /* ContentHeaderCell.swift */; };
@@ -58,22 +62,9 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		042C21F41CEE1A98008100EF /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				042C21F31CEE1A98008100EF /* JGSettingsManager.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		040973D11CC7D0DD008ABCA9 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
+		0401EFB11D24112100851222 /* messi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = messi.png; sourceTree = "<group>"; };
+		0401EFB41D2415CF00851222 /* ItemListAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListAdViewController.swift; sourceTree = "<group>"; };
 		040973D31CCBAF8B008ABCA9 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		040CB4E91C5F7CEC00C67432 /* Ssajul.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ssajul.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		040CB4EC1C5F7CEC00C67432 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,11 +78,20 @@
 		040CB5051C5F7CEC00C67432 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		040CB50E1C5F7CEC00C67432 /* SsajulUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SsajulUITests.swift; sourceTree = "<group>"; };
 		040CB5101C5F7CEC00C67432 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		042C21F01CEE1A62008100EF /* JGSettingsManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JGSettingsManager.framework; path = Ssajul/JGSettingsManager.framework; sourceTree = "<group>"; };
+		0425B7DF1D08642E00308734 /* HistoryTableViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewBase.swift; sourceTree = "<group>"; };
+		042CD7111CEF6C4A00519EE0 /* ronaldo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ronaldo.jpg; sourceTree = "<group>"; };
+		042CD7131CEF6F8D00519EE0 /* ronaldo-pirelli.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ronaldo-pirelli.jpg"; sourceTree = "<group>"; };
 		046625081C96EA20006BB90F /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		046ED10F1D350E7100F7D6A6 /* coachronaldo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coachronaldo.jpg; sourceTree = "<group>"; };
+		046ED1111D350EDC00F7D6A6 /* champs.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = champs.jpg; sourceTree = "<group>"; };
+		047742581D63482A00C6B267 /* coaches-300x169.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "coaches-300x169.jpg"; sourceTree = "<group>"; };
+		0477425A1D6348D100C6B267 /* epl-predictions-1471019967-800.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "epl-predictions-1471019967-800.jpg"; sourceTree = "<group>"; };
 		047D24381CB291FC00148EBC /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0483C70D1D10655F00D053BE /* AdCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdCell.swift; sourceTree = "<group>"; };
 		048466CD1CC1EB1100A19919 /* ItemWriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemWriteViewController.swift; sourceTree = "<group>"; };
 		04A1EB8A1CDA49C400022201 /* SSajulDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSajulDatabase.swift; sourceTree = "<group>"; };
+		04B72B2E1D0733D7003A6934 /* HistoryOfFavoriteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryOfFavoriteController.swift; sourceTree = "<group>"; };
+		04B72B301D073545003A6934 /* HistoryOfCommentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryOfCommentController.swift; sourceTree = "<group>"; };
 		04D0FF1A1C7C830300B204C4 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		04D0FF1C1C7C84C300B204C4 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		04D0FF1E1C7C84DE00B204C4 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -104,22 +104,17 @@
 		04D6BCF31CC6889B00925F4A /* Clock-30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Clock-30.png"; sourceTree = "<group>"; };
 		04DCA7AD1CBE7B1000E2E184 /* CommentWriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentWriteCell.swift; sourceTree = "<group>"; };
 		04DCA7AF1CC1E19600E2E184 /* CommentWriteCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentWriteCellDelegate.swift; sourceTree = "<group>"; };
+		04EFEC911D044A9A00FE9DF3 /* PagingMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuViewController.swift; sourceTree = "<group>"; };
+		04EFEC931D044B0C00FE9DF3 /* HistoryOfReadController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryOfReadController.swift; sourceTree = "<group>"; };
 		04F1CC0C1CEDE25F00AD5D87 /* BestBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestBoardViewController.swift; sourceTree = "<group>"; };
-		04F1CC0F1CEE17F400AD5D87 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		04F1CC101CEE17F400AD5D87 /* JGSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGSettingsManager.h; sourceTree = "<group>"; };
-		04F1CC111CEE17F400AD5D87 /* JGSettingsTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JGSettingsTableController.swift; sourceTree = "<group>"; };
-		04F1CC121CEE17F400AD5D87 /* JGUserDefault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JGUserDefault.swift; sourceTree = "<group>"; };
-		04F1CC131CEE17F400AD5D87 /* SegmentedControlTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlTableCell.swift; sourceTree = "<group>"; };
-		04F1CC141CEE17F400AD5D87 /* StepperTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepperTableCell.swift; sourceTree = "<group>"; };
-		04F1CC151CEE17F400AD5D87 /* SwitchTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableCell.swift; sourceTree = "<group>"; };
-		04F1CC161CEE17F400AD5D87 /* TextTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTableCell.swift; sourceTree = "<group>"; };
 		04F1CC1E1CEE188400AD5D87 /* SettingTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableView.swift; sourceTree = "<group>"; };
 		06AC94D76EB323A467BA1EB6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		08EA16834B36E2D1DCE21D98 /* Pods_Ssajul.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ssajul.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3544073CBAAA4937DE4AE6B5 /* Pods-Ssajul.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ssajul.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Ssajul/Pods-Ssajul.debug.xcconfig"; sourceTree = "<group>"; };
 		4D9D699B1C80605F000F4104 /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewController.swift; sourceTree = "<group>"; };
 		4D9D699F1C8F201E000F4104 /* ContentHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentHeaderCell.swift; sourceTree = "<group>"; };
-		66E8694D811E7154D460421A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		D30B30C989CD3EA5466D2555 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E3A783730FEFE727ED167A7A /* Pods-Ssajul.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ssajul.release.xcconfig"; path = "Pods/Target Support Files/Pods-Ssajul/Pods-Ssajul.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,8 +123,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04D6BCEE1CC6711F00925F4A /* QuartzCore.framework in Frameworks */,
-				133CBCA475665740BB8A59FA /* Pods.framework in Frameworks */,
-				042C21F21CEE1A98008100EF /* JGSettingsManager.framework in Frameworks */,
+				159C1F1FF3E816E76889C0A1 /* Pods_Ssajul.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +137,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0401EFB31D24158A00851222 /* ItemListVC */ = {
+			isa = PBXGroup;
+			children = (
+				04D0FF211C7C946900B204C4 /* ItemListViewConroller.swift */,
+				0401EFB41D2415CF00851222 /* ItemListAdViewController.swift */,
+			);
+			name = ItemListVC;
+			sourceTree = "<group>";
+		};
 		040CB4E01C5F7CEC00C67432 = {
 			isa = PBXGroup;
 			children = (
@@ -150,8 +153,8 @@
 				040CB5021C5F7CEC00C67432 /* SsajulTests */,
 				040CB50D1C5F7CEC00C67432 /* SsajulUITests */,
 				040CB4EA1C5F7CEC00C67432 /* Products */,
-				708FEE10529DB9DE6A5C7E94 /* Pods */,
 				3CF13E5C983265C09A61FF89 /* Frameworks */,
+				C0AAD1B2344CA8C8782BC6CB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -167,11 +170,12 @@
 		040CB4EB1C5F7CEC00C67432 /* Ssajul */ = {
 			isa = PBXGroup;
 			children = (
+				042CD7101CEF6C1100519EE0 /* Resource */,
 				04D6BCE91CC542C000925F4A /* extension */,
 				04D6BCD71CC52D7800925F4A /* icons */,
 				4D9D699A1C80602A000F4104 /* Cell */,
 				04D0FF231C7C94AE00B204C4 /* Util */,
-				04D0FF201C7C934700B204C4 /* Controller */,
+				04D0FF201C7C934700B204C4 /* View Controller */,
 				04D0FF191C7C82D100B204C4 /* Model */,
 				040CB4EC1C5F7CEC00C67432 /* AppDelegate.swift */,
 				040CB4F21C5F7CEC00C67432 /* Main.storyboard */,
@@ -200,6 +204,28 @@
 			path = SsajulUITests;
 			sourceTree = "<group>";
 		};
+		042CD7101CEF6C1100519EE0 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				0477425A1D6348D100C6B267 /* epl-predictions-1471019967-800.jpg */,
+				047742581D63482A00C6B267 /* coaches-300x169.jpg */,
+				042CD7131CEF6F8D00519EE0 /* ronaldo-pirelli.jpg */,
+				042CD7111CEF6C4A00519EE0 /* ronaldo.jpg */,
+				0401EFB11D24112100851222 /* messi.png */,
+				046ED10F1D350E7100F7D6A6 /* coachronaldo.jpg */,
+				046ED1111D350EDC00F7D6A6 /* champs.jpg */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
+		0483C70C1D10651400D053BE /* ContentVC */ = {
+			isa = PBXGroup;
+			children = (
+				4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */,
+			);
+			name = ContentVC;
+			sourceTree = "<group>";
+		};
 		04D0FF191C7C82D100B204C4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,21 +237,19 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		04D0FF201C7C934700B204C4 /* Controller */ = {
+		04D0FF201C7C934700B204C4 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				04F1CC0E1CEE17F400AD5D87 /* JGSettingsManager */,
+				0401EFB31D24158A00851222 /* ItemListVC */,
+				0483C70C1D10651400D053BE /* ContentVC */,
+				04EFEC961D046F9300FE9DF3 /* Setting */,
+				04EFEC951D046F8600FE9DF3 /* BestVC */,
+				04EFEC901D04477E00FE9DF3 /* HistoryVC */,
 				040CB4EE1C5F7CEC00C67432 /* BoardViewController.swift */,
-				04D0FF211C7C946900B204C4 /* ItemListViewConroller.swift */,
-				4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */,
 				047D24381CB291FC00148EBC /* LoginViewController.swift */,
 				048466CD1CC1EB1100A19919 /* ItemWriteViewController.swift */,
-				04D6BCE61CC53E1B00925F4A /* BestBoardTableViewController.swift */,
-				040973D11CC7D0DD008ABCA9 /* HistoryTableViewController.swift */,
-				04F1CC0C1CEDE25F00AD5D87 /* BestBoardViewController.swift */,
-				04F1CC1E1CEE188400AD5D87 /* SettingTableView.swift */,
 			);
-			name = Controller;
+			name = "View Controller";
 			sourceTree = "<group>";
 		};
 		04D0FF231C7C94AE00B204C4 /* Util */ = {
@@ -254,27 +278,41 @@
 			name = extension;
 			sourceTree = "<group>";
 		};
-		04F1CC0E1CEE17F400AD5D87 /* JGSettingsManager */ = {
+		04EFEC901D04477E00FE9DF3 /* HistoryVC */ = {
 			isa = PBXGroup;
 			children = (
-				04F1CC0F1CEE17F400AD5D87 /* Info.plist */,
-				04F1CC101CEE17F400AD5D87 /* JGSettingsManager.h */,
-				04F1CC111CEE17F400AD5D87 /* JGSettingsTableController.swift */,
-				04F1CC121CEE17F400AD5D87 /* JGUserDefault.swift */,
-				04F1CC131CEE17F400AD5D87 /* SegmentedControlTableCell.swift */,
-				04F1CC141CEE17F400AD5D87 /* StepperTableCell.swift */,
-				04F1CC151CEE17F400AD5D87 /* SwitchTableCell.swift */,
-				04F1CC161CEE17F400AD5D87 /* TextTableCell.swift */,
+				04EFEC911D044A9A00FE9DF3 /* PagingMenuViewController.swift */,
+				04EFEC931D044B0C00FE9DF3 /* HistoryOfReadController.swift */,
+				04B72B2E1D0733D7003A6934 /* HistoryOfFavoriteController.swift */,
+				04B72B301D073545003A6934 /* HistoryOfCommentController.swift */,
+				0425B7DF1D08642E00308734 /* HistoryTableViewBase.swift */,
 			);
-			path = JGSettingsManager;
+			name = HistoryVC;
+			sourceTree = "<group>";
+		};
+		04EFEC951D046F8600FE9DF3 /* BestVC */ = {
+			isa = PBXGroup;
+			children = (
+				04D6BCE61CC53E1B00925F4A /* BestBoardTableViewController.swift */,
+				04F1CC0C1CEDE25F00AD5D87 /* BestBoardViewController.swift */,
+			);
+			name = BestVC;
+			sourceTree = "<group>";
+		};
+		04EFEC961D046F9300FE9DF3 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				04F1CC1E1CEE188400AD5D87 /* SettingTableView.swift */,
+			);
+			name = Setting;
 			sourceTree = "<group>";
 		};
 		3CF13E5C983265C09A61FF89 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				042C21F01CEE1A62008100EF /* JGSettingsManager.framework */,
 				04D6BCED1CC6711F00925F4A /* QuartzCore.framework */,
 				06AC94D76EB323A467BA1EB6 /* Pods.framework */,
+				08EA16834B36E2D1DCE21D98 /* Pods_Ssajul.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -287,15 +325,16 @@
 				046625081C96EA20006BB90F /* CommentCell.swift */,
 				04DCA7AD1CBE7B1000E2E184 /* CommentWriteCell.swift */,
 				04DCA7AF1CC1E19600E2E184 /* CommentWriteCellDelegate.swift */,
+				0483C70D1D10655F00D053BE /* AdCell.swift */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
 		};
-		708FEE10529DB9DE6A5C7E94 /* Pods */ = {
+		C0AAD1B2344CA8C8782BC6CB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				66E8694D811E7154D460421A /* Pods.debug.xcconfig */,
-				D30B30C989CD3EA5466D2555 /* Pods.release.xcconfig */,
+				3544073CBAAA4937DE4AE6B5 /* Pods-Ssajul.debug.xcconfig */,
+				E3A783730FEFE727ED167A7A /* Pods-Ssajul.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -307,13 +346,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 040CB5131C5F7CEC00C67432 /* Build configuration list for PBXNativeTarget "Ssajul" */;
 			buildPhases = (
-				9D09073BD47494518B0D0FE3 /* Check Pods Manifest.lock */,
+				B78DF7F4AE416456FDA80B0D /* [CP] Check Pods Manifest.lock */,
 				040CB4E51C5F7CEC00C67432 /* Sources */,
 				040CB4E61C5F7CEC00C67432 /* Frameworks */,
 				040CB4E71C5F7CEC00C67432 /* Resources */,
-				FDF6684DC107301A4FF06053 /* Embed Pods Frameworks */,
-				6EB7C52890DC49D457266DCE /* Copy Pods Resources */,
-				042C21F41CEE1A98008100EF /* Embed Frameworks */,
+				A22A00C3ED3975EB9D0E07A4 /* [CP] Embed Pods Frameworks */,
+				944AA9751F25EEEDA46F33E3 /* [CP] Copy Pods Resources */,
+				04B72B2D1D06F1D3003A6934 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -354,6 +393,7 @@
 				TargetAttributes = {
 					040CB4E81C5F7CEC00C67432 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = FWRVVC92ZP;
 					};
 					040CB4FE1C5F7CEC00C67432 = {
 						CreatedOnToolsVersion = 7.2;
@@ -387,10 +427,16 @@
 			files = (
 				040CB4F91C5F7CEC00C67432 /* LaunchScreen.storyboard in Resources */,
 				040CB4F61C5F7CEC00C67432 /* Assets.xcassets in Resources */,
-				04F1CC171CEE17F400AD5D87 /* Info.plist in Resources */,
+				0477425B1D6348D100C6B267 /* epl-predictions-1471019967-800.jpg in Resources */,
 				040CB4F41C5F7CEC00C67432 /* Main.storyboard in Resources */,
 				04D6BCF21CC686EF00925F4A /* Clock-25.png in Resources */,
+				042CD7121CEF6C4A00519EE0 /* ronaldo.jpg in Resources */,
+				046ED1121D350EDC00F7D6A6 /* champs.jpg in Resources */,
+				047742591D63482A00C6B267 /* coaches-300x169.jpg in Resources */,
+				0401EFB21D24112100851222 /* messi.png in Resources */,
+				046ED1101D350E7100F7D6A6 /* coachronaldo.jpg in Resources */,
 				04D6BCF41CC6889B00925F4A /* Clock-30.png in Resources */,
+				042CD7141CEF6F8D00519EE0 /* ronaldo-pirelli.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,49 +450,62 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6EB7C52890DC49D457266DCE /* Copy Pods Resources */ = {
+		04B72B2D1D06F1D3003A6934 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" a53e060b38b8a950391ba987d624b45b632483a6 61b3696c01d450ab4a3f0aee8ef56767bab9f0038d3c7eea1f6d57e9c74bb9d1";
 		};
-		9D09073BD47494518B0D0FE3 /* Check Pods Manifest.lock */ = {
+		944AA9751F25EEEDA46F33E3 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Ssajul/Pods-Ssajul-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A22A00C3ED3975EB9D0E07A4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Ssajul/Pods-Ssajul-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B78DF7F4AE416456FDA80B0D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		FDF6684DC107301A4FF06053 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -456,32 +515,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0401EFB51D2415CF00851222 /* ItemListAdViewController.swift in Sources */,
 				04D6BCEC1CC542F500925F4A /* String.swift in Sources */,
 				047D24391CB291FC00148EBC /* LoginViewController.swift in Sources */,
 				4D9D699E1C89CCB3000F4104 /* ItemTableViewController.swift in Sources */,
 				04DCA7B01CC1E19600E2E184 /* CommentWriteCellDelegate.swift in Sources */,
-				04F1CC1C1CEE17F400AD5D87 /* SwitchTableCell.swift in Sources */,
-				04F1CC181CEE17F400AD5D87 /* JGSettingsTableController.swift in Sources */,
-				040973D21CC7D0DD008ABCA9 /* HistoryTableViewController.swift in Sources */,
 				048466CE1CC1EB1100A19919 /* ItemWriteViewController.swift in Sources */,
-				04F1CC1B1CEE17F400AD5D87 /* StepperTableCell.swift in Sources */,
 				4D9D69A01C8F201E000F4104 /* ContentHeaderCell.swift in Sources */,
 				04F1CC1F1CEE188400AD5D87 /* SettingTableView.swift in Sources */,
 				04DCA7AE1CBE7B1000E2E184 /* CommentWriteCell.swift in Sources */,
 				04D6BCE71CC53E1B00925F4A /* BestBoardTableViewController.swift in Sources */,
+				0483C70E1D10655F00D053BE /* AdCell.swift in Sources */,
 				040CB4EF1C5F7CEC00C67432 /* BoardViewController.swift in Sources */,
 				4D9D699C1C80605F000F4104 /* ItemCell.swift in Sources */,
 				04D0FF1B1C7C830300B204C4 /* Board.swift in Sources */,
 				046625091C96EA20006BB90F /* CommentCell.swift in Sources */,
 				040973D41CCBAF8B008ABCA9 /* History.swift in Sources */,
-				04F1CC1A1CEE17F400AD5D87 /* SegmentedControlTableCell.swift in Sources */,
+				0425B7E01D08642E00308734 /* HistoryTableViewBase.swift in Sources */,
+				04EFEC941D044B0C00FE9DF3 /* HistoryOfReadController.swift in Sources */,
 				04D0FF1F1C7C84DE00B204C4 /* Comment.swift in Sources */,
-				04F1CC1D1CEE17F400AD5D87 /* TextTableCell.swift in Sources */,
 				04A1EB8B1CDA49C400022201 /* SSajulDatabase.swift in Sources */,
-				04F1CC191CEE17F400AD5D87 /* JGUserDefault.swift in Sources */,
 				04D0FF221C7C946900B204C4 /* ItemListViewConroller.swift in Sources */,
+				04EFEC921D044A9A00FE9DF3 /* PagingMenuViewController.swift in Sources */,
 				04D0FF251C7C94E000B204C4 /* SSajulClient.swift in Sources */,
 				04F1CC0D1CEDE25F00AD5D87 /* BestBoardViewController.swift in Sources */,
+				04B72B311D073545003A6934 /* HistoryOfCommentController.swift in Sources */,
+				04B72B2F1D0733D7003A6934 /* HistoryOfFavoriteController.swift in Sources */,
 				04D0FF1D1C7C84C300B204C4 /* Item.swift in Sources */,
 				040CB4ED1C5F7CEC00C67432 /* AppDelegate.swift in Sources */,
 			);
@@ -608,39 +667,47 @@
 		};
 		040CB5141C5F7CEC00C67432 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 66E8694D811E7154D460421A /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 3544073CBAAA4937DE4AE6B5 /* Pods-Ssajul.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Ssajul",
 				);
 				INFOPLIST_FILE = Ssajul/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wearecontrols.Ssajul;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
 		040CB5151C5F7CEC00C67432 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D30B30C989CD3EA5466D2555 /* Pods.release.xcconfig */;
+			baseConfigurationReference = E3A783730FEFE727ED167A7A /* Pods-Ssajul.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Ssajul",
 				);
 				INFOPLIST_FILE = Ssajul/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wearecontrols.Ssajul;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
 		040CB5171C5F7CEC00C67432 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 66E8694D811E7154D460421A /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = SsajulTests/Info.plist;

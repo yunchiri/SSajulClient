@@ -17,14 +17,14 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
      var todayBestList = [Item]()
      var commentBestList = [Item]()
     
-    var bestItemList = [Item]()
+     var bestItemList = [Item]()
 
     
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
 //        self.title = SSajulClient.sharedInstance.selectedItem?.title
         
         self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
@@ -201,6 +201,10 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
         Alamofire.request(.GET, url)
             .responseString(encoding:CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ) { response in
 
+                if response.result.isFailure == true{
+                    return
+                }
+                
                 let htmlString = response.description
                 
                 let parsingBestSections = htmlString.regex("var content1 = \".*?</table>\"")
@@ -249,7 +253,8 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
                             
                             if  let commentCountInt = Int(commentCount) {
                                 newBestItem.commentCount = commentCountInt
-                                newBestItem.title.removeRange(Range.init(start: commentStartIndex, end: newBestItem.title.endIndex ))
+//                                newBestItem.title.removeRange(Range.init(start: commentStartIndex, end: newBestItem.title.endIndex ))
+                                newBestItem.title.removeRange(Range.init( commentStartIndex ..< newBestItem.title.endIndex ))
                                 newBestItem.title = newBestItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
                             }else {
                                 newBestItem.commentCount = 0
@@ -280,5 +285,7 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
         }
         
     }
+    
+
 
 }

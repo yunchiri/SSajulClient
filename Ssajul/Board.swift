@@ -16,6 +16,12 @@ struct Board{
         self.name = name
         self.boardID = boardID
     }
+    
+    init(boardID : String){
+        self.boardID = boardID
+        self.name = ""
+    }
+    
 }
 
 

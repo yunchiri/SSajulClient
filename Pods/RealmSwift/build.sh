@@ -14,7 +14,7 @@ set -o pipefail
 set -e
 
 # You can override the version of the core library
-: ${REALM_CORE_VERSION:=0.100.4} # set to "current" to always use the current build
+: ${REALM_CORE_VERSION:=1.3.1} # set to "current" to always use the current build
 
 # You can override the xcmode used
 : ${XCMODE:=xcodebuild} # must be one of: xcodebuild (default), xcpretty, xctool
@@ -38,7 +38,6 @@ Usage: sh $0 command [argument]
 command:
   clean:                clean up/remove all generated files
   download-core:        downloads core library (binary version)
-  set-core-bitcode-symlink: set core symlink to bitcode version
   build:                builds all iOS  and OS X frameworks
   ios-static:           builds fat iOS static framework
   ios-dynamic:          builds iOS dynamic frameworks
@@ -49,6 +48,7 @@ command:
   tvos-swift:           builds RealmSwift framework for tvOS
   osx:                  builds OS X framework
   osx-swift:            builds RealmSwift framework for OS X
+  analyze-osx:          analyzes OS X framework
   test:                 tests all iOS and OS X frameworks
   test-all:             tests all iOS and OS X frameworks in both Debug and Release configurations
   test-ios-static:      tests static iOS framework on 32-bit and 64-bit simulators
@@ -287,10 +287,10 @@ download_core() {
     echo "Downloading dependency: core ${REALM_CORE_VERSION}"
     TMP_DIR="$TMPDIR/core_bin"
     mkdir -p "${TMP_DIR}"
-    CORE_TMP_TAR="${TMP_DIR}/core-${REALM_CORE_VERSION}.tar.bz2.tmp"
-    CORE_TAR="${TMP_DIR}/core-${REALM_CORE_VERSION}.tar.bz2"
+    CORE_TMP_TAR="${TMP_DIR}/core-${REALM_CORE_VERSION}.tar.xz.tmp"
+    CORE_TAR="${TMP_DIR}/core-${REALM_CORE_VERSION}.tar.xz"
     if [ ! -f "${CORE_TAR}" ]; then
-        local CORE_URL="https://static.realm.io/downloads/core/realm-core-${REALM_CORE_VERSION}.tar.bz2"
+        local CORE_URL="https://static.realm.io/downloads/core/realm-core-${REALM_CORE_VERSION}.tar.xz"
         set +e # temporarily disable immediate exit
         local ERROR # sweeps the exit code unless declared separately
         ERROR=$(curl --fail --silent --show-error --location "$CORE_URL" --output "${CORE_TMP_TAR}" 2>&1 >/dev/null)
@@ -305,7 +305,7 @@ download_core() {
     (
         cd "${TMP_DIR}"
         rm -rf core
-        tar xjf "${CORE_TAR}"
+        tar xf "${CORE_TAR}" --xz
         mv core core-${REALM_CORE_VERSION}
     )
 
@@ -370,15 +370,6 @@ case "$COMMAND" in
         exit 0
         ;;
 
-    "set-core-bitcode-symlink")
-        cd core
-        rm -f librealm-ios.a librealm-ios-dbg.a
-        # FIXME: Stop bundling core with & without bitcode
-        echo "Using core with bitcode"
-        ln -s librealm-ios-bitcode.a librealm-ios.a
-        ln -s librealm-ios-bitcode-dbg.a librealm-ios-dbg.a
-        ;;
-
     ######################################
     # Object Store
     ######################################
@@ -418,26 +409,12 @@ case "$COMMAND" in
             version="$REALM_SWIFT_VERSION"
         fi
 
-        # Update the symlinks to point to the correct verion of the source, and
-        # then tell git to ignore the fact that we just changed a tracked file so
-        # that the new symlink doesn't accidentally get committed
-        rm -rf RealmSwift
-        ln -s "RealmSwift-swift$version" RealmSwift
-        git update-index --assume-unchanged RealmSwift || true
-
-        # Only write SwiftVersion.swift if RealmSwift supports the given version of Swift.
-        if [[ -e "RealmSwift-swift$version" ]]; then
-            SWIFT_VERSION_FILE="RealmSwift/SwiftVersion.swift"
-            CONTENTS="let swiftLanguageVersion = \"$version\""
-            if [ ! -f "$SWIFT_VERSION_FILE" ] || ! grep -q "$CONTENTS" "$SWIFT_VERSION_FILE"; then
-                echo "$CONTENTS" > "$SWIFT_VERSION_FILE"
-            fi
+        SWIFT_VERSION_FILE="RealmSwift/SwiftVersion.swift"
+        CONTENTS="let swiftLanguageVersion = \"$version\""
+        if [ ! -f "$SWIFT_VERSION_FILE" ] || ! grep -q "$CONTENTS" "$SWIFT_VERSION_FILE"; then
+            echo "$CONTENTS" > "$SWIFT_VERSION_FILE"
         fi
 
-        cd Realm/Tests
-        rm -rf Swift
-        ln -s "Swift$version" Swift
-        git update-index --assume-unchanged Swift || true
         exit 0
         ;;
 
@@ -514,6 +491,15 @@ case "$COMMAND" in
         destination="build/osx/swift-$REALM_SWIFT_VERSION"
         clean_retrieve "build/DerivedData/Realm/Build/Products/$CONFIGURATION/RealmSwift.framework" "$destination" "RealmSwift.framework"
         cp -R build/osx/Realm.framework "$destination"
+        exit 0
+        ;;
+
+    ######################################
+    # Analysis
+    ######################################
+
+    "analyze-osx")
+        xc "-scheme Realm -configuration $CONFIGURATION analyze"
         exit 0
         ;;
 
@@ -659,25 +645,28 @@ case "$COMMAND" in
 
         cd examples/installation
         sh build.sh test-ios-objc-cocoapods
+        sh build.sh test-ios-objc-cocoapods-dynamic
         sh build.sh test-ios-swift-cocoapods
         sh build.sh test-osx-objc-cocoapods
+        sh build.sh test-osx-swift-cocoapods
         sh build.sh test-watchos-objc-cocoapods
         sh build.sh test-watchos-swift-cocoapods
         ;;
 
     "verify-osx-encryption")
-        REALM_ENCRYPT_ALL=YES sh build.sh test-osx || exit 1
+        REALM_ENCRYPT_ALL=YES sh build.sh test-osx
         exit 0
         ;;
 
     "verify-osx")
         sh build.sh test-osx
+        sh build.sh analyze-osx
         sh build.sh examples-osx
 
         (
             cd examples/osx/objc/build/DerivedData/RealmExamples/Build/Products/$CONFIGURATION
             DYLD_FRAMEWORK_PATH=. ./JSONImport >/dev/null
-        ) || exit 1
+        )
         exit 0
         ;;
 
@@ -889,21 +878,9 @@ case "$COMMAND" in
     "cocoapods-setup")
         if [ ! -d core ]; then
           sh build.sh download-core
+          rm core
+          mv core-* core
         fi
-
-        if [[ "$2" != "swift" ]]; then
-          echo 'Installing for Xcode 7+.'
-          mv core/librealm-ios-bitcode.a core/librealm-ios.a
-        fi
-
-        # CocoaPods won't automatically preserve files referenced via symlinks
-        for symlink in $(find . -not -path "./.git/*" -type l); do
-          if [[ -L "$symlink" ]]; then
-            link="$(dirname "$symlink")/$(readlink "$symlink")"
-            rm "$symlink"
-            cp -RH "$link" "$symlink"
-          fi
-        done
 
         if [[ "$2" != "swift" ]]; then
           rm -rf include
@@ -932,7 +909,7 @@ case "$COMMAND" in
             cp Realm/*.h include/Realm
           fi
         else
-          echo "let swiftLanguageVersion = \"$(get_swift_version)\"" > RealmSwift/SwiftVersion.swift
+          sh build.sh set-swift-version
         fi
         ;;
 

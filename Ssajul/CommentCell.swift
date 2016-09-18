@@ -8,6 +8,7 @@
 
 import UIKit
 import ActiveLabel
+import ChameleonFramework
 
 class CommentCell: UITableViewCell {
 
@@ -22,7 +23,9 @@ class CommentCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-
+        content.handleURLTap { url in
+            UIApplication.sharedApplication().openURL(url)
+        }
         
     }
     
@@ -39,9 +42,12 @@ class CommentCell: UITableViewCell {
         self.userInfo.text = comment.createAt
         self.userName.text = comment.userName
         
-        if SSajulClient.sharedInstance.getLoginID() == comment.userID {
+        
+        if (SSajulClient.sharedInstance.getLoginID() == comment.userID) {
             self.backgroundColor =  UIColor.whiteColor()
-        }else{
+        }else if (SSajulClient.sharedInstance.selectedItem?.userName == comment.userName) {
+            self.backgroundColor = FlatLime()
+    }else{
             self.backgroundColor =  UIColor.groupTableViewBackgroundColor()
         }
     }

@@ -48,7 +48,7 @@ class LoginViewController: UIViewController {
 //        print("enter login")
         
         guard valideCheck() == true else {
-            let alertController = UIAlertController(title: "아이디/비번 입력이 잘못된듯...", message: " - 메시 -", preferredStyle: UIAlertControllerStyle.Alert)
+            let alertController = UIAlertController(title: "아이디/비번 입력이 잘못된듯...", message: " - 호짱메돈 -", preferredStyle: UIAlertControllerStyle.Alert)
             
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
                 print("OK")
@@ -71,8 +71,24 @@ class LoginViewController: UIViewController {
         
         let _ = Alamofire.request(.POST, url, parameters: parameters)
             .responseString { response in
-                    
+
+                if response.result.isFailure == true{
+                    return
+                }
+                
                 if response.result.isSuccess == true {
+                    
+                    if response.description.containsString( "history" ) {
+                        let alertController = UIAlertController(title: "이건 뭔가 잘못됬다", message: " - 반할 -", preferredStyle: UIAlertControllerStyle.Alert)
+                        
+                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                            print("OK")
+                        }
+                        alertController.addAction(okAction)
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                    }
+                    
+                    
                     self.uiClose(self)
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                     

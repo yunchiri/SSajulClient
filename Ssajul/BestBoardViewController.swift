@@ -11,9 +11,9 @@ import UIKit
 import Alamofire
 import Kanna
 import GoogleMobileAds
+import WebKit
 
-
-class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UITableViewDelegate, UITableViewDataSource,GADBannerViewDelegate{
+class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UITableViewDelegate, UITableViewDataSource,WKNavigationDelegate ,GADBannerViewDelegate {
     
     var realtimeBestList = [Item]()
     var todayBestList = [Item]()
@@ -26,6 +26,7 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var bannerView: GADBannerView!
     
+//    @IBOutlet weak var nativeExpressAdvieW: GADNativeExpressAdView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,15 +34,16 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
         self.refreshControl = UIRefreshControl()
         
         self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview( self.refreshControl)
         
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 53
         
-        loadingContent()
+        
         setUpAdmob()
         
         
-        self.bannerView.hidden = true
+//        self.nativeExpressAdvieW.hidden = true
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -49,6 +51,7 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
         
         self.tabBarController?.navigationItem.rightBarButtonItem?.enabled = false
         self.tabBarController?.delegate = self;
+        loadingContent()
     }
     
     
@@ -73,6 +76,25 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
         }
         
     }
+    
+    
+//    func setUpAdmob(){
+//        
+//        nativeExpressAdvieW!.adUnitID = "ca-app-pub-8030062085508715/2596335385"
+//        nativeExpressAdvieW!.rootViewController = self
+//        
+//        let request = GADRequest()
+//        //request.testDevices = [kGADSimulatorID]
+//        nativeExpressAdvieW!.loadRequest(request)
+//        
+//        //        self.nativeExpressAdview.ad
+//        //        self.nativeExpressAdview.adUnitID = "ca-app-pub-8030062085508715/2596335385"
+//        //        self.nativeExpressAdview.rootViewController = self
+//        //
+//        //        let request = GADRequest()
+//        //        self.nativeExpressAdview.loadRequest(request)
+//        
+//    }
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         self.tableView.setContentOffset(CGPoint.zero, animated:true)
@@ -196,97 +218,146 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
         
     }
     
-    // MARK: - Admob
-    func adViewDidReceiveAd(bannerView: GADBannerView!) {
-        self.bannerView.hidden = false
+    
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        
+        SSajulClient.sharedInstance.webView2.evaluateJavaScript("document.documentElement.outerHTML.toString()",
+                                                                completionHandler: { (html: AnyObject?, error: NSError?) in
+                                                                    self.parsing(html as! String)
+//                                                                                                                                        print(html)
+        })
+        
     }
+    
+
+    
+    // MARK: - Admob
+//    func adViewDidReceiveAd(bannerView: GADBannerView!) {
+//        self.bannerView.hidden = false
+//    }
     
     
     // MARK: - Parsing
+
     
     func loadingContent(){
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        
         let url = SSajulClient.sharedInstance.urlForBoardItemList( 1 )
         
         Alamofire.request(.GET, url)
             .responseString(encoding:CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ) { response in
                 
-                let htmlString = response.description
-                
-                let parsingBestSections = htmlString.regex("var content1 = \".*?</table>\"")
-                
-                
-                for bestSection in parsingBestSections {
+                if response.result.isFailure == true{
                     
+                    if ((response.result.error?.description.containsString("serialized")) == true){
+                        self.loadingContentWebEngine()
+                    }
                     
-                    let bestHrefList = bestSection.regex("<a.*?>.*?</a>.*?</td>")
-                    
-                    for bestHref in bestHrefList{
-                        
-                        
-                        var newBestItem = Item()
-                        
-                        let substractUid = bestHref.regex("<a..*uid=[0-9]+").first
-                        
-                        let indexOfUid = substractUid?.endIndex.advancedBy(-10)
-                        let uid = substractUid?.substringFromIndex(indexOfUid!)
-                        
-                        guard uid != nil else {
-                            continue
+                    return
+                }
+                
+                guard let htmlString = response.description as String? else {
+                    return
+                }
+                
+                self.parsing(htmlString)
+                
+        }
+        
+    }
+    
+    func loadingContentWebEngine(){
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        
+        
+        
+        let url = SSajulClient.sharedInstance.urlForBoardItemList( 1 )
+        SSajulClient.sharedInstance.webView2.stopLoading()
+        SSajulClient.sharedInstance.webView2.loadRequest(NSURLRequest.init(URL: NSURL.init(string: url)!))
+        SSajulClient.sharedInstance.webView2.navigationDelegate = self
+        
+    }
+    
+    func parsing(htmlString : String){
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        
+        let parsingBestSections = htmlString.regex("var content1 = \".*?</table>\"")
+        
+        
+        for bestSection in parsingBestSections {
+            
+            
+            let bestHrefList = bestSection.regex("<a.*?>.*?</a>.*?</td>")
+            
+            for bestHref in bestHrefList{
+                
+                
+                var newBestItem = Item()
+                
+                let substractUid = bestHref.regex("<a..*uid=[0-9]+").first
+                
+                let indexOfUid = substractUid?.endIndex.advancedBy(-10)
+                let uid = substractUid?.substringFromIndex(indexOfUid!)
+                
+                guard uid != nil else {
+                    continue
+                }
+                
+                
+                newBestItem.uid = uid!
+                newBestItem.title = bestHref.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
+                
+                newBestItem.title = newBestItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                
+                //comment parsing
+                if newBestItem.title.containsString("[") == false || newBestItem.title.characters.last != "]" {
+                    newBestItem.commentCount = 0
+                }else{
+                    var indexOfCommentCount = 1
+                    for char in newBestItem.title.characters.reverse() {
+                        if char == "[" {
+                            break;
                         }
-                        
-                        
-                        newBestItem.uid = uid!
-                        newBestItem.title = bestHref.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
-                        
+                        indexOfCommentCount = indexOfCommentCount + 1;
+                    }
+                    let commentStartIndex = newBestItem.title.endIndex.advancedBy( -indexOfCommentCount )
+                    let commentCountString = newBestItem.title.substringFromIndex(  commentStartIndex )
+                    
+                    let commentCount = String(String(commentCountString.characters.dropLast()).characters.dropFirst())
+                    
+                    if  let commentCountInt = Int(commentCount) {
+                        newBestItem.commentCount = commentCountInt
+                        //                                newBestItem.title.removeRange(Range.init(start: commentStartIndex, end: newBestItem.title.endIndex ))
+                        newBestItem.title.removeRange(Range.init(commentStartIndex ..< newBestItem.title.endIndex ))
                         newBestItem.title = newBestItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-                        
-                        //comment parsing
-                        if newBestItem.title.containsString("[") == false || newBestItem.title.characters.last != "]" {
-                            newBestItem.commentCount = 0
-                        }else{
-                            var indexOfCommentCount = 1
-                            for char in newBestItem.title.characters.reverse() {
-                                if char == "[" {
-                                    break;
-                                }
-                                indexOfCommentCount = indexOfCommentCount + 1;
-                            }
-                            let commentStartIndex = newBestItem.title.endIndex.advancedBy( -indexOfCommentCount )
-                            let commentCountString = newBestItem.title.substringFromIndex(  commentStartIndex )
-                            
-                            let commentCount = String(String(commentCountString.characters.dropLast()).characters.dropFirst())
-                            
-                            if  let commentCountInt = Int(commentCount) {
-                                newBestItem.commentCount = commentCountInt
-                                newBestItem.title.removeRange(Range.init(start: commentStartIndex, end: newBestItem.title.endIndex ))
-                                newBestItem.title = newBestItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-                            }else {
-                                newBestItem.commentCount = 0
-                            }
-                            
-                        }
-                        
-                        if self.realtimeBestList.count < 10 {
-                            self.realtimeBestList.append(newBestItem)
-                            continue
-                        }
-                        
-                        if self.todayBestList.count < 10 {
-                            self.todayBestList.append(newBestItem)
-                            continue
-                        }
-                        
-                        if self.commentBestList.count < 10 {
-                            self.commentBestList.append(newBestItem)
-                            continue
-                        }
-                        
-                        
+                    }else {
+                        newBestItem.commentCount = 0
                     }
                     
                 }
-                self.tableView.reloadData()
+                
+                if self.realtimeBestList.count < 10 {
+                    self.realtimeBestList.append(newBestItem)
+                    continue
+                }
+                
+                if self.todayBestList.count < 10 {
+                    self.todayBestList.append(newBestItem)
+                    continue
+                }
+                
+                if self.commentBestList.count < 10 {
+                    self.commentBestList.append(newBestItem)
+                    continue
+                }
+                
+                
+            }
+            
         }
+        self.tableView.reloadData()
         
     }
     

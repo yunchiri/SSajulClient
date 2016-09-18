@@ -56,7 +56,7 @@ class CommentWriteCell: UITableViewCell , UITextViewDelegate  {
     
     func addTargetUser(userNickName : String){
         
-        commentTextView.insertText( " @" + userNickName + " // ")
+        commentTextView.insertText( " @" + userNickName + " ")
 //        commentTextView.text.append( "@" + userNickName)
     }
 
