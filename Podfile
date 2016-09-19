@@ -14,7 +14,6 @@ target "Ssajul" do
 
     pod 'Alamofire', '~> 3.0'
     pod 'Kanna', '~> 1.0.0'
-    pod 'KMPlaceholderTextView', '~> 1.2.0' 
 
     pod 'Google-Mobile-Ads-SDK', '~> 7.0'
     pod 'ActiveLabel'

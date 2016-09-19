@@ -29,11 +29,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>KMPlaceholderTextView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Kanna.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,6 +67,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>115355A13AD0F9128243F686FA7E9777</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>38BDEC165C2394D0AE1C5806B98E97CA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5172ACAB7FEA22813859DC97CA0AA16F</key>
 		<dict>
 			<key>primary</key>
@@ -82,22 +87,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>65765C8F4CFADB3485891B164B2731D3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7ECC043FFB96B4E1FDB6B1B8D3C7D9C4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>807738112023E51CD59DEB71DE16F203</key>
+		<key>7E49B52F2766755973151A498F67B9BF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,12 +112,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B8B723C6B559382220226EEBDE6A62A6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EC25B770E2E786F47106EE8F013163EA</key>
+		<key>E81048383E78C681698E092F7E9A3391</key>
 		<dict>
 			<key>primary</key>
 			<true/>

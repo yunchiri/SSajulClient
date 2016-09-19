@@ -17,7 +17,6 @@ PODS:
   - Fabric (1.6.8)
   - Google-Mobile-Ads-SDK (7.11.0)
   - Kanna (1.0.6)
-  - KMPlaceholderTextView (1.2.2)
   - PagingMenuController (0.10.2)
   - Realm (1.1.0):
     - Realm/Headers (= 1.1.0)
@@ -36,7 +35,6 @@ DEPENDENCIES:
   - Fabric
   - Google-Mobile-Ads-SDK (~> 7.0)
   - Kanna (~> 1.0.0)
-  - KMPlaceholderTextView (~> 1.2.0)
   - PagingMenuController (~> 0.10.2)
   - RealmSwift
   - SVProgressHUD
@@ -51,12 +49,11 @@ SPEC CHECKSUMS:
   Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
   Google-Mobile-Ads-SDK: 0e864ab93ba1ff8afe92e16de0e4e883f581ed33
   Kanna: 9f30945bbd293a609f698ea164687ccc0990ff60
-  KMPlaceholderTextView: bbff031935d84f7eedb585e7f77120020fbae9e8
   PagingMenuController: febfbf42fa015ef1378626e57b63fc8d7a268485
   Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
   RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
-PODFILE CHECKSUM: 408301843c2f873720aa8df07fb71e4f4e5679ec
+PODFILE CHECKSUM: 9e7aae521ce9581a6e3f27e5fbe4df2474a42693
 
 COCOAPODS: 1.0.1
