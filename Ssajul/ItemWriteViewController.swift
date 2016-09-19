@@ -7,14 +7,14 @@
 //
 
 import UIKit
-import KMPlaceholderTextView
+//import KMPlaceholderTextView
 import Alamofire
 import RealmSwift
 
 class ItemWriteViewController: UIViewController {
     var isPosting :Bool = false
     
-    @IBOutlet weak var placeholderTextView: KMPlaceholderTextView!
+    @IBOutlet weak var placeholderTextView: UITextView!
     @IBOutlet weak var subjectTextField: UITextField!
 
     override func viewDidLoad() {

@@ -372,7 +372,17 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
             return
         }
         
-        webView.evaluateJavaScript("document.height") { (result, error) in
+        let javascriptString = "" +
+            "var body = document.body;" +
+            "var html = document.documentElement;" +
+            "Math.max(" +
+            "   body.scrollHeight," +
+            "   body.offsetHeight," +
+            "   html.clientHeight," +
+            "   html.offsetHeight" +
+        ");"
+        
+        webView.evaluateJavaScript(javascriptString) { (result, error) in
             if error == nil {
                 //                print(result as! CGFloat)
                 guard result is CGFloat else {
@@ -397,7 +407,19 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
         //        print("didfinish Navigation");
-        webView.evaluateJavaScript("document.height") { (result, error) in
+        
+        let javascriptString = "" +
+            "var body = document.body;" +
+            "var html = document.documentElement;" +
+            "Math.max(" +
+            "   body.scrollHeight," +
+            "   body.offsetHeight," +
+            "   html.clientHeight," +
+            "   html.offsetHeight" +
+        ");"
+        
+        
+        webView.evaluateJavaScript(javascriptString) { (result, error) in
             if error == nil {
                 //                print(result as! CGFloat)
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false

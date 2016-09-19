@@ -14,11 +14,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>BTNavigationDropdownMenu.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>ChameleonFramework.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,17 +67,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>24CAC349573DB0DE0BC60EEFB14F8B8D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2DE712EAA78E910FE3A8F77D833F0767</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>31C84A3832DB4AEB429573AACE8E3E73</key>
+		<key>0C47AC5FC1CB865CDCDC82913A490E4A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,12 +77,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>54FD5C1F2EAFFBE465D531CF72DFCA77</key>
+		<key>5D9D297325978BDCEA36E78ABC869009</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5D9D297325978BDCEA36E78ABC869009</key>
+		<key>65765C8F4CFADB3485891B164B2731D3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,7 +92,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8D3EA261F0A9E918CEFDE3CA4808AB4D</key>
+		<key>7ECC043FFB96B4E1FDB6B1B8D3C7D9C4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>807738112023E51CD59DEB71DE16F203</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>88704C02B695D10F0FFD6C4088DE7BC9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,17 +117,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D082FD9722F53B9C3A1229257D4008F7</key>
+		<key>B8B723C6B559382220226EEBDE6A62A6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>EC25B770E2E786F47106EE8F013163EA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FD23F1DA220A44C7E84F356B64871271</key>
 		<dict>
 			<key>primary</key>
 			<true/>
