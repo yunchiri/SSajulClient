@@ -150,7 +150,7 @@ class SSajulClient  {
 //            + "<script data-aload=\"http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js\"></script>"
             + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
             + "<meta name=\"viewport\""
-            + "\tcontent=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi\" />"
+            + "\tcontent=\"width=device-width, initial-scale=1.0, user-scalable=no\" />"
             
             
             + "<style type=\"text/css\">"
@@ -169,9 +169,8 @@ class SSajulClient  {
         let html = "<html>"
             + "<head>"
             + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
-            + "<meta name=\"viewport\""
-            + "\tcontent=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi\" />"
-            
+            + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=0\" />"
+
             
             + "<style type=\"text/css\">"
             + "#articleView * {"

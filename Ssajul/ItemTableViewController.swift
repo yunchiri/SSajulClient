@@ -97,6 +97,11 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     }
     
     
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        webView2.setNeedsLayout()
+    }
+    
+    
     @IBAction func addComent(sender: AnyObject) {
         self.tableView.endEditing(true)
     }
@@ -254,7 +259,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                 
 //                let content : XMLElement = doc.css("div#articleView").first!
                 
-                let htmlCode =  SSajulClient.sharedInstance.createHTML3(content.toHTML!)
+                let htmlCode =  SSajulClient.sharedInstance.createHTML2(content.toHTML!)
                 
                 let dispatch_group = dispatch_group_create()
                 let highPriorityQueue = dispatch_get_main_queue()

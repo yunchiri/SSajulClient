@@ -24,7 +24,6 @@ target "Ssajul" do
     pod 'PagingMenuController' ,'~> 0.10.2'
 
     pod 'ChameleonFramework/Swift'
-    pod 'CocoaLumberjack/Swift'    
 
     pod 'Fabric'
     pod 'Crashlytics'
