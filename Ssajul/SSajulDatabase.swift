@@ -12,7 +12,7 @@ import RealmSwift
 class SSajulDatabase{
     static let sharedInstance = SSajulDatabase()
     
-    func saveReadHistory(board : Board, item : Item) {
+    func saveReadHistory(_ board : Board, item : Item) {
         
         
         let history = History()
@@ -23,7 +23,7 @@ class SSajulDatabase{
         history.setBoard(board)
         history.setItem(item)
         
-        history.updateAt = NSDate()
+        history.updateAt = Date()
         
         
         let realm = try! Realm()
@@ -34,7 +34,7 @@ class SSajulDatabase{
     }
     
     
-    func saveFavoriteHistory(board : Board, item : Item) {
+    func saveFavoriteHistory(_ board : Board, item : Item) {
         
         
         let history = History()
@@ -45,7 +45,7 @@ class SSajulDatabase{
         history.setBoard(board)
         history.setItem(item)
         
-        history.updateAt = NSDate()
+        history.updateAt = Date()
         
         
         let realm = try! Realm()
@@ -59,7 +59,7 @@ class SSajulDatabase{
         
     }
     
-    func saveCommentHistory(board : Board, item : Item) {
+    func saveCommentHistory(_ board : Board, item : Item) {
         
         
         let history = History()
@@ -70,7 +70,7 @@ class SSajulDatabase{
         history.setBoard(board)
         history.setItem(item)
         
-        history.updateAt = NSDate()
+        history.updateAt = Date()
         
         
         let realm = try! Realm()

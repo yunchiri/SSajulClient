@@ -12,97 +12,109 @@ import ChameleonFramework
 import GoogleMobileAds
 
 class PagingMenuViewController: UIViewController {
-    var options = PagingMenuOptions()
+    
     var isEditingMode = false
     
-    @IBOutlet weak var nativeExpressAdvieW: GADNativeExpressAdView?
     
-    @IBAction func editingTableView(sender: AnyObject) {
+    
+    @IBAction func editingTableView(_ sender: AnyObject) {
         let pagingMenuController = self.childViewControllers.first as! PagingMenuController
         
         
-        pagingMenuController.currentViewController.setEditing(!isEditingMode, animated: true)
+        //pagingMenuController.currentViewController.setEditing(!isEditingMode, animated: true)
+        
+        pagingMenuController.presentedViewController?.setEditing(!isEditingMode, animated: true)
         
         isEditingMode = !isEditingMode
         
         if isEditingMode == true {
-            removeAllDataButton.enabled = true
+            removeAllDataButton.isEnabled = true
         }else{
-            removeAllDataButton.enabled = false
+            removeAllDataButton.isEnabled = false
         }
         
     }
     
     @IBOutlet weak var removeAllDataButton: UIBarButtonItem!
     
-    @IBAction func removeAllData(sender: AnyObject) {
+    @IBAction func removeAllData(_ sender: AnyObject) {
         let pagingMenuController = self.childViewControllers.first as! PagingMenuController
 
-        (pagingMenuController.currentViewController as! HistoryTableViewBase).removeAllItem()
-        removeAllDataButton.enabled = false
+        //(pagingMenuController.currentViewController as! HistoryTableViewBase).removeAllItem()
+        (pagingMenuController.presentedViewController as! HistoryTableViewBase).removeAllItem()
+        
+        removeAllDataButton.isEnabled = false
         
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let readVC = HistoryOfReadController.instantiateFromStoryboard()
-        let favoriteVC = HistoryOfFavoriteController.instantiateFromStoryboard()
-        let commentVC = HistoryOfCommentController.instantiateFromStoryboard()
-        //usersViewController.menuItemDescription = menuItemDescription
+//        let readVC = HistoryOfReadController.instantiateFromStoryboard()
+//        let favoriteVC = HistoryOfFavoriteController.instantiateFromStoryboard()
+//        let commentVC = HistoryOfCommentController.instantiateFromStoryboard()
+//        //usersViewController.menuItemDescription = menuItemDescription
+//        
+//        let viewControllers = [readVC,favoriteVC,commentVC]
+//        
+//        let pagingMenuController = self.childViewControllers.first as! PagingMenuController
+//        pagingMenuController.delegate = self
+//        
+//        
+////        options.backgroundColor = FlatYellow()
+////        options.selectedBackgroundColor = FlatYellow()
+////        options.textColor = FlatWhite()
+////        options.selectedTextColor = FlatBlackDark()
+//        
+//        struct PagingMenuOptions: PagingMenuControllerCustomizable {
+//            var componentType: ComponentType {
+//                return .all(menuOptions: MenuOptions(), pagingControllers: [readVC, favoriteVC, commentVC])
+//            }
+//        }
         
-        let viewControllers = [readVC,favoriteVC,commentVC]
+    
         
-        let pagingMenuController = self.childViewControllers.first as! PagingMenuController
-        pagingMenuController.delegate = self
+//        options.menuPosition = .Bottom
+//        
+//        
+//        options.menuItemMode = .Underline(height: 4, color: FlatLime(), horizontalPadding: 0, verticalPadding: 0)
+//        
+//        switch options.menuComponentType {
+//        case .All, .MenuController:
+//            pagingMenuController.setup(viewControllers, options: options)
+//        case .MenuView:
+//            pagingMenuController.setup(viewControllers.map { $0.title! }, options: options)
+//
+//        }
         
-        
-//        options.backgroundColor = FlatYellow()
-//        options.selectedBackgroundColor = FlatYellow()
-//        options.textColor = FlatWhite()
-//        options.selectedTextColor = FlatBlackDark()
-        options.menuPosition = .Bottom
-        
-        
-        options.menuItemMode = .Underline(height: 4, color: FlatLime(), horizontalPadding: 0, verticalPadding: 0)
-        
-        switch options.menuComponentType {
-        case .All, .MenuController:
-            pagingMenuController.setup(viewControllers, options: options)
-        case .MenuView:
-            pagingMenuController.setup(viewControllers.map { $0.title! }, options: options)
-        
-
-        }
-        
-        setUpAdmob()
+//        setUpAdmob()
     }
     
     func setUpAdmob(){
 
-        nativeExpressAdvieW!.adUnitID = "ca-app-pub-8030062085508715/2596335385"
-        nativeExpressAdvieW!.rootViewController = self
-        
-        let request = GADRequest()
-        //request.testDevices = [kGADSimulatorID]
-        nativeExpressAdvieW!.loadRequest(request)
-
-        
+//        nativeExpressAdvieW!.adUnitID = "ca-app-pub-8030062085508715/2596335385"
+//        nativeExpressAdvieW!.rootViewController = self
+//        
+//        let request = GADRequest()
+//        //request.testDevices = [kGADSimulatorID]
+//        nativeExpressAdvieW!.load(request)
+//
+//        
     }
 }
 
 extension PagingMenuViewController: PagingMenuControllerDelegate {
     // MARK: - PagingMenuControllerDelegate
 
-    func willMoveToPageMenuController(menuController: UIViewController, previousMenuController: UIViewController) {
+    func willMoveToPageMenuController(_ menuController: UIViewController, previousMenuController: UIViewController) {
         
         
     }
 
-    func didMoveToPageMenuController(menuController: UIViewController, previousMenuController: UIViewController) {
+    func didMoveToPageMenuController(_ menuController: UIViewController, previousMenuController: UIViewController) {
         
         previousMenuController.setEditing(false, animated: false)
         isEditingMode = false
-        removeAllDataButton.enabled = false
+        removeAllDataButton.isEnabled = false
     }
 }

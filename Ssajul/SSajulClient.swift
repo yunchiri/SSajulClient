@@ -36,7 +36,7 @@ class SSajulClient  {
     
     
     init(){
-        config.selectionGranularity = .Character
+        config.selectionGranularity = .character
         self.webView2 = WKWebView(frame: CGRect.zero, configuration: config)
         
     }
@@ -47,8 +47,8 @@ class SSajulClient  {
 //soccermingboard
 //columnboard
         return
-             [ Board(name: "ADMOBNATIVE" , boardID:  "ADMOBNATIVE")
-            , Board(name: "전체 게시판", boardID: "totalboard")
+             [
+             Board(name: "전체 게시판", boardID: "totalboard")
             , Board(name: "해외축구게시판", boardID: "soccerboard")
             , Board(name: "국내축구게시판", boardID: "kookdaeboard")
             , Board(name: "축구동영상게시판", boardID: "soccermingboard")
@@ -73,7 +73,7 @@ class SSajulClient  {
         ]
     }
     
-    func getItemList(board : Board, page : Int) -> String{
+    func getItemList(_ board : Board, page : Int) -> String{
         
 //        guard board == nil else{
 //            return
@@ -82,25 +82,25 @@ class SSajulClient  {
         
         let url = "http://m.soccerline.co.kr/bbs/locker/list.html?&code=locker&keyfield=&key=&period=&page=4"
 
-            Alamofire.request(.GET, url)
-                .responseString(encoding: NSUTF8StringEncoding) { response in
+            Alamofire.request( url)
+                .responseString(encoding: String.Encoding.utf8) { response in
                     print(response.description)
             }
         
         return ""
     }
     
-    func getItem(board : Board, itemID : String) -> String{
+    func getItem(_ board : Board, itemID : String) -> String{
         
         return ""
     }
     
-    func login(loginId : String , loingPwd : String) {
+    func login(_ loginId : String , loingPwd : String) {
         _isLogin = true
         
-        NSUserDefaults.standardUserDefaults().setObject( loginId, forKey: "login_id")
-        NSUserDefaults.standardUserDefaults().setObject( loingPwd, forKey: "login_pwd")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.set( loginId, forKey: "login_id")
+        UserDefaults.standard.set( loingPwd, forKey: "login_pwd")
+        UserDefaults.standard.synchronize()
         
         
     }
@@ -108,8 +108,8 @@ class SSajulClient  {
     func logout() {
         _isLogin = false
         
-        NSUserDefaults.standardUserDefaults().setObject( "", forKey: "login_pwd")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.set( "", forKey: "login_pwd")
+        UserDefaults.standard.synchronize()
     }
     
     func isLogin() -> Bool {
@@ -117,7 +117,7 @@ class SSajulClient  {
     }
     
     
-    func createHTML(content : String) -> String{
+    func createHTML(_ content : String) -> String{
         let html = "<html>"
             + "<head>"
             + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
@@ -136,9 +136,9 @@ class SSajulClient  {
         return html
     }
     
-    func createHTML33(content : String) -> String{
+    func createHTML33(_ content : String) -> String{
         
-        let contentAsync = content.stringByReplacingOccurrencesOfString("src=", withString: "data-aload=")
+        let contentAsync = content.replacingOccurrences(of: "src=", with: "data-aload=")
         
         
         let html = "<html>"
@@ -164,7 +164,7 @@ class SSajulClient  {
         return html
     }
 
-    func createHTML2(content : String) -> String{
+    func createHTML2(_ content : String) -> String{
         
         let html = "<html>"
             + "<head>"
@@ -184,29 +184,29 @@ class SSajulClient  {
     }
     
     
-    func createHTML3(content : String) -> String{
+    func createHTML3(_ content : String) -> String{
         
-        let types: NSTextCheckingType = .Link
+        let types: NSTextCheckingResult.CheckingType = .link
         let detector = try? NSDataDetector(types: types.rawValue)
-        let content2 = content.stringByReplacingOccurrencesOfString("<br>", withString: " <br> ")
+        let content2 = content.replacingOccurrences(of: "<br>", with: " <br> ")
 //         content2 = content.stringByReplacingOccurrencesOfString("\n", withString: "")
 //         content2 = content.stringByReplacingOccurrencesOfString("\r", withString: "")
 //         content2 = content.stringByReplacingOccurrencesOfString("\t", withString: "")
 //        content2 = content.stringByReplacingOccurrencesOfString("\r\n", withString: "")
         var content3 = content2
-        let matches = detector!.matchesInString(content2, options: .ReportCompletion, range: NSMakeRange(0, content2.characters.count))
+        let matches = detector!.matches(in: content2, options: .reportCompletion, range: NSMakeRange(0, content2.characters.count))
         
         for match in matches {
             
             
-            if content.containsString("img") == true || content.containsString("embed") == true { break }
-            print(match.URL!)
-            var urlx = match.URL?.absoluteString
+            if content.contains("img") == true || content.contains("embed") == true { break }
+            print(match.url!)
+            var urlx = match.url?.absoluteString
             
-            urlx = urlx?.stringByReplacingOccurrencesOfString("amp;", withString: "")
+            urlx = urlx?.replacingOccurrences(of: "amp;", with: "")
             
             let link = "\r <a href =\"" + urlx! + "\"> " + urlx!  + "</a>"
-            content3 = content2.stringByReplacingOccurrencesOfString((match.URL?.absoluteString)!, withString: link )
+            content3 = content2.replacingOccurrences(of: (match.url?.absoluteString)!, with: link )
         }
         
         
@@ -231,10 +231,10 @@ class SSajulClient  {
     
     func showCookies() {
         
-        let cookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        let cookieStorage = HTTPCookieStorage.shared
         //println("policy: \(cookieStorage.cookieAcceptPolicy.rawValue)")
         
-        let cookies = cookieStorage.cookies! as [NSHTTPCookie]
+        let cookies = cookieStorage.cookies! as [HTTPCookie]
         
         print("Cookies.count: \(cookies.count)")
         
@@ -244,12 +244,12 @@ class SSajulClient  {
     }
     
     func deleteCookies() {
-        let storage : NSHTTPCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-        for cookie in storage.cookies!  as [NSHTTPCookie]
+        let storage : HTTPCookieStorage = HTTPCookieStorage.shared
+        for cookie in storage.cookies!  as [HTTPCookie]
         {
             storage.deleteCookie(cookie)
         }
-        NSUserDefaults.standardUserDefaults()
+        UserDefaults.standard
     }
     
     //urls
@@ -273,7 +273,7 @@ class SSajulClient  {
         return String(format:  "http://m.soccerline.co.kr/bbs/totalboard/view.html?uid=%@&page=1&code=%@&keyfield=&key=&period=", itemId, boardId)
     }
     
-    func urlForBoardItemList(page : Int) -> String{
+    func urlForBoardItemList(_ page : Int) -> String{
         if selectedBoard == nil { return "http://127.0.0.1" }
         
         let boardId = selectedBoard!.boardID
@@ -281,7 +281,7 @@ class SSajulClient  {
         return String(format:  "http://www.soccerline.co.kr/slboard/list.php?page=%d&code=%@&keyfield=&key=&period=&", page, boardId)
     }
     
-    func urlForBoardItemSearchedList(page : Int, key : String, keyfield : String) -> String{
+    func urlForBoardItemSearchedList(_ page : Int, key : String, keyfield : String) -> String{
 
         if selectedBoard == nil { return "http://127.0.0.1" }
         
@@ -293,7 +293,7 @@ class SSajulClient  {
         }
         
         
-        guard let encodingKey = newKey.stringByAddingPercentEscapesUsingEncoding(CFStringConvertEncodingToNSStringEncoding( 0x0422 ) )
+        guard let encodingKey = newKey.addingPercentEscapes(using: String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding( 0x0422 )) )
              else {
             return "http://127.0.0.1"
         }
@@ -301,7 +301,7 @@ class SSajulClient  {
         let boardId = selectedBoard!.boardID
         
         let url = String(format:  "http://www.soccerline.co.kr/slboard/list.php?page=%d&code=%@&key=%@&keyfield=%@&period=0|1987508143", page, boardId,  encodingKey, newKeyfiled)
-        let urlString = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let urlString = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         
 //        let urlString = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLPathAllowedCharacterSet())!
         
@@ -387,7 +387,7 @@ class SSajulClient  {
         
         let notlogin = "not_logined"
         if isLogin() == true {
-            let userID = NSUserDefaults.standardUserDefaults().objectForKey( "login_id") as! String
+            let userID = UserDefaults.standard.object( forKey: "login_id") as! String
             
             if userID.characters.count == 0 {
                 return notlogin
@@ -404,9 +404,9 @@ class SSajulClient  {
     func isShowIntertitialAfter2Hour() -> Bool{
         var result :  Bool = false
         
-        if let lastShowInterstitialTime = NSUserDefaults.standardUserDefaults().objectForKey("lastShowInterstitialTime") {
+        if let lastShowInterstitialTime = UserDefaults.standard.object(forKey: "lastShowInterstitialTime") {
             
-            let inteval = NSDate().timeIntervalSinceDate(lastShowInterstitialTime as! NSDate)
+            let inteval = Date().timeIntervalSince(lastShowInterstitialTime as! Date)
             
             if inteval > 7200 {
                 result = true
@@ -421,9 +421,9 @@ class SSajulClient  {
     
     
     func saveShowIntertitialDateTime(){
-        dispatch_async(dispatch_get_global_queue( QOS_CLASS_UTILITY, 0)) {
-            NSUserDefaults.standardUserDefaults().setObject(NSDate(), forKey: "lastShowInterstitialTime")
-            NSUserDefaults.standardUserDefaults().synchronize()
+        DispatchQueue.global( qos: DispatchQoS.QoSClass.utility).async {
+            UserDefaults.standard.set(Date(), forKey: "lastShowInterstitialTime")
+            UserDefaults.standard.synchronize()
         }
     }
 

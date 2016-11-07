@@ -24,19 +24,19 @@ class CommentCell: UITableViewCell {
         // Initialization code
         
         content.handleURLTap { url in
-            UIApplication.sharedApplication().openURL(url)
+            UIApplication.shared.openURL(url)
         }
         
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
 //        print("selecte")
         // Configure the view for the selected state
     }
     
-    func setComment(comment : Comment) {
+    func setComment(_ comment : Comment) {
         self._comment = comment
         self.content.text = comment.content
         self.userInfo.text = comment.createAt
@@ -44,11 +44,11 @@ class CommentCell: UITableViewCell {
         
         
         if (SSajulClient.sharedInstance.getLoginID() == comment.userID) {
-            self.backgroundColor =  UIColor.whiteColor()
+            self.backgroundColor =  UIColor.white
         }else if (SSajulClient.sharedInstance.selectedItem?.userName == comment.userName) {
             self.backgroundColor = FlatLime()
     }else{
-            self.backgroundColor =  UIColor.groupTableViewBackgroundColor()
+            self.backgroundColor =  UIColor.groupTableViewBackground
         }
     }
     

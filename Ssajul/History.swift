@@ -39,7 +39,7 @@ class History : Object {
     dynamic var commentCount : Int = 0
     
     
-    dynamic var updateAt : NSDate? = nil
+    dynamic var updateAt : Date? = nil
     
     
 //    dynamic lazy var compoundKey : String = self.compoundKeyValue()
@@ -67,7 +67,7 @@ class History : Object {
         return item
     }
     
-    func setItem(item : Item){
+    func setItem(_ item : Item){
         self.uid = item.uid
         self.userID = item.userID
         self.userName = item.userName
@@ -86,7 +86,7 @@ class History : Object {
         
     }
     
-    func setBoard(board : Board){
+    func setBoard(_ board : Board){
         self.boardId = board.boardID
     }
 

@@ -1,50 +1,62 @@
 PODS:
-  - ActiveLabel (0.6.2)
-  - Alamofire (3.5.0)
+  - ActiveLabel (0.7.0)
+  - Alamofire (4.0.1)
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
-  - Colours/Swift (5.13.0)
-  - Crashlytics (3.8.2):
+  - Crashlytics (3.8.3):
     - Fabric (~> 1.6.3)
-  - Fabric (1.6.9)
-  - Google-Mobile-Ads-SDK (7.12.1)
-  - Kanna (1.0.6)
-  - PagingMenuController (0.10.2)
-  - Realm (2.0.0):
-    - Realm/Headers (= 2.0.0)
-  - Realm/Headers (2.0.0)
-  - RealmSwift (2.0.0):
-    - Realm (= 2.0.0)
+  - Fabric (1.6.11)
+  - Google-Mobile-Ads-SDK (7.14.0)
+  - Kanna (2.0.0)
+  - PagingMenuController (2.0.0)
+  - Realm (2.0.3):
+    - Realm/Headers (= 2.0.3)
+  - Realm/Headers (2.0.3)
+  - RealmSwift (2.0.3):
+    - Realm (= 2.0.3)
   - SVProgressHUD (2.0.3)
 
 DEPENDENCIES:
-  - ActiveLabel
-  - Alamofire (~> 3.0)
-  - ChameleonFramework/Swift
-  - Colours/Swift
+  - ActiveLabel (from `https://github.com/optonaut/ActiveLabel.swift.git`, tag `0.7.0`)
+  - Alamofire
+  - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - Crashlytics
   - Fabric
   - Google-Mobile-Ads-SDK (~> 7.0)
-  - Kanna (~> 1.0.0)
-  - PagingMenuController (~> 0.10.2)
+  - Kanna (~> 2.0.0)
+  - PagingMenuController
   - RealmSwift
   - SVProgressHUD
 
+EXTERNAL SOURCES:
+  ActiveLabel:
+    :git: https://github.com/optonaut/ActiveLabel.swift.git
+    :tag: 0.7.0
+  ChameleonFramework:
+    :git: https://github.com/ViccAlexander/Chameleon.git
+
+CHECKOUT OPTIONS:
+  ActiveLabel:
+    :git: https://github.com/optonaut/ActiveLabel.swift.git
+    :tag: 0.7.0
+  ChameleonFramework:
+    :commit: 9d616d74f76c0c6fc70ae2408b20321a74b9dad9
+    :git: https://github.com/ViccAlexander/Chameleon.git
+
 SPEC CHECKSUMS:
-  ActiveLabel: 2394eb48a2e31644ea90d6543c17bffe1d06f549
-  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
+  ActiveLabel: eb405c5b99275be52fac161f7a55cab1dd672c54
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
-  Colours: f24220c38f13deac88612667e9b4a7fb96b871d4
-  Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
-  Fabric: bc5bec42cef4bcf1ee3ce0e218fc518e4b44dfbb
-  Google-Mobile-Ads-SDK: 542eb24c1ce6c8fd5084ee9572fd9dcd2d06065a
-  Kanna: 9f30945bbd293a609f698ea164687ccc0990ff60
-  PagingMenuController: febfbf42fa015ef1378626e57b63fc8d7a268485
-  Realm: 6dda421ae4b3e9a09742fc2cf4b876d459cbedcd
-  RealmSwift: 7d015f34a2781a50889be9b5a15c36c08597ea0e
+  Crashlytics: 2b6dbe138a42395577cfa73dfa1aa7248cadf39e
+  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
+  Google-Mobile-Ads-SDK: dbb0211c52ca02f72331b831ce4ccd218cf08748
+  Kanna: 9a6637f72f5c77fe9c045b1efb2a5bb074754af8
+  PagingMenuController: 60602bfb5421d6536c1e3097baeed601dec1d85b
+  Realm: 5f008bfe3c8c47142eddfc30b8c1584cde22db24
+  RealmSwift: 5afb451f65b682242f272dbb52d5c6f6e343c980
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
-PODFILE CHECKSUM: d12a2288b6adfed478aa8b2e9adbf058ed54ac09
+PODFILE CHECKSUM: 1c889913a43fd8e527c87ced73680c8b6d6b03f1
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.1

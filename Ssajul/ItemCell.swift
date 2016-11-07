@@ -8,7 +8,7 @@
 
 import UIKit
 import QuartzCore
-import Colours
+
 import RealmSwift
 import ChameleonFramework
 
@@ -38,13 +38,13 @@ class ItemCell: UITableViewCell {
         
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    func isRead(item : Item)-> Bool{
+    func isRead(_ item : Item)-> Bool{
         
         let realm = try! Realm()
         let result = realm.objects(History).filter( "type == '" + HistoryType.Read + "' and uid == '" + item.uid + "' ")
@@ -60,7 +60,7 @@ class ItemCell: UITableViewCell {
     }
     
     
-    func setItem(item : Item) {
+    func setItem(_ item : Item) {
         
 
         
@@ -75,41 +75,41 @@ class ItemCell: UITableViewCell {
         
     }
     
-    func setItemLayout(item: Item){
+    func setItemLayout(_ item: Item){
         if isRead(item) {
             self.content.textColor =  FlatWhiteDark()
         }else{
-            self.content.textColor = UIColor.blackColor()
+            self.content.textColor = UIColor.black
         }
         
         if item.commentCount > 10 {
-            self.commentCount.font = UIFont.boldSystemFontOfSize(11)
+            self.commentCount.font = UIFont.boldSystemFont(ofSize: 11)
             self.commentCount.backgroundColor = UIColor.init(red: 0.996, green: 0.812, blue: 0.196, alpha: 1)
         }else if item.commentCount > 0{
-            self.commentCount.font = UIFont.systemFontOfSize(11)
+            self.commentCount.font = UIFont.systemFont(ofSize: 11)
             self.commentCount.backgroundColor = UIColor.init(red: 0.529, green: 0.737, blue: 0.149, alpha: 1)
         }else{
-            self.commentCount.font = UIFont.systemFontOfSize(10)
-            self.commentCount.backgroundColor = UIColor.clearColor()
+            self.commentCount.font = UIFont.systemFont(ofSize: 10)
+            self.commentCount.backgroundColor = UIColor.clear
         }
         
         if item.readCount > 150 {
-            self.readCount.font = UIFont.boldSystemFontOfSize(11)
-            self.readCount.backgroundColor = UIColor.yellowColor()
+            self.readCount.font = UIFont.boldSystemFont(ofSize: 11)
+            self.readCount.backgroundColor = UIColor.yellow
         }else{
-            self.readCount.font = UIFont.systemFontOfSize(10)
-            self.readCount.backgroundColor = UIColor.clearColor()
+            self.readCount.font = UIFont.systemFont(ofSize: 10)
+            self.readCount.backgroundColor = UIColor.clear
         }
         
         if item.voteUp > item.voteDown {
-            self.voteUpAndDown.font = UIFont.boldSystemFontOfSize(11)
-            self.voteUpAndDown.backgroundColor = UIColor.paleGreenColor()
+            self.voteUpAndDown.font = UIFont.boldSystemFont(ofSize: 11)
+            self.voteUpAndDown.backgroundColor = FlatLime()
         }else if item.voteUp < item.voteDown{
-            self.voteUpAndDown.font = UIFont.systemFontOfSize(10)
-            self.voteUpAndDown.backgroundColor = UIColor.paleRoseColor()// UIColor(red: 0.7098, green: 0.2706, blue: 0.2314, alpha: 0.5)
+            self.voteUpAndDown.font = UIFont.systemFont(ofSize: 10)
+            self.voteUpAndDown.backgroundColor = FlatPink()// UIColor(red: 0.7098, green: 0.2706, blue: 0.2314, alpha: 0.5)
         }else{
-            self.voteUpAndDown.font = UIFont.systemFontOfSize(10)
-            self.voteUpAndDown.backgroundColor = UIColor.clearColor()
+            self.voteUpAndDown.font = UIFont.systemFont(ofSize: 10)
+            self.voteUpAndDown.backgroundColor = UIColor.clear
         }
     }
     

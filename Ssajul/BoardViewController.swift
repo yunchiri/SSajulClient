@@ -26,7 +26,7 @@ class BoardViewcontroller: UITableViewController{
         
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
 //        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
         
@@ -52,13 +52,13 @@ class BoardViewcontroller: UITableViewController{
 
     // MARK: - Segues
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
         if self.tableView.indexPathForSelectedRow?.section == 1 {
             let indexPath = self.tableView.indexPathForSelectedRow
             let selectedBoard = extraBoardList[indexPath!.row] as Board!
-            let extraSiteUrl : NSURL = NSURL(string:   selectedBoard.boardID)!
-            UIApplication.sharedApplication().openURL(extraSiteUrl)
+            let extraSiteUrl : URL = URL(string:   selectedBoard!.boardID)!
+            UIApplication.shared.openURL(extraSiteUrl)
             return false
         }
         
@@ -73,7 +73,7 @@ class BoardViewcontroller: UITableViewController{
         return true
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "tabbarSergue" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let selectedBoard = boardList[indexPath.row] as Board!
@@ -89,11 +89,11 @@ class BoardViewcontroller: UITableViewController{
 
     // MARK: - Table View
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
             return boardList.count
@@ -107,10 +107,10 @@ class BoardViewcontroller: UITableViewController{
         return 0
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             
             let boardID = extraBoardList[indexPath.row].name as String!
             
@@ -119,7 +119,7 @@ class BoardViewcontroller: UITableViewController{
         }
         
         if boardList[indexPath.row].name == "ADMOBNATIVE" {
-            let cell = tableView.dequeueReusableCellWithIdentifier("admobNativeCell", forIndexPath: indexPath) as! AdCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "admobNativeCell", for: indexPath) as! AdCell
             
             
             cell.nativeExpressAdvieW.adUnitID = "ca-app-pub-8030062085508715/2596335385"
@@ -127,13 +127,13 @@ class BoardViewcontroller: UITableViewController{
             
             let request = GADRequest()
             //request.testDevices = [kGADSimulatorID]
-            cell.nativeExpressAdvieW.loadRequest(request)
+            cell.nativeExpressAdvieW.load(request)
             
             return cell
         }
         
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
         let boardID = boardList[indexPath.row].name as String!
         
@@ -141,13 +141,13 @@ class BoardViewcontroller: UITableViewController{
         return cell
     }
 
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return false
     }
     
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if boardList[indexPath.row].name == "ADMOBNATIVE" {
             

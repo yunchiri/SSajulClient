@@ -9,6 +9,30 @@
 import UIKit
 
 import Alamofire
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class LoginViewController: UIViewController {
 
@@ -38,28 +62,28 @@ class LoginViewController: UIViewController {
     }
     */
 
-    @IBAction func uiClose(sender: AnyObject) {
-        dismissViewControllerAnimated(false, completion: nil);
+    @IBAction func uiClose(_ sender: AnyObject) {
+        dismiss(animated: false, completion: nil);
     }
  
     
-    @IBAction func uiLogin(sender: AnyObject) {
+    @IBAction func uiLogin(_ sender: AnyObject) {
         
 //        print("enter login")
         
         guard valideCheck() == true else {
-            let alertController = UIAlertController(title: "아이디/비번 입력이 잘못된듯...", message: " - 호짱메돈 -", preferredStyle: UIAlertControllerStyle.Alert)
+            let alertController = UIAlertController(title: "아이디/비번 입력이 잘못된듯...", message: " - 호짱메돈 -", preferredStyle: UIAlertControllerStyle.alert)
             
-            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
                 print("OK")
             }
             alertController.addAction(okAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
             return
         }
         
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         let url = SSajulClient.sharedInstance.urlForLogin()
         
@@ -69,7 +93,8 @@ class LoginViewController: UIViewController {
         parameters["login_id"] = uiLoginID.text
         parameters["login_pwd"] = uiPassword.text
         
-        let _ = Alamofire.request(.POST, url, parameters: parameters)
+        //let _ = Alamofire.request(.POST, url, parameters: parameters)
+        let _ = Alamofire.request(url, parameters: parameters)
             .responseString { response in
 
                 if response.result.isFailure == true{
@@ -78,19 +103,21 @@ class LoginViewController: UIViewController {
                 
                 if response.result.isSuccess == true {
                     
-                    if response.description.containsString( "history" ) {
-                        let alertController = UIAlertController(title: "이건 뭔가 잘못됬다", message: " - 반할 -", preferredStyle: UIAlertControllerStyle.Alert)
+                    if response.description.contains( "history" ) {
+                        let alertController = UIAlertController(title: "이건 뭔가 잘못됬다", message: " - 반할 -", preferredStyle: UIAlertControllerStyle.alert)
                         
-                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
                             print("OK")
                         }
                         alertController.addAction(okAction)
-                        self.presentViewController(alertController, animated: true, completion: nil)
+                        //self.presentViewController(alertController, animated: true, completion: nil)
+                        self.present(alertController, animated: true, completion: nil)
                     }
                     
                     
                     self.uiClose(self)
-                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    //UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
                     SSajulClient.sharedInstance.login(self.uiLoginID.text!,  loingPwd: self.uiPassword.text!)
                     
@@ -98,13 +125,15 @@ class LoginViewController: UIViewController {
  
 
                 } else {
-                    let alertController = UIAlertController(title: "엌...ㄷㄷㄷ 에러 나중에 다시좀...", message: " - 원인 : 나도모름 -", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alertController = UIAlertController(title: "엌...ㄷㄷㄷ 에러 나중에 다시좀...", message: " - 원인 : 나도모름 -", preferredStyle: UIAlertControllerStyle.alert)
                     
-                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
                         print("OK")
                     }
                     alertController.addAction(okAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    
+                    //self.presentViewController(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
                 }
         }
                 
@@ -123,11 +152,11 @@ class LoginViewController: UIViewController {
         return true
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.uiLoginID.text = NSUserDefaults.standardUserDefaults().objectForKey("login_id") as? String
-        self.uiPassword.text = NSUserDefaults.standardUserDefaults().objectForKey("login_pwd") as? String
+        self.uiLoginID.text = UserDefaults.standard.object(forKey: "login_id") as? String
+        self.uiPassword.text = UserDefaults.standard.object(forKey: "login_pwd") as? String
         
         guard self.uiLoginID.text?.characters.count > 0 else {
             return
@@ -137,7 +166,7 @@ class LoginViewController: UIViewController {
             return
         }
         
-        self.uiLogin("")
+        self.uiLogin("" as AnyObject)
     }
   
     

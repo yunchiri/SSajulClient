@@ -33,7 +33,7 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
         
         self.refreshControl = UIRefreshControl()
         
-        self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), for: UIControlEvents.valueChanged)
         self.tableView.addSubview( self.refreshControl)
         
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -46,10 +46,10 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
 //        self.nativeExpressAdvieW.hidden = true
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.tabBarController?.navigationItem.rightBarButtonItem?.enabled = false
+        self.tabBarController?.navigationItem.rightBarButtonItem?.isEnabled = false
         self.tabBarController?.delegate = self;
         loadingContent()
     }
@@ -62,41 +62,24 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
     }
     
     
-    func handleRefresh(refreshControl : UIRefreshControl){
+    func handleRefresh(_ refreshControl : UIRefreshControl){
         self.loadingContent()
         refreshControl.endRefreshing()
     }
     
     func setUpAdmob(){
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             self.bannerView.delegate = self
             self.bannerView.adUnitID = "ca-app-pub-8030062085508715/2541766586"
             self.bannerView.rootViewController = self
-            self.bannerView.loadRequest(GADRequest())
+            self.bannerView.load(GADRequest())
         }
         
     }
     
+
     
-//    func setUpAdmob(){
-//        
-//        nativeExpressAdvieW!.adUnitID = "ca-app-pub-8030062085508715/2596335385"
-//        nativeExpressAdvieW!.rootViewController = self
-//        
-//        let request = GADRequest()
-//        //request.testDevices = [kGADSimulatorID]
-//        nativeExpressAdvieW!.loadRequest(request)
-//        
-//        //        self.nativeExpressAdview.ad
-//        //        self.nativeExpressAdview.adUnitID = "ca-app-pub-8030062085508715/2596335385"
-//        //        self.nativeExpressAdview.rootViewController = self
-//        //
-//        //        let request = GADRequest()
-//        //        self.nativeExpressAdview.loadRequest(request)
-//        
-//    }
-    
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         self.tableView.setContentOffset(CGPoint.zero, animated:true)
     }
     
@@ -104,11 +87,11 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
     
     // MARK: - Table view data source
     
-     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
     
-     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section {
         case 0:
@@ -123,25 +106,12 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
         
         
     }
-    
-    //    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    //        var returnedView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 18)) //set these values as necessary
-    //        returnedView.backgroundColor = UIColor.redColor()
-    //
-    //        var label = UILabel(frame: CGRectMake(10, 5, tableView.frame.size.width, 18))
-    //        label.text = "dd"
-    //        returnedView.addSubview(label)
-    //
-    //        return returnedView
-    //    }
-    //
+
     
     
-    
-    
-     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("itemCell", forIndexPath: indexPath) as! ItemCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
         
         
         switch indexPath.section {
@@ -171,7 +141,7 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
     //
     //    }
     
-     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         var title : String
         
@@ -189,7 +159,7 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
         return title
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "bestItemSegue" {
@@ -220,7 +190,7 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
     
     
     
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         
         SSajulClient.sharedInstance.webView2.evaluateJavaScript("document.documentElement.outerHTML.toString()",
                                                                 completionHandler: { (html: AnyObject?, error: NSError?) in
@@ -232,17 +202,11 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
     
 
     
-    // MARK: - Admob
-//    func adViewDidReceiveAd(bannerView: GADBannerView!) {
-//        self.bannerView.hidden = false
-//    }
-    
-    
     // MARK: - Parsing
 
     
     func loadingContent(){
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         let url = SSajulClient.sharedInstance.urlForBoardItemList( 1 )
         
@@ -269,19 +233,19 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
     }
     
     func loadingContentWebEngine(){
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         
         
         let url = SSajulClient.sharedInstance.urlForBoardItemList( 1 )
         SSajulClient.sharedInstance.webView2.stopLoading()
-        SSajulClient.sharedInstance.webView2.loadRequest(NSURLRequest.init(URL: NSURL.init(string: url)!))
+        SSajulClient.sharedInstance.webView2.load(URLRequest.init(url: URL.init(string: url)!))
         SSajulClient.sharedInstance.webView2.navigationDelegate = self
         
     }
     
-    func parsing(htmlString : String){
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    func parsing(_ htmlString : String){
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         
         let parsingBestSections = htmlString.regex("var content1 = \".*?</table>\"")
         
@@ -298,8 +262,8 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
                 
                 let substractUid = bestHref.regex("<a..*uid=[0-9]+").first
                 
-                let indexOfUid = substractUid?.endIndex.advancedBy(-10)
-                let uid = substractUid?.substringFromIndex(indexOfUid!)
+                let indexOfUid = substractUid?.characters.index((substractUid?.endIndex)!, offsetBy: -10)
+                let uid = substractUid?.substring(from: indexOfUid!)
                 
                 guard uid != nil else {
                     continue
@@ -307,31 +271,31 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
                 
                 
                 newBestItem.uid = uid!
-                newBestItem.title = bestHref.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
+                newBestItem.title = bestHref.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
                 
-                newBestItem.title = newBestItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                newBestItem.title = newBestItem.title.trimmingCharacters(in: CharacterSet.whitespaces)
                 
                 //comment parsing
-                if newBestItem.title.containsString("[") == false || newBestItem.title.characters.last != "]" {
+                if newBestItem.title.contains("[") == false || newBestItem.title.characters.last != "]" {
                     newBestItem.commentCount = 0
                 }else{
                     var indexOfCommentCount = 1
-                    for char in newBestItem.title.characters.reverse() {
+                    for char in newBestItem.title.characters.reversed() {
                         if char == "[" {
                             break;
                         }
                         indexOfCommentCount = indexOfCommentCount + 1;
                     }
-                    let commentStartIndex = newBestItem.title.endIndex.advancedBy( -indexOfCommentCount )
-                    let commentCountString = newBestItem.title.substringFromIndex(  commentStartIndex )
+                    let commentStartIndex = newBestItem.title.characters.index(newBestItem.title.endIndex, offsetBy: -indexOfCommentCount)
+                    let commentCountString = newBestItem.title.substring(  from: commentStartIndex )
                     
                     let commentCount = String(String(commentCountString.characters.dropLast()).characters.dropFirst())
                     
                     if  let commentCountInt = Int(commentCount) {
                         newBestItem.commentCount = commentCountInt
                         //                                newBestItem.title.removeRange(Range.init(start: commentStartIndex, end: newBestItem.title.endIndex ))
-                        newBestItem.title.removeRange(Range.init(commentStartIndex ..< newBestItem.title.endIndex ))
-                        newBestItem.title = newBestItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                        newBestItem.title.removeSubrange(Range.init(commentStartIndex ..< newBestItem.title.endIndex ))
+                        newBestItem.title = newBestItem.title.trimmingCharacters(in: CharacterSet.whitespaces)
                     }else {
                         newBestItem.commentCount = 0
                     }

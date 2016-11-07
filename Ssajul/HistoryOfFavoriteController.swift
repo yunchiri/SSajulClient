@@ -17,7 +17,7 @@ class HistoryOfFavoriteController: HistoryTableViewBase {
     
     class func instantiateFromStoryboard() -> HistoryOfFavoriteController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        return storyboard.instantiateViewControllerWithIdentifier(String(self)) as! HistoryOfFavoriteController
+        return storyboard.instantiateViewController(withIdentifier: String(describing: self)) as! HistoryOfFavoriteController
     }
     
     override func viewDidLoad() {
@@ -34,10 +34,10 @@ class HistoryOfFavoriteController: HistoryTableViewBase {
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        guard historyItemList?.count > 0 else {
+        guard (historyItemList?.count)! > 0 else {
             return
         }
         self.tableView .reloadData()
@@ -50,18 +50,18 @@ class HistoryOfFavoriteController: HistoryTableViewBase {
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return historyItemList!.count
     }
     
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("itemCell", forIndexPath: indexPath) as! ItemCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
         
         if historyItemList == nil {
             return cell
@@ -78,7 +78,7 @@ class HistoryOfFavoriteController: HistoryTableViewBase {
     
     func getHistoryList(){
         let realm = try! Realm()
-        let result = realm.objects(History).filter( "type == '" + HistoryType.Favorite + "'" ).sorted("updateAt", ascending: false)
+        let result = realm.objects(History).filter( "type == '" + HistoryType.Favorite + "'" ).sorted(byProperty: "updateAt", ascending: false)
         historyItemList = result
         
         self.tableView.reloadData()
@@ -91,15 +91,15 @@ class HistoryOfFavoriteController: HistoryTableViewBase {
     func setUpTableView(){
         
         
-        self.refreshControl?.addTarget(self, action: #selector(self.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControlEvents.valueChanged)
         self.tableView.estimatedRowHeight = 30
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
-        self.tabBarController?.tabBar.translucent = false
-        self.tabBarController?.navigationController?.navigationBar.translucent = false
+        self.tabBarController?.tabBar.isTranslucent = false
+        self.tabBarController?.navigationController?.navigationBar.isTranslucent = false
     }
     
-    func handleRefresh(refreshControl : UIRefreshControl){
+    func handleRefresh(_ refreshControl : UIRefreshControl){
         
         self.tableView.reloadData()
         refreshControl.endRefreshing()
@@ -107,7 +107,7 @@ class HistoryOfFavoriteController: HistoryTableViewBase {
     
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "itemSegue" {
@@ -126,7 +126,7 @@ class HistoryOfFavoriteController: HistoryTableViewBase {
     
     
     //     Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return true// if you do not want the specified item to be editable.
         return true
     }
@@ -134,8 +134,8 @@ class HistoryOfFavoriteController: HistoryTableViewBase {
     
     
     // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             // Delete the row from the data source
             
             
@@ -145,7 +145,7 @@ class HistoryOfFavoriteController: HistoryTableViewBase {
                 realm.delete( historyItemList![indexPath.row ])
             }
             
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            tableView.deleteRows(at: [indexPath], with: .fade)
             
             
         }
@@ -155,7 +155,7 @@ class HistoryOfFavoriteController: HistoryTableViewBase {
     }
     
     
-    override func setEditing(editing: Bool, animated: Bool) {
+    override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         
         self.tableView.setEditing(editing, animated: animated)

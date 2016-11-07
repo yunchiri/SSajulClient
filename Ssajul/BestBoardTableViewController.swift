@@ -27,7 +27,7 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
     
 //        self.title = SSajulClient.sharedInstance.selectedItem?.title
         
-        self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), for: UIControlEvents.valueChanged)
         
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 53
@@ -40,10 +40,10 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
 
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-         self.tabBarController?.navigationItem.rightBarButtonItem?.enabled = false
+         self.tabBarController?.navigationItem.rightBarButtonItem?.isEnabled = false
         self.tabBarController?.delegate = self;
     }
     
@@ -55,7 +55,7 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
     }
     
     
-    func handleRefresh(refreshControl : UIRefreshControl){
+    func handleRefresh(_ refreshControl : UIRefreshControl){
         self.loadingContent()
         refreshControl.endRefreshing()
     }
@@ -64,7 +64,7 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
         
     }
     
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         self.tableView.setContentOffset(CGPoint.zero, animated:true)
     }
     
@@ -80,11 +80,11 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section {
         case 0:
@@ -114,9 +114,9 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
     
     
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       
-            let cell = tableView.dequeueReusableCellWithIdentifier("itemCell", forIndexPath: indexPath) as! ItemCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
         
         
         switch indexPath.section {
@@ -146,7 +146,7 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
 //
 //    }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         var title : String
         
@@ -164,7 +164,7 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
         return title
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "bestItemSegue" {
@@ -198,8 +198,9 @@ class BestBoardTableViewController: UITableViewController ,UITabBarControllerDel
     func loadingContent(){
         let url = SSajulClient.sharedInstance.urlForBoardItemList( 1 )
         
-        Alamofire.request(.GET, url)
-            .responseString(encoding:CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ) { response in
+        
+        Alamofire.request( url)
+            .responseString(encoding:String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding( 0x0422 )) ) { response in
 
                 if response.result.isFailure == true{
                     return

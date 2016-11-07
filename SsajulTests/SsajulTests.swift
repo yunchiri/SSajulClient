@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Ssajul
+//@testable import Ssajul
 
 
 
@@ -16,8 +16,7 @@ class SsajulTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        let str = "%BD%CE%C1%D9%BA%E4"
-        let str2 = "싸줄뷰"
+
     }
     
     override func tearDown() {
@@ -39,7 +38,7 @@ class SsajulTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock {
+        self.measure {
             // Put the code you want to measure the time of here.
         }
     }

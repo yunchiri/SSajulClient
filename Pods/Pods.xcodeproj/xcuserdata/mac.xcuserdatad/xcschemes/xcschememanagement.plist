@@ -19,11 +19,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Colours.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Kanna.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,7 +52,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0FFC4573CC17F9A4BA51738F0AAAA361</key>
+		<key>011854A45BDE7ABA5C6799D8CCE64535</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,17 +62,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5D9D297325978BDCEA36E78ABC869009</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>67AE114242F5A458C79FCB48E878EEA5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>67F3E50616D075216AE546A4F983B8FA</key>
+		<key>73EC6A92DE35B08A7EE14D6582A57DBA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,17 +77,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A629B6649701A9A1709934D25EB5CCC9</key>
+		<key>99DD02EFC436864A3B6A126E08E6FA00</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B6312CAD7E18804AD5E11308495CFD52</key>
+		<key>C5A82921A1B97047AB8B8D3012D722A5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EF7007110E75F6E15927C9081319B8F5</key>
+		<key>DA4A43693B347F8DB2047168181D7720</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EE57040B0F2FD9464A60DBE1F82FE001</key>
 		<dict>
 			<key>primary</key>
 			<true/>
