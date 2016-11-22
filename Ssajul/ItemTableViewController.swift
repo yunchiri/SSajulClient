@@ -12,7 +12,7 @@ import Alamofire
 import Kanna
 import ChameleonFramework
 import SVProgressHUD
-import GoogleMobileAds
+
 
 class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigationDelegate, CommentWriteCellDelegate {
     
@@ -74,7 +74,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
     func setUp(){
         self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), for: UIControlEvents.valueChanged)
         
-        self.title = SSajulClient.sharedInstance.selectedItem?.title
+        self.title = SSajulClient.sharedInstance.selectedBoard?.name
         webView2.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         webView2.frame.size = CGSize(width: 100, height: 100)
         webView2.uiDelegate = self
@@ -256,28 +256,53 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
                 
                 
                 
+                
+                DispatchQueue.global(qos: .userInitiated).async(group:dispatchGroup) {
+                        self.webView2.loadHTMLString(htmlCode, baseURL: nil)
+                }
+                
 //                dispatch_group_async(dispatchGroup, highPriorityQueue, {
-                    self.webView2.loadHTMLString(htmlCode, baseURL: nil)
+//                    self.webView2.loadHTMLString(htmlCode, baseURL: nil)
 //                })
                 
+                DispatchQueue.global(qos: .userInitiated).async(group:dispatchGroup) {
+                        let commentHtml = doc.xpath("//div[3]/ul/li")
+                        
+                        if self.commentList.count > 0 {
+                            self.commentList.removeAll()
+                        }
+                        
+                        //무슨코드지?
+                        for comment in  commentHtml{
+                            guard comment.xpath("p").count >= 2 else {
+                                //                        guard (comment.xpath("p") as XMLNodeSet).count>= 2 else {
+                                continue
+                            }
+                            self.commentList.append(self.createComment(comment))
+                            
+                            SSajulClient.sharedInstance.selectedItem?.commentCount = self.commentList.count
+                        }
+                        
+                }
                 
 //                dispatch_group_async(dispatch_group,highPriorityQueue , {
-                    let commentHtml = doc.xpath("//div[3]/ul/li")
-                    
-                    if self.commentList.count > 0 {
-                        self.commentList.removeAll()
-                    }
-                    
-                    for comment in  commentHtml{
-                        //guard comment.xpath("p").count >= 2 else {
-                        guard comment.xpath("p").underestimatedCount >= 2 else {
-                            continue
-                        }
-                        self.commentList.append(self.createComment(comment))
-                        
-                        SSajulClient.sharedInstance.selectedItem?.commentCount = self.commentList.count
-                    }
-                    
+//                    let commentHtml = doc.xpath("//div[3]/ul/li")
+//                    
+//                    if self.commentList.count > 0 {
+//                        self.commentList.removeAll()
+//                    }
+//                
+//                //무슨코드지?
+//                    for comment in  commentHtml{ 
+//                        guard comment.xpath("p").count >= 2 else {
+////                        guard (comment.xpath("p") as XMLNodeSet).count>= 2 else {
+//                            continue
+//                        }
+//                        self.commentList.append(self.createComment(comment))
+//                        
+//                        SSajulClient.sharedInstance.selectedItem?.commentCount = self.commentList.count
+//                    }
+//                    
 //                })
 //
 //                dispatch_group_notify(dispatch_group, DispatchQueue.main, {
@@ -298,7 +323,6 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         
         
         
-        
         var newComment = Comment()
 
         guard let content = (commentHTML.xpath("p").first?.text) else {
@@ -310,7 +334,7 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
 
         
 
-        guard let commentDetail = (commentHTML.xpath("p").first?.text) else {
+        guard let commentDetail = (commentHTML.xpath("p").reversed().first?.text) else {
 //        guard let commentDetail = (commentHTML.xpath("p").last?.text) else {
             
             return newComment
@@ -337,11 +361,8 @@ class ItemTableViewController: UITableViewController , WKUIDelegate , WKNavigati
         let searchCharacter: Character = "("
         let indexOfStart = commentDetailList[0].characters.index(of: searchCharacter)
         
-        
-//        let userName = commentDetailList[0].substringToIndex(indexOfStart!).stringByTrimmingCharactersInSet(CharacterSet.whitespaceCharacterSet())
         let userName = commentDetailList[0].substring(to: indexOfStart!).trimmingCharacters(in: CharacterSet.whitespaces)
         
-//        let userID = commentDetailList[0].substringFrom(indexOfStart!).stringByTrimmingCharactersInSet(CharacterSet.whitespaceCharacterSet())
         let userID = commentDetailList[0].substring(from: indexOfStart!).trimmingCharacters(in: CharacterSet.whitespaces)
         
         newComment.userName = userName

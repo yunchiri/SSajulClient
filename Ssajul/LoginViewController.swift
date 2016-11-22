@@ -94,7 +94,8 @@ class LoginViewController: UIViewController {
         parameters["login_pwd"] = uiPassword.text
         
         //let _ = Alamofire.request(.POST, url, parameters: parameters)
-        let _ = Alamofire.request(url, parameters: parameters)
+//        let _ = Alamofire.request(url, parameters: parameters)
+        let _ = Alamofire.request(url, method: .post, parameters: parameters, headers: [:])
             .responseString { response in
 
                 if response.result.isFailure == true{
@@ -116,7 +117,7 @@ class LoginViewController: UIViewController {
                     
                     
                     self.uiClose(self)
-                    //UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    //00UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
                     SSajulClient.sharedInstance.login(self.uiLoginID.text!,  loingPwd: self.uiPassword.text!)
@@ -158,11 +159,7 @@ class LoginViewController: UIViewController {
         self.uiLoginID.text = UserDefaults.standard.object(forKey: "login_id") as? String
         self.uiPassword.text = UserDefaults.standard.object(forKey: "login_pwd") as? String
         
-        guard self.uiLoginID.text?.characters.count > 0 else {
-            return
-        }
-        
-        guard self.uiPassword.text?.characters.count > 0 else {
+        guard self.uiLoginID.text?.characters.count > 0 , self.uiPassword.text?.characters.count > 0 else {
             return
         }
         

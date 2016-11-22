@@ -9,7 +9,6 @@
 import UIKit
 import Alamofire
 import Kanna
-import GoogleMobileAds
 import ChameleonFramework
 import WebKit
 
@@ -17,8 +16,7 @@ import WebKit
 
 
 
-
-class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableViewDataSource , UITabBarControllerDelegate,UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate,GADBannerViewDelegate{
+class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableViewDataSource , UITabBarControllerDelegate,UISearchBarDelegate, UISearchResultsUpdating, WKNavigationDelegate, AdamAdViewDelegate{
     
     var itemList = [Item]()
     var isLoading : Bool = false
@@ -32,12 +30,14 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
     let searchController = UISearchController(searchResultsController: nil)
     //    @IBOutlet weak var uiWriteContentButton: UIBarButtonItem!
     
+    //@IBOutlet weak var adView: AdamAdView!
     /// The interstitial ad.
 //    var interstitial: GADInterstitial!
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var bannerView: GADBannerView!
+
     
+    @IBOutlet weak var adView: UIView!
     
     
     var refreshControl : UIRefreshControl!
@@ -57,39 +57,52 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
         
         
         
-        self.uiWriteContentButton =  UIBarButtonItem(title: "글쓰기", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(ItemListViewConroller.pushWriteViewController(_:)) );
+        self.uiWriteContentButton =  UIBarButtonItem(title: "글쓰기", style: UIBarButtonItemStyle.plain, target: self, action: #selector(ItemListAdViewConroller.pushWriteViewController(_:)) );
         self.tabBarController?.navigationItem.rightBarButtonItem = uiWriteContentButton
         
         setUpTableView()
         setUpSearchBarController()
         
-        setUpAdmob()
-        
-        
-        //        loadInterstitial()
         
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        //        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.tabBarController?.delegate = self;
         
-        
         if SSajulClient.sharedInstance.isLogin() == true {
-            self.uiWriteContentButton!.enabled = true
-            
-            
+            self.uiWriteContentButton!.isEnabled = true
         }else{
-            self.uiWriteContentButton!.enabled = false
+            self.uiWriteContentButton!.isEnabled = false
+        }
+//        self.tabBarController?.navigationItem.title = SSajulClient.sharedInstance.selectedBoard?.name
+        
+        let adamAdView = AdamAdView.shared()
+        adamAdView?.frame = CGRect.init(x: 0, y: 0, width: self.adView.frame.size.width, height: self.adView.frame.size.height)
+        
+        adamAdView?.clientId = "DAN-1h7ooubgv7nzn"
+        adamAdView?.delegate = self
+        adamAdView?.gender = "M"
+      
+        if adamAdView?.usingAutoRequest == false {
+            adamAdView?.startAutoRequestAd(60.0)
         }
         
-        self.tabBarController?.navigationItem.title = SSajulClient.sharedInstance.selectedBoard?.name
+        self.adView.addSubview(adamAdView!)
         
-        //        if SSajulClient.sharedInstance.isShowIntertitialAfter2Hour() == true {
-        //            showInterstitial()
-        //        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.adView.subviews.forEach { view in
+            (view as! AdamAdView).delegate = nil
+            view.removeFromSuperview()
+        }
     }
     
     deinit{
@@ -100,42 +113,42 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+
+//    mark
+    func didReceiveAd(_ adView: AdamAdView!) {
+//        print("2")
+    }
+    
+    func didFail(toReceiveAd adView: AdamAdView!, error: Error!) {
+//        print(error)
+    }
+    
     func setUpTableView(){
         
         self.refreshControl = UIRefreshControl()
         
-        self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), for: UIControlEvents.valueChanged)
         self.tableView.addSubview( self.refreshControl)
-        
-//        
-//        self.refreshControl?.addTarget(self, action: #selector(ItemListViewConroller.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
-
         
         self.tableView.estimatedRowHeight = 30
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
-        self.tabBarController?.tabBar.translucent = false
-        self.tabBarController?.navigationController?.navigationBar.translucent = false
+        self.tabBarController?.tabBar.isTranslucent = false
+        self.tabBarController?.navigationController?.navigationBar.isTranslucent = false
     }
     
     func setUpSearchBarController(){
         searchController.searchBar.delegate = self
-        //        searchController.searchResultsUpdater = self
+        
         if SSajulClient.sharedInstance.isLogin() == true {
             searchController.searchBar.scopeButtonTitles = ["제목", "필명", "아이디","내가쓴글"]
         }else{
             searchController.searchBar.scopeButtonTitles = ["제목", "필명", "아이디"]
         }
         
+        searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSForegroundColorAttributeName : FlatBlackDark()], for: UIControlState.normal)
         
-        
-        //        let textFieldInsideSearchBar = searchController.searchBar.valueForKey("searchField") as? UITextField
-        //        textFieldInsideSearchBar?.textColor = UIColor.whiteColor()
-        
-        
-        searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSForegroundColorAttributeName : FlatBlackDark()], forState: UIControlState.Normal)
-        
-        searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSForegroundColorAttributeName : FlatWhite()], forState: UIControlState.Selected)
+        searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSForegroundColorAttributeName : FlatWhite()], for: UIControlState.selected)
         
         
         searchController.obscuresBackgroundDuringPresentation = false
@@ -145,26 +158,21 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
         self.tableView.tableHeaderView = searchController.searchBar
     }
     
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         print("serarch update" + String(searchController.searchBar.selectedScopeButtonIndex))
-        
         
     }
     
     // MARK: - SearchBar
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        
-        //        searchingKey = searchBar.text!
-        //        self.title = searchingKey + " 검색중"
-        //        self.searchController.searchBar.placeholder = searchingKey
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         isSearching = true
         currentPage = 1
         itemList.removeAll()
         updateBoardList()
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         isSearching = false
         currentPage = 1
         itemList.removeAll()
@@ -174,12 +182,12 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
     
     
     
-    func pushWriteViewController (sender: AnyObject){
+    func pushWriteViewController (_ sender: AnyObject){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let itemWriteVC = storyboard.instantiateViewControllerWithIdentifier("itemWriteVC") as! ItemWriteViewController
+        let itemWriteVC = storyboard.instantiateViewController(withIdentifier: "itemWriteVC") as! ItemWriteViewController
         
-        self.presentViewController(itemWriteVC, animated: true, completion: nil)
+        self.present(itemWriteVC, animated: true, completion: nil)
         
     }
     
@@ -187,7 +195,7 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
     
 
     
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
 
         
         if tabBarController.selectedIndex != 0 {
@@ -200,9 +208,9 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
             return
         }
         
-        if self.tableView.numberOfRowsInSection(0) > 0 {
-            let indexPath = NSIndexPath(forItem: 0, inSection: 0)
-            self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+        if self.tableView.numberOfRows(inSection: 0) > 0 {
+            let indexPath = IndexPath(item: 0, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: true)
             
             if self.tableView.contentOffset.y == self.searchController.searchBar.frame.height {
                 handleRefresh(self.refreshControl!)
@@ -214,7 +222,7 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
     
     //
     
-    func handleRefresh(refreshControl : UIRefreshControl){
+    func handleRefresh(_ refreshControl : UIRefreshControl){
         currentPage = 1
         itemList.removeAll()
         updateBoardList()
@@ -229,29 +237,29 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: - Table view data source
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning   implementation, return the number of rows
         return itemList.count
         
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("itemCell", forIndexPath: indexPath) as! ItemCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
         
         
         let item = itemList[indexPath.row]
         
         cell.setItem( item)
         
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             cell.setItemLayout(item)
             cell.setNeedsLayout()
         }
@@ -262,7 +270,7 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
     
     
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if itemList[indexPath.row].title == "ADMOBNATIVE" {
             
@@ -277,7 +285,7 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "itemSegue" {
@@ -285,7 +293,7 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
                 
                 let selectedItem = itemList[indexPath.row] as Item
                 
-                let itemController = segue.destinationViewController as! ItemTableViewController
+                let itemController = segue.destination as! ContentAdViewController
                 
                 SSajulClient.sharedInstance.selectedItem = selectedItem
                 
@@ -300,13 +308,13 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
             
             if SSajulClient.sharedInstance.selectedBoard?.boardID == "recomboard" {
                 
-                let alertController = UIAlertController(title: "이 게시판에는 글 못씀", message: "아마 꾸레들이 점령한듯...", preferredStyle: UIAlertControllerStyle.Alert)
+                let alertController = UIAlertController(title: "이 게시판에는 글 못씀", message: "아마 꾸레들이 점령한듯...", preferredStyle: UIAlertControllerStyle.alert)
                 
-                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
                     //                    print("OK")
                 }
                 alertController.addAction(okAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.present(alertController, animated: true, completion: nil)
                 
             }
         }
@@ -314,7 +322,7 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
     
     
     
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         let currentOffset = scrollView.contentOffset.y;
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
         
@@ -335,7 +343,7 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
         isLoading = true
         
         
-        if self.searchController.active == true && isSearching == true {
+        if self.searchController.isActive == true && isSearching == true {
             //print( self.searchController.searchBar.text )
             
             var searchType = ""
@@ -368,23 +376,25 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
         getItemList(url)
     }
     
-    func getItemListWebviewEngine(url : String){
+    func getItemListWebviewEngine(_ url : String){
         
         SSajulClient.sharedInstance.webView2.navigationDelegate = self
-        SSajulClient.sharedInstance.webView2.loadRequest(NSURLRequest.init(URL: NSURL.init(string: url)!))
+        SSajulClient.sharedInstance.webView2.load(URLRequest.init(url: URL.init(string: url)!))
         
     }
     
-    func getItemList(url : String){
+    func getItemList(_ url : String){
         
         
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        Alamofire.request(.GET, url)
-            .responseString(encoding:CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ) { response in
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        Alamofire.request(url)
+                .responseString(encoding: String.Encoding.init(rawValue: UInt(CFStringConvertEncodingToNSStringEncoding(0x0422)) ) ) { response in
+            //.responseString(encoding:CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ) { response in
                 
                 if response.result.isFailure == true{
                     //                    self.isLoading = false
-                    if ((response.result.error?.description.containsString("serialized")) == true){
+                    if ((response.result.error.debugDescription.contains("serialized")) == true){
+                    //if ((response.result.error?.description.containsString("serialized")) == true){
                         self.getItemListWebviewEngine(url)
                     }
                     
@@ -397,33 +407,32 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    func parsing(htmlString : String) {
+    func parsing(_ htmlString : String) {
         
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         
-        if let doc = Kanna.HTML(html: htmlString, encoding: NSUTF8StringEncoding){
+        if let doc = Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8){
             
-            guard let element : XMLElement? = doc.css("table.te2").first else {
+            guard let element : XMLElement = doc.css("table.te2").first else {
                 self.isLoading = false
                 return
             }
             
-            
-            guard element != nil else {
-                self.isLoading = false
-                return
-            }
             
             
             for xxx in  (element as XMLElement?)!.css("tr"){
                 
-                let verifyItem = xxx.toHTML as String!
+                //let verifyItem = xxx.toHTML as String!
                 
-                if verifyItem.containsString("<tr height=\"2\">"){ continue }
+                guard let verifyItem = xxx.toHTML as String! else {
+                    
+                    return
+                }
+                if verifyItem.contains("<tr height=\"2\">"){ continue }
                 
-                if verifyItem.containsString("<tr height=\"20\">") {continue}
+                if verifyItem.contains("<tr height=\"20\">") {continue}
                 
-                if verifyItem.containsString("<td colspan=\"8\"") {continue}
+                if verifyItem.contains("<td colspan=\"8\"") {continue}
                 
                 
                 
@@ -435,17 +444,24 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
                     continue
                 }
                 
-                let indexOfStart = href.lowercaseString.characters.indexOf(searchCharacter)!.advancedBy(1)
-                let indexOfEnd = href.lowercaseString.characters.indexOf(searchCharacterQueto)!.advancedBy(0)
-                let range = Range.init(indexOfStart ..< indexOfEnd)// Range.init(start: indexOfStart, end: indexOfEnd)
+                //let indexOfStart = href.lowercased().characters.index(of: searchCharacter)!.advancedBy(1)
                 
                 
-                let preUid = href.substringWithRange(range)
+                
+                var indexOfStart = href.lowercased().characters.index(of: searchCharacter)
+                indexOfStart = href.lowercased().characters.index(after: indexOfStart!)
+                
+                
+                //let indexOfEnd = href.lowercased().characters.index(searchCharacterQueto, offsetBy: 0)
+                let indexOfEnd = href.lowercased().characters.index(of: searchCharacterQueto)
+                
+                
+                //18
+                let preUid = href.substring(with: indexOfStart! ..< indexOfEnd!)
                 
                 
                 if self.itemList.count > 0 {
-                    
-                    if self.itemList.contains({ (Item) -> Bool in
+                    if self.itemList.contains(where: { (Item) -> Bool in
                         if Item.uid == preUid { return true }
                         return false
                     }) == true {
@@ -460,33 +476,39 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
                 
                 newItem.title = xxx.xpath("td[2]").first?.text as String!
                 
-                newItem.title = newItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+
+                newItem.title = newItem.title.trimmingCharacters(in: CharacterSet.whitespaces)
                 
                 //comment parsing
-                if newItem.title.containsString("[") == false || newItem.title.characters.last != "]" {
+                if newItem.title.contains("[") == false || newItem.title.characters.last != "]" {
                     newItem.commentCount = 0
                 }else{
                     var indexOfCommentCount = 1
-                    for char in newItem.title.characters.reverse() {
+                    for char in newItem.title.characters.reversed() {
                         if char == "[" {
                             break;
                         }
                         indexOfCommentCount = indexOfCommentCount + 1;
                     }
-                    let commentStartIndex = newItem.title.endIndex.advancedBy( -indexOfCommentCount )
-                    let commentCountString = newItem.title.substringFromIndex(  commentStartIndex )
+                   
+                    //18
+//                     let commentStartIndex = newItem.title.endIndex.advancedBy( -indexOfCommentCount )
+                    let commentStartIndex = newItem.title.index(newItem.title.endIndex, offsetBy: -indexOfCommentCount)
+//                     let commentCountString = newItem.title.substringFromIndex(  commentStartIndex )
+                    let commentCountString = newItem.title.substring(from: commentStartIndex)
                     
-                    let commentCount = String(String(commentCountString.characters.dropLast()).characters.dropFirst())
+                     let commentCount = String(String(commentCountString.characters.dropLast()).characters.dropFirst())
                     
-                    if  let commentCountInt = Int(commentCount) {
-                        newItem.commentCount = commentCountInt
-                        //                                newItem.title.removeRange(Range.init(start: commentStartIndex, end: newItem.title.endIndex ))
-                        
-                        newItem.title.removeRange(Range.init( commentStartIndex ..< newItem.title.endIndex ))
-                        newItem.title = newItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-                    }else {
-                        newItem.commentCount = 0
-                    }
+                     if  let commentCountInt = Int(commentCount) {
+                         newItem.commentCount = commentCountInt
+                         //                                newItem.title.removeRange(Range.init(start: commentStartIndex, end: newItem.title.endIndex ))
+                    
+                         newItem.title.removeSubrange(Range.init( commentStartIndex ..< newItem.title.endIndex ))
+                         //newItem.title = newItem.title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                         newItem.title = newItem.title.trimmingCharacters(in: CharacterSet.whitespaces)
+                     }else {
+                         newItem.commentCount = 0
+                     }
                     
                 }
                 
@@ -497,12 +519,14 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
                 if let readCount = Int((xxx.xpath("td[5]").first?.text)!) {
                     newItem.readCount = readCount
                 }
+                
+                //upd and down sibal
                 if let upAndDown = (xxx.xpath("td[6]").first?.text) {
-                    if let voteUp = Int(upAndDown.substringToIndex( upAndDown.startIndex.advancedBy(1))) {
+                    if let voteUp = Int(upAndDown.substring(to: upAndDown.index(after: upAndDown.startIndex))) {
                         newItem.voteUp = voteUp
                     }
-                    
-                    if let voteDown = Int(upAndDown.substringFromIndex( upAndDown.endIndex.advancedBy(-1))){
+                
+                    if let voteDown = Int(upAndDown.substring(from: upAndDown.index(before: upAndDown.endIndex))) {
                         newItem.voteDown = voteDown
                     }
                 }
@@ -517,71 +541,19 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+
     
-    //AD
-//    func showInterstitial(){
-//        
-//        if self.interstitial == nil {
-//            return
-//        }
-//        
-//        if self.interstitial!.isReady {
-//            self.interstitial.presentFromRootViewController(self)
-//            SSajulClient.sharedInstance.saveShowIntertitialDateTime()
-//        }
-//        
-//        
-//    }
-    
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         
-        SSajulClient.sharedInstance.webView2.evaluateJavaScript("document.documentElement.outerHTML.toString()",
-                                                                completionHandler: { (html: AnyObject?, error: NSError?) in
-                                                                    self.parsing(html as! String)
-                                                                    //                                                                    print(html)
-        })
+        // SSajulClient.sharedInstance.webView2.evaluateJavaScript("document.documentElement.outerHTML.toString()",
+        //                                                         completionHandler: { (html: Any?, error: NSError?) in
+        //                                                             self.parsing(html as! String)
+        // })
         
+        SSajulClient.sharedInstance.webView2.evaluateJavaScript("document.documentElement.outerHTML.toString()") { (html, error) in
+            self.parsing(html as! String)
+        }
     }
     
 
-    
-    //AD
-    func setUpAdmob(){
-        dispatch_async(dispatch_get_main_queue()) {
-            self.bannerView.delegate = self
-            self.bannerView.adUnitID = "ca-app-pub-8030062085508715/2541766586"
-            self.bannerView.rootViewController = self
-            self.bannerView.loadRequest(GADRequest())
-        }
-        
-    }
-    
-//    func loadInterstitial() {
-//        self.interstitial = GADInterstitial(adUnitID: "ca-app-pub-8030062085508715/4144217788")
-//        
-//        
-//        self.interstitial.delegate = self
-//        
-//        // Request test ads on devices you specify. Your test device ID is printed to the console when
-//        // an ad request is made. GADInterstitial automatically returns test ads when running on a
-//        // simulator.
-//        self.interstitial.loadRequest(GADRequest());
-//    }
-//    
-//    
-//    
-//    func interstitialDidReceiveAd(ad: GADInterstitial!) {
-//        //print("receiver")
-//    }
-//    func interstitialDidFailToReceiveAdWithError(interstitial: GADInterstitial,
-//                                                 error: GADRequestError) {
-//        //print("\(#function): \(error.localizedDescription)")
-//    }
-//    
-//    func interstitialDidDismissScreen(interstitial: GADInterstitial) {
-//        //        print(#function)
-//        //        startNewGame()
-//    }
-    
-    
 }

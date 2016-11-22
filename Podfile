@@ -13,7 +13,7 @@ target "Ssajul" do
 
     pod 'Google-Mobile-Ads-SDK', '~> 7.0'
     
-    pod 'ActiveLabel', :git => 'https://github.com/optonaut/ActiveLabel.swift.git', :tag => '0.7.0'
+    pod 'ActiveLabel'
     
 
 

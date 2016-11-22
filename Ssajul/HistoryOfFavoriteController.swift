@@ -78,7 +78,7 @@ class HistoryOfFavoriteController: HistoryTableViewBase {
     
     func getHistoryList(){
         let realm = try! Realm()
-        let result = realm.objects(History).filter( "type == '" + HistoryType.Favorite + "'" ).sorted(byProperty: "updateAt", ascending: false)
+        let result = realm.objects(History.self).filter( "type == '" + HistoryType.Favorite + "'" ).sorted(byProperty: "updateAt", ascending: false)
         historyItemList = result
         
         self.tableView.reloadData()

@@ -62,65 +62,87 @@ class CommentWriteCell: UITableViewCell , UITextViewDelegate  {
 
     func addcomment() {
         
-//        guard isPosting == false else {
-//            return
-//        }
-//        
-//        isPosting = true
-//        
-//        self.setUIDisable()
-//        
-//        var parameters = SSajulClient.sharedInstance.ParametersForComment()
-//        parameters["comment"] = commentTextView.text
-//        
-//
-//        
+        guard isPosting == false else {
+            return
+        }
+        
+        isPosting = true
+        
+        self.setUIDisable()
+        
+        var parameters = SSajulClient.sharedInstance.ParametersForComment()
+        parameters["comment"] = commentTextView.text
+        
+
+        
 //        var defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders ?? [:]
 //        defaultHeaders["Content-Type"] = "application/x-www-form-urlencoded"
-//        
-////        SSajulClient.sharedInstance.showCookies()
-//        
+        
+        
+        var defaultHeaders = Alamofire.SessionManager.default.session.configuration.httpAdditionalHeaders ?? [:]
+        
+        defaultHeaders["Content-Type"] = "application/x-www-form-urlencoded"
+        
+//        SSajulClient.sharedInstance.showCookies()
+        
 //        let configuration = URLSessionConfiguration.default
-//        configuration.HTTPAdditionalHeaders = defaultHeaders;
+        let configuration = URLSessionConfiguration.default
+        
+        configuration.httpAdditionalHeaders = defaultHeaders;
+
 //        let _ = Alamofire.Manager(configuration: configuration)
-//        
-//
-//        let encodingClosure: (URLRequestConvertible, [String: AnyObject]?) -> (NSMutableURLRequest, NSError?) = { URLRequest, parameters in
-//            guard let parameters = parameters else { return (URLRequest.URLRequest, nil) }
+
+        //        Alamofire.SessionManager.defaultHTTPHeaders = defaultHeaders
+        
+        
+
+//        let encodingClosure: (URLRequestConvertible, [String: AnyObject]?) -> (URLRequest, NSError?) = { URLRequest, parameters in
+//            
+////            guard let parameters = parameters else { return (URLRequest.urlRequest, nil) }
+//            guard let parameters = parameters else {
+//                return (URLRequest.urlRequest!, nil)
+//            }
 //            
 //            let bodyString = (parameters.map { "\($0)=\($1)" } as [String]).joined(separator: "&")
 //            
-//            let mutableURLRequest = URLRequest.URLRequest
-//            mutableURLRequest.URL = NSURL(string: SSajulClient.sharedInstance.urlForCommentWrite())!
-//            mutableURLRequest.HTTPBody = bodyString.dataUsingEncoding( CFStringConvertEncodingToNSStringEncoding( 0x0422 ))
-//            return (mutableURLRequest, nil)
+//            var mutableURLRequest = URLRequest.urlRequest
+//            mutableURLRequest?.url = NSURL(string: SSajulClient.sharedInstance.urlForCommentWrite())! as URL
+////            mutableURLRequest?.httpBody = bodyString.dataUsingEncoding( encoding: String.Encoding.init(rawValue: 0x0422 ) )
+//            mutableURLRequ est?.httpBody = bodyString.data(using: String.Encoding.init(rawValue: 0x0422 ))
+//            return (mutableURLRequest!, nil)
 //        }
-//        
-//        
-////        let _ = Alamofire.request(.POST, SSajulClient.sharedInstance.urlForCommentWrite(), parameters: parameters, encoding: .Custom(encodingClosure))
-//        let _ = Alamofire.request(SSajulClient.sharedInstance.urlForCommentWrite(), method: .post, parameters: parameters, encoding: head, headers: [:])
-//            .responseString { response in
-//                
-//                if response.result.isSuccess == true {
-//                    
-//                    if response.description.containsString("history.back();"){
-//                        
-//                        self.delegate!.needLogin()
-//                        
-//                        self.setUIEnable()
-//                        self.isPosting = false
-//                        return
-//                    }
-//                    self.delegate!.commentDidPost()
-//                    self.setUIReset()
-//                    self.setUIEnable()
-//                    self.isPosting = false
-//                }
-//        }
-//        
-//
-//        
-//        
+        
+
+        
+        
+//        let _ = Alamofire.request(.POST, SSajulClient.sharedInstance.urlForCommentWrite(), parameters: parameters, encoding: .Custom(encodingClosure))
+
+                let   _ = Alamofire.request(SSajulClient.sharedInstance.urlForCommentWrite(), method: .post, parameters: parameters, encoding: EUCKREncoding.init() , headers: [:])
+
+//            let   _ = Alamofire.request(SSajulClient.sharedInstance.urlForCommentWrite(), method: .post, parameters: parameters, encoding: URLEncoding.queryString   ,headers: [:])
+        
+            .responseString { response in
+                
+                if response.result.isSuccess == true {
+                    
+                    if response.description.contains("history.back();"){
+                        
+                        self.delegate!.needLogin()
+                        
+                        self.setUIEnable()
+                        self.isPosting = false
+                        return
+                    }
+                    self.delegate!.commentDidPost()
+                    self.setUIReset()
+                    self.setUIEnable()
+                    self.isPosting = false
+                }
+        }
+        
+
+        
+        
     }
     
     func setUIDisable(){

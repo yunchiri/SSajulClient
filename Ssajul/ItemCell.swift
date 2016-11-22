@@ -47,7 +47,7 @@ class ItemCell: UITableViewCell {
     func isRead(_ item : Item)-> Bool{
         
         let realm = try! Realm()
-        let result = realm.objects(History).filter( "type == '" + HistoryType.Read + "' and uid == '" + item.uid + "' ")
+        let result = realm.objects(History.self).filter( "type == '" + HistoryType.Read + "' and uid == '" + item.uid + "' ")
         
         if result.count > 0 {
             return true

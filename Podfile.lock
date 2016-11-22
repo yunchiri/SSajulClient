@@ -18,7 +18,7 @@ PODS:
   - SVProgressHUD (2.0.3)
 
 DEPENDENCIES:
-  - ActiveLabel (from `https://github.com/optonaut/ActiveLabel.swift.git`, tag `0.7.0`)
+  - ActiveLabel
   - Alamofire
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - Crashlytics
@@ -30,18 +30,12 @@ DEPENDENCIES:
   - SVProgressHUD
 
 EXTERNAL SOURCES:
-  ActiveLabel:
-    :git: https://github.com/optonaut/ActiveLabel.swift.git
-    :tag: 0.7.0
   ChameleonFramework:
     :git: https://github.com/ViccAlexander/Chameleon.git
 
 CHECKOUT OPTIONS:
-  ActiveLabel:
-    :git: https://github.com/optonaut/ActiveLabel.swift.git
-    :tag: 0.7.0
   ChameleonFramework:
-    :commit: 9d616d74f76c0c6fc70ae2408b20321a74b9dad9
+    :commit: dcf98f9bf3a632a7f40679b7da46f09681e48526
     :git: https://github.com/ViccAlexander/Chameleon.git
 
 SPEC CHECKSUMS:
@@ -57,6 +51,6 @@ SPEC CHECKSUMS:
   RealmSwift: 5afb451f65b682242f272dbb52d5c6f6e343c980
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
-PODFILE CHECKSUM: 1c889913a43fd8e527c87ced73680c8b6d6b03f1
+PODFILE CHECKSUM: 77e0c29d8248b02f76ab419560b036bbd08d54e3
 
 COCOAPODS: 1.1.1

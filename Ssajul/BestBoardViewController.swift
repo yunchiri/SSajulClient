@@ -13,7 +13,7 @@ import Kanna
 import GoogleMobileAds
 import WebKit
 
-class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UITableViewDelegate, UITableViewDataSource,WKNavigationDelegate ,GADBannerViewDelegate {
+class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UITableViewDelegate, UITableViewDataSource,WKNavigationDelegate ,AdamAdViewDelegate {
     
     var realtimeBestList = [Item]()
     var todayBestList = [Item]()
@@ -23,8 +23,9 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
     
     var refreshControl : UIRefreshControl!
     
+    @IBOutlet weak var adView: UIView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var bannerView: GADBannerView!
+    
     
 //    @IBOutlet weak var nativeExpressAdvieW: GADNativeExpressAdView?
     
@@ -40,7 +41,7 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
         self.tableView.estimatedRowHeight = 53
         
         
-        setUpAdmob()
+//        setUpAdmob()
         
         
 //        self.nativeExpressAdvieW.hidden = true
@@ -52,6 +53,28 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
         self.tabBarController?.navigationItem.rightBarButtonItem?.isEnabled = false
         self.tabBarController?.delegate = self;
         loadingContent()
+        
+        let adamAdView = AdamAdView.shared()
+        adamAdView?.frame = CGRect.init(x: 0, y: 0, width: self.adView.frame.size.width, height: self.adView.frame.size.height)
+        
+        adamAdView?.clientId = "DAN-1h7ooubgv7nzn"
+        adamAdView?.delegate = self
+        adamAdView?.gender = "M"
+        
+        if adamAdView?.usingAutoRequest == false {
+            adamAdView?.startAutoRequestAd(60.0)
+        }
+        
+        self.adView.addSubview(adamAdView!)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.adView.subviews.forEach { view in
+            (view as! AdamAdView).delegate = nil
+            view.removeFromSuperview()
+        }
     }
     
     
@@ -67,16 +90,7 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
         refreshControl.endRefreshing()
     }
     
-    func setUpAdmob(){
-        DispatchQueue.main.async {
-            self.bannerView.delegate = self
-            self.bannerView.adUnitID = "ca-app-pub-8030062085508715/2541766586"
-            self.bannerView.rootViewController = self
-            self.bannerView.load(GADRequest())
-        }
-        
-    }
-    
+
 
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
@@ -192,11 +206,15 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         
-        SSajulClient.sharedInstance.webView2.evaluateJavaScript("document.documentElement.outerHTML.toString()",
-                                                                completionHandler: { (html: AnyObject?, error: NSError?) in
-                                                                    self.parsing(html as! String)
-//                                                                                                                                        print(html)
-        })
+//        SSajulClient.sharedInstance.webView2.evaluateJavaScript("document.documentElement.outerHTML.toString()",
+//                                                                completionHandler: { (html: AnyObject?, error: NSError?) in
+//                                                                    self.parsing(html as! String)
+////                                                                                                                                        print(html)
+//        })
+
+        SSajulClient.sharedInstance.webView2.evaluateJavaScript("document.documentElement.outerHTML.toString()") { (html, NSError) in
+            self.parsing(html as! String)
+        }
         
     }
     
@@ -210,12 +228,12 @@ class BestBoardViewController: UIViewController ,UITabBarControllerDelegate , UI
         
         let url = SSajulClient.sharedInstance.urlForBoardItemList( 1 )
         
-        Alamofire.request(.GET, url)
-            .responseString(encoding:CFStringConvertEncodingToNSStringEncoding( 0x0422 ) ) { response in
+        Alamofire.request( url)
+            .responseString(encoding: String.Encoding.init(rawValue: 0x0422 ) ) { response in
                 
                 if response.result.isFailure == true{
                     
-                    if ((response.result.error?.description.containsString("serialized")) == true){
+                    if ((response.result.error?.localizedDescription.contains("serialized")) == true){
                         self.loadingContentWebEngine()
                     }
                     

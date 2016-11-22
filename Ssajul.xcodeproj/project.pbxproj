@@ -27,7 +27,12 @@
 		047D24391CB291FC00148EBC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047D24381CB291FC00148EBC /* LoginViewController.swift */; };
 		0483C70E1D10655F00D053BE /* AdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0483C70D1D10655F00D053BE /* AdCell.swift */; };
 		048466CE1CC1EB1100A19919 /* ItemWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048466CD1CC1EB1100A19919 /* ItemWriteViewController.swift */; };
+		04948B971DE1A3CA00FA44CD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04948B961DE1A3CA00FA44CD /* Security.framework */; };
+		04948B9A1DE33EFB00FA44CD /* BoardAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04948B991DE33EFB00FA44CD /* BoardAdViewController.swift */; };
+		04948B9C1DE47A1A00FA44CD /* ContentAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04948B9B1DE47A1A00FA44CD /* ContentAdViewController.swift */; };
 		04A1EB8B1CDA49C400022201 /* SSajulDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1EB8A1CDA49C400022201 /* SSajulDatabase.swift */; };
+		04ADCD721DE01CF1009FE63A /* EUCKREncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ADCD711DE01CF1009FE63A /* EUCKREncoding.swift */; };
+		04B4CA741DD0B698009440E1 /* libAdamPublisher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B4CA731DD0B698009440E1 /* libAdamPublisher.a */; };
 		04B72B2F1D0733D7003A6934 /* HistoryOfFavoriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B72B2E1D0733D7003A6934 /* HistoryOfFavoriteController.swift */; };
 		04B72B311D073545003A6934 /* HistoryOfCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B72B301D073545003A6934 /* HistoryOfCommentController.swift */; };
 		04B872951DCA0C6D00A5BCEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04573A331DC8D53700582062 /* UIKit.framework */; };
@@ -44,14 +49,11 @@
 		04B872AB1DCA0CC500A5BCEB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B872AA1DCA0CC500A5BCEB /* AssetsLibrary.framework */; };
 		04B872AD1DCA0CCB00A5BCEB /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B872AC1DCA0CCB00A5BCEB /* AdSupport.framework */; };
 		04B872AF1DCA0CD600A5BCEB /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B872AE1DCA0CD600A5BCEB /* libz.1.2.5.tbd */; };
-		04B872BB1DCA254000A5BCEB /* libAdamPublisher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B872BA1DCA254000A5BCEB /* libAdamPublisher.a */; };
 		04B872C21DCA2B6F00A5BCEB /* AdamAdWrapperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B872BF1DCA2B6F00A5BCEB /* AdamAdWrapperView.m */; };
 		04D0FF1B1C7C830300B204C4 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1A1C7C830300B204C4 /* Board.swift */; };
 		04D0FF1D1C7C84C300B204C4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1C1C7C84C300B204C4 /* Item.swift */; };
 		04D0FF1F1C7C84DE00B204C4 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF1E1C7C84DE00B204C4 /* Comment.swift */; };
-		04D0FF221C7C946900B204C4 /* ItemListViewConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF211C7C946900B204C4 /* ItemListViewConroller.swift */; };
 		04D0FF251C7C94E000B204C4 /* SSajulClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0FF241C7C94E000B204C4 /* SSajulClient.swift */; };
-		04D6BCE71CC53E1B00925F4A /* BestBoardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6BCE61CC53E1B00925F4A /* BestBoardTableViewController.swift */; };
 		04D6BCEC1CC542F500925F4A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6BCEB1CC542F500925F4A /* String.swift */; };
 		04D6BCEE1CC6711F00925F4A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D6BCED1CC6711F00925F4A /* QuartzCore.framework */; };
 		04D6BCF21CC686EF00925F4A /* Clock-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D6BCF11CC686EF00925F4A /* Clock-25.png */; };
@@ -106,7 +108,12 @@
 		047D24381CB291FC00148EBC /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0483C70D1D10655F00D053BE /* AdCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdCell.swift; sourceTree = "<group>"; };
 		048466CD1CC1EB1100A19919 /* ItemWriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemWriteViewController.swift; sourceTree = "<group>"; };
+		04948B961DE1A3CA00FA44CD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		04948B991DE33EFB00FA44CD /* BoardAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardAdViewController.swift; sourceTree = "<group>"; };
+		04948B9B1DE47A1A00FA44CD /* ContentAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentAdViewController.swift; sourceTree = "<group>"; };
 		04A1EB8A1CDA49C400022201 /* SSajulDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSajulDatabase.swift; sourceTree = "<group>"; };
+		04ADCD711DE01CF1009FE63A /* EUCKREncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EUCKREncoding.swift; sourceTree = "<group>"; };
+		04B4CA731DD0B698009440E1 /* libAdamPublisher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdamPublisher.a; path = Ssajul/Library/libAdamPublisher.a; sourceTree = "<group>"; };
 		04B72B2E1D0733D7003A6934 /* HistoryOfFavoriteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryOfFavoriteController.swift; sourceTree = "<group>"; };
 		04B72B301D073545003A6934 /* HistoryOfCommentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryOfCommentController.swift; sourceTree = "<group>"; };
 		04B872961DCA0C7500A5BCEB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -132,9 +139,7 @@
 		04D0FF1A1C7C830300B204C4 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		04D0FF1C1C7C84C300B204C4 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		04D0FF1E1C7C84DE00B204C4 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		04D0FF211C7C946900B204C4 /* ItemListViewConroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListViewConroller.swift; sourceTree = "<group>"; };
 		04D0FF241C7C94E000B204C4 /* SSajulClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSajulClient.swift; sourceTree = "<group>"; };
-		04D6BCE61CC53E1B00925F4A /* BestBoardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestBoardTableViewController.swift; sourceTree = "<group>"; };
 		04D6BCEB1CC542F500925F4A /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		04D6BCED1CC6711F00925F4A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		04D6BCF11CC686EF00925F4A /* Clock-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Clock-25.png"; sourceTree = "<group>"; };
@@ -159,11 +164,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04948B971DE1A3CA00FA44CD /* Security.framework in Frameworks */,
+				04B4CA741DD0B698009440E1 /* libAdamPublisher.a in Frameworks */,
 				04B872AF1DCA0CD600A5BCEB /* libz.1.2.5.tbd in Frameworks */,
 				04B872AD1DCA0CCB00A5BCEB /* AdSupport.framework in Frameworks */,
 				04B872AB1DCA0CC500A5BCEB /* AssetsLibrary.framework in Frameworks */,
 				04B872A81DCA0CBF00A5BCEB /* EventKit.framework in Frameworks */,
-				04B872BB1DCA254000A5BCEB /* libAdamPublisher.a in Frameworks */,
 				04B872A91DCA0CBF00A5BCEB /* EventKitUI.framework in Frameworks */,
 				04B872A51DCA0CB600A5BCEB /* MediaPlayer.framework in Frameworks */,
 				04B872A31DCA0CAE00A5BCEB /* CoreTelephony.framework in Frameworks */,
@@ -192,7 +198,6 @@
 		0401EFB31D24158A00851222 /* ItemListVC */ = {
 			isa = PBXGroup;
 			children = (
-				04D0FF211C7C946900B204C4 /* ItemListViewConroller.swift */,
 				0401EFB41D2415CF00851222 /* ItemListAdViewController.swift */,
 			);
 			name = ItemListVC;
@@ -275,8 +280,17 @@
 			isa = PBXGroup;
 			children = (
 				4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */,
+				04948B9B1DE47A1A00FA44CD /* ContentAdViewController.swift */,
 			);
 			name = ContentVC;
+			sourceTree = "<group>";
+		};
+		04948B981DE33ED000FA44CD /* BoardVC */ = {
+			isa = PBXGroup;
+			children = (
+				04948B991DE33EFB00FA44CD /* BoardAdViewController.swift */,
+			);
+			name = BoardVC;
 			sourceTree = "<group>";
 		};
 		04B872B01DCA24DA00A5BCEB /* Ad */ = {
@@ -306,6 +320,7 @@
 		04D0FF201C7C934700B204C4 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				04948B981DE33ED000FA44CD /* BoardVC */,
 				0401EFB31D24158A00851222 /* ItemListVC */,
 				0483C70C1D10651400D053BE /* ContentVC */,
 				04EFEC961D046F9300FE9DF3 /* Setting */,
@@ -323,6 +338,7 @@
 			children = (
 				04D0FF241C7C94E000B204C4 /* SSajulClient.swift */,
 				04A1EB8A1CDA49C400022201 /* SSajulDatabase.swift */,
+				04ADCD711DE01CF1009FE63A /* EUCKREncoding.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -359,7 +375,6 @@
 		04EFEC951D046F8600FE9DF3 /* BestVC */ = {
 			isa = PBXGroup;
 			children = (
-				04D6BCE61CC53E1B00925F4A /* BestBoardTableViewController.swift */,
 				04F1CC0C1CEDE25F00AD5D87 /* BestBoardViewController.swift */,
 			);
 			name = BestVC;
@@ -376,6 +391,8 @@
 		3CF13E5C983265C09A61FF89 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04948B961DE1A3CA00FA44CD /* Security.framework */,
+				04B4CA731DD0B698009440E1 /* libAdamPublisher.a */,
 				04B872BA1DCA254000A5BCEB /* libAdamPublisher.a */,
 				04B872AE1DCA0CD600A5BCEB /* libz.1.2.5.tbd */,
 				04B872AC1DCA0CCB00A5BCEB /* AdSupport.framework */,
@@ -598,6 +615,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04948B9A1DE33EFB00FA44CD /* BoardAdViewController.swift in Sources */,
 				0401EFB51D2415CF00851222 /* ItemListAdViewController.swift in Sources */,
 				04D6BCEC1CC542F500925F4A /* String.swift in Sources */,
 				047D24391CB291FC00148EBC /* LoginViewController.swift in Sources */,
@@ -608,7 +626,6 @@
 				04F1CC1F1CEE188400AD5D87 /* SettingTableView.swift in Sources */,
 				04B872C21DCA2B6F00A5BCEB /* AdamAdWrapperView.m in Sources */,
 				04DCA7AE1CBE7B1000E2E184 /* CommentWriteCell.swift in Sources */,
-				04D6BCE71CC53E1B00925F4A /* BestBoardTableViewController.swift in Sources */,
 				0483C70E1D10655F00D053BE /* AdCell.swift in Sources */,
 				040CB4EF1C5F7CEC00C67432 /* BoardViewController.swift in Sources */,
 				4D9D699C1C80605F000F4104 /* ItemCell.swift in Sources */,
@@ -617,14 +634,15 @@
 				040973D41CCBAF8B008ABCA9 /* History.swift in Sources */,
 				0425B7E01D08642E00308734 /* HistoryTableViewBase.swift in Sources */,
 				04EFEC941D044B0C00FE9DF3 /* HistoryOfReadController.swift in Sources */,
+				04ADCD721DE01CF1009FE63A /* EUCKREncoding.swift in Sources */,
 				04D0FF1F1C7C84DE00B204C4 /* Comment.swift in Sources */,
 				04A1EB8B1CDA49C400022201 /* SSajulDatabase.swift in Sources */,
-				04D0FF221C7C946900B204C4 /* ItemListViewConroller.swift in Sources */,
 				04EFEC921D044A9A00FE9DF3 /* PagingMenuViewController.swift in Sources */,
 				04D0FF251C7C94E000B204C4 /* SSajulClient.swift in Sources */,
 				04F1CC0D1CEDE25F00AD5D87 /* BestBoardViewController.swift in Sources */,
 				04B72B311D073545003A6934 /* HistoryOfCommentController.swift in Sources */,
 				04B72B2F1D0733D7003A6934 /* HistoryOfFavoriteController.swift in Sources */,
+				04948B9C1DE47A1A00FA44CD /* ContentAdViewController.swift in Sources */,
 				04D0FF1D1C7C84C300B204C4 /* Item.swift in Sources */,
 				040CB4ED1C5F7CEC00C67432 /* AppDelegate.swift in Sources */,
 			);
@@ -671,6 +689,7 @@
 		040CB5111C5F7CEC00C67432 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -719,6 +738,7 @@
 		040CB5121C5F7CEC00C67432 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -762,12 +782,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3544073CBAAA4937DE4AE6B5 /* Pods-Ssajul.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Ssajul",
@@ -792,11 +813,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E3A783730FEFE727ED167A7A /* Pods-Ssajul.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Ssajul",

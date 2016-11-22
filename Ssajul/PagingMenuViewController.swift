@@ -41,7 +41,7 @@ class PagingMenuViewController: UIViewController {
         let pagingMenuController = self.childViewControllers.first as! PagingMenuController
 
         //(pagingMenuController.currentViewController as! HistoryTableViewBase).removeAllItem()
-        (pagingMenuController.presentedViewController as! HistoryTableViewBase).removeAllItem()
+        (pagingMenuController.pagingViewController?.currentViewController as! HistoryTableViewBase).removeAllItem()
         
         removeAllDataButton.isEnabled = false
         
@@ -50,11 +50,53 @@ class PagingMenuViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-//        let readVC = HistoryOfReadController.instantiateFromStoryboard()
-//        let favoriteVC = HistoryOfFavoriteController.instantiateFromStoryboard()
-//        let commentVC = HistoryOfCommentController.instantiateFromStoryboard()
-//        //usersViewController.menuItemDescription = menuItemDescription
-//        
+
+
+        
+        struct PagingMenuuOptions : PagingMenuControllerCustomizable{
+            var componentType: ComponentType{
+                let readVC = HistoryOfReadController.instantiateFromStoryboard()
+                let favoriteVC = HistoryOfFavoriteController.instantiateFromStoryboard()
+                let commentVC = HistoryOfCommentController.instantiateFromStoryboard()
+
+                
+                struct readMenu : MenuItemViewCustomizable{
+                    var displayMode: MenuItemDisplayMode{
+                        return .text(title: MenuItemText(text:"읽은글") )
+                    }
+                }
+                struct favoriteMenu : MenuItemViewCustomizable{
+                    var displayMode: MenuItemDisplayMode{
+                        return .text(title: MenuItemText(text:"관심글") )
+                    }
+                }
+                struct commentMenu : MenuItemViewCustomizable{
+                    var displayMode: MenuItemDisplayMode{
+                        return .text(title: MenuItemText(text:"댓글단글") )
+                    }
+                }
+                
+                struct MenuOptions : MenuViewCustomizable{
+                    var itemsOptions : [MenuItemViewCustomizable]{
+                        return [readMenu(), favoriteMenu(), commentMenu()]
+                    }
+                    //            var displayMode: MenuDisplayMode{
+                    //                return MenuDisplayMode.standard(widthMode: MenuItemWidthMode.flexible, centerItem: false, scrollingMode: MenuScrollingMode.pagingEnabled)
+                    //            }
+                }
+                
+                return .all(menuOptions: MenuOptions(), pagingControllers: [readVC, favoriteVC, commentVC])
+            }
+            
+            
+        }
+        
+        let pagingMenuController = self.childViewControllers.first as! PagingMenuController
+        pagingMenuController.delegate = self
+        pagingMenuController.setup( PagingMenuuOptions())
+        
+        //usersViewController.menuItemDescription = menuItemDescription
+//
 //        let viewControllers = [readVC,favoriteVC,commentVC]
 //        
 //        let pagingMenuController = self.childViewControllers.first as! PagingMenuController

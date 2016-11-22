@@ -117,23 +117,128 @@ class ItemWriteViewController: UIViewController {
     func writeContent() {
         
         
-//        guard isPosting == false else {
-//            return
-//        }
-//        
-//        
-//        
-//        isPosting = true
-//        setUIDisable()
+        guard isPosting == false else {
+            return
+        }
+        
+        
+        
+        isPosting = true
+        setUIDisable()
+        
+        Alamofire.upload(multipartFormData: { multipartFormData in
+        
+            multipartFormData.append("1".data(using: String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding( 0x0422 )))!, withName :"nickname")
+            
+            multipartFormData.append("1".data(using: String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding( 0x0422 )))!, withName :"comment_yn")
+
+            multipartFormData.append( (SSajulClient.sharedInstance.selectedBoard?.boardID.data(using: String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding( 0x0422 )))!)!, withName :"code")
+                
+            multipartFormData.append(self.subjectTextField.text!.data(using: String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding( 0x0422 )))!, withName :"subject")
 //
-//        
+            
+            multipartFormData.append(self.placeholderTextView.text.data(using: String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding(0x0422)))!, withName: "comment")
+            
+//            multipartFormData.append( self.placeholderTextView.text.data(using:CFStringConvertEncodingToNSStringEncoding( 0x0422 )  , withName: "comment")
+            
+        }, to: SSajulClient.sharedInstance.urlForContentWrite()
+            , encodingCompletion :   { encodingResult in
+            
+                switch encodingResult {
+                    case .success(let upload, _, _):
+                    upload.responseString { response in
+                    
+                    if response.description.contains("도배"){
+                    
+                    let alertController = UIAlertController(title: "산성넘기 실패", message: "도배 가능성이 있답니다.", preferredStyle: UIAlertControllerStyle.alert)
+                    
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                    print("OK")
+                    }
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
+                    
+                    
+                    self.setUIEnable()
+                    self.isPosting = false
+                    return
+                    }
+                    
+                    if response.description.contains("금지어"){
+                
+                        let alertController = UIAlertController(title: "금지어 좀 적지마요", message: "청정지역 싸줄", preferredStyle: UIAlertControllerStyle.alert)
+                        
+                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                        print("OK")
+                        }
+                        alertController.addAction(okAction)
+                        self.present(alertController, animated: true, completion: nil)
+                        
+                        
+                        self.setUIEnable()
+                        self.isPosting = false
+                        return
+                    }
+                    
+                    if response.description.contains("제목은 반드시"){
+                
+                        let alertController = UIAlertController(title: "제목은 2글자", message: "이상되야되요", preferredStyle: UIAlertControllerStyle.alert)
+                        
+                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                        print("OK")
+                        }
+                        alertController.addAction(okAction)
+                        self.present(alertController, animated: true, completion: nil)
+                        
+                        
+                        self.setUIEnable()
+                        self.isPosting = false
+                        return
+                    }
+                    
+                    
+                    if response.description.contains("history.back();"){
+                
+                        self.needLogin()
+                        self.setUIEnable()
+                        self.isPosting = false
+                        return
+                    }
+                    
+                    
+                    self.setUIReset()
+                    self.setUIEnable()
+                    self.isPosting = false
+                    
+                    self.dismiss(animated: true, completion: nil)
+                    
+                    }
+                    case .failure(let encodingError):
+                    print (encodingError)
+                    
+                    let alertController = UIAlertController(title: "엌...ㄷㄷㄷ 에러 나중에 다시좀...", message: " - 왜죠?-", preferredStyle: UIAlertControllerStyle.alert)
+                    
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                    print("OK")
+                    }
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
+                    self.setUIEnable()
+                    self.isPosting = false
+                }
+            }
+        )
+    }
+        
+        
+        
 //        Alamofire.upload(
 //            .POST,
 //            SSajulClient.sharedInstance.urlForContentWrite() ,
 //            multipartFormData: { multipartFormData in
-//                
+//            
 //                multipartFormData.appendBodyPart(data: "1".dataUsingEncoding(CFStringConvertEncodingToNSStringEncoding( 0x0422 ), allowLossyConversion: false)!, name :"nickname")
-//                multipartFormData.appendBodyPart(data: "1".dataUsingEncoding(CFStringConvertEncodingToNSStringEncoding( 0x0422 ), allowLossyConversion: false)!, name :"comment_yn")                
+//                multipartFormData.appendBodyPart(data: "1".dataUsingEncoding(CFStringConvertEncodingToNSStringEncoding( 0x0422 ), allowLossyConversion: false)!, name :"comment_yn")
 //                multipartFormData.appendBodyPart(data: (SSajulClient.sharedInstance.selectedBoard?.boardID.dataUsingEncoding(CFStringConvertEncodingToNSStringEncoding( 0x0422 ), allowLossyConversion: false)!)!, name :"code")
 //                multipartFormData.appendBodyPart(data:self.subjectTextField.text!.dataUsingEncoding(CFStringConvertEncodingToNSStringEncoding( 0x0422 ), allowLossyConversion: false)!, name :"subject")
 //                multipartFormData.appendBodyPart(data:self.placeholderTextView.text.dataUsingEncoding(CFStringConvertEncodingToNSStringEncoding( 0x0422 ), allowLossyConversion: false)!, name :"comment")
@@ -224,7 +329,7 @@ class ItemWriteViewController: UIViewController {
 //                }
 //            }
 //        )
-    }
+
     
     
     @IBAction func close(_ sender: AnyObject) {
