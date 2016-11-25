@@ -82,12 +82,14 @@ class ItemCell: UITableViewCell {
             self.content.textColor = UIColor.black
         }
         
+        
+        
         if item.commentCount > 10 {
             self.commentCount.font = UIFont.boldSystemFont(ofSize: 11)
             self.commentCount.backgroundColor = UIColor.init(red: 0.996, green: 0.812, blue: 0.196, alpha: 1)
         }else if item.commentCount > 0{
             self.commentCount.font = UIFont.systemFont(ofSize: 11)
-            self.commentCount.backgroundColor = UIColor.init(red: 0.529, green: 0.737, blue: 0.149, alpha: 1)
+            self.commentCount.backgroundColor = UIColor.init(red: 0.11, green: 0.6, blue: 0.39, alpha: 1)
         }else{
             self.commentCount.font = UIFont.systemFont(ofSize: 10)
             self.commentCount.backgroundColor = UIColor.clear

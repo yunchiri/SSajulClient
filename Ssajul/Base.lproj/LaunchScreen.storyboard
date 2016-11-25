@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -14,37 +18,51 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="center" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="epl-predictions-1471019967-800.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="qrF-zY-JBR">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gerrard.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="qrF-zY-JBR">
+                                <rect key="frame" x="-113" y="0.0" width="605" height="667"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="605" id="nWx-x6-sCN"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="싸줄뷰" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbJ-Ps-jpg">
-                                <rect key="frame" x="196" y="484" width="208" height="96"/>
+                                <rect key="frame" x="83" y="551" width="208" height="96"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="80"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You'll never walk alone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hue-lo-mJW">
+                                <rect key="frame" x="0.0" y="20" width="375" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="ibw-1p-yiA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="qrF-zY-JBR" firstAttribute="centerX" secondItem="tbJ-Ps-jpg" secondAttribute="centerX" id="2IX-dm-1A4"/>
-                            <constraint firstItem="qrF-zY-JBR" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="TR5-Ez-dGO"/>
-                            <constraint firstItem="qrF-zY-JBR" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="YM7-Dg-C13"/>
-                            <constraint firstAttribute="bottom" secondItem="tbJ-Ps-jpg" secondAttribute="bottom" constant="20" symbolic="YES" id="doC-7E-imd"/>
-                            <constraint firstItem="qrF-zY-JBR" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="kUb-sa-ffc"/>
-                            <constraint firstItem="tbJ-Ps-jpg" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="tbp-dL-f4s"/>
+                            <constraint firstItem="hue-lo-mJW" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="1Ag-dc-cfM"/>
+                            <constraint firstItem="qrF-zY-JBR" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="81g-N3-cMV"/>
+                            <constraint firstItem="hue-lo-mJW" firstAttribute="centerX" secondItem="tbJ-Ps-jpg" secondAttribute="centerX" id="EZi-Rk-V9A"/>
+                            <constraint firstItem="hue-lo-mJW" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="GRT-TE-cFy"/>
+                            <constraint firstItem="qrF-zY-JBR" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="-113" id="QAl-YQ-lmO"/>
+                            <constraint firstItem="tbJ-Ps-jpg" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="WNz-OK-noH"/>
+                            <constraint firstAttribute="bottom" secondItem="tbJ-Ps-jpg" secondAttribute="bottom" constant="20" symbolic="YES" id="Wr0-3J-t45"/>
+                            <constraint firstItem="qrF-zY-JBR" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="ZKB-Mh-7MS"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
     <resources>
-        <image name="epl-predictions-1471019967-800.jpg" width="600" height="315"/>
+        <image name="gerrard.jpg" width="600" height="558"/>
     </resources>
 </document>

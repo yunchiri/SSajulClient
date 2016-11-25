@@ -70,16 +70,42 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.adView.subviews.forEach { view in
-            (view as! AdamAdView).delegate = nil
-            view.removeFromSuperview()
-        }
+
         SSajulDatabase.sharedInstance.saveReadHistory(SSajulClient.sharedInstance.selectedBoard!, item: SSajulClient.sharedInstance.selectedItem!)
-        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
 
+    
+    func keyboardWasShown(_ notification: Notification)
+    {
+        let info = notification.userInfo
+        var kbRect = (info![UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue
+        kbRect = view.convert(kbRect!, from: nil)
+        
+        var contentInsets = tableView.contentInset
+        contentInsets.bottom = (kbRect?.size.height)! + 30
+        tableView.contentInset = contentInsets
+        tableView.scrollIndicatorInsets = contentInsets
+    }
+    
+    func keyboardWillBeHidden(_ notification: Notification)
+    {
+        var contentInsets = tableView.contentInset
+        contentInsets.bottom = 0.0
+        tableView.contentInset = contentInsets
+        tableView.scrollIndicatorInsets = contentInsets
+    }
+    
 
 
 
@@ -90,6 +116,11 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
         self.isLoading = false
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         webView2.removeFromSuperview()
+        
+        self.adView.subviews.forEach { view in
+            (view as! AdamAdView).delegate = nil
+            view.removeFromSuperview()
+        }
     }
     
     func handleRefresh(_ refreshControl : UIRefreshControl){

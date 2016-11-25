@@ -249,7 +249,7 @@ class SSajulClient  {
         {
             storage.deleteCookie(cookie)
         }
-        UserDefaults.standard
+//        UserDefaults.standard
     }
     
     //urls

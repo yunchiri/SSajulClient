@@ -9,7 +9,7 @@
 import UIKit
 import PagingMenuController
 import ChameleonFramework
-import GoogleMobileAds
+
 
 class PagingMenuViewController: UIViewController {
     
@@ -80,10 +80,15 @@ class PagingMenuViewController: UIViewController {
                     var itemsOptions : [MenuItemViewCustomizable]{
                         return [readMenu(), favoriteMenu(), commentMenu()]
                     }
-                    //            var displayMode: MenuDisplayMode{
-                    //                return MenuDisplayMode.standard(widthMode: MenuItemWidthMode.flexible, centerItem: false, scrollingMode: MenuScrollingMode.pagingEnabled)
-                    //            }
+                    
+                    
+//                    var selectedItemCenter = false
+
+                    var focusMode = MenuFocusMode.underline(height: 2, color: UIColor.init(red: 0.11, green: 0.6, blue: 0.39, alpha: 1), horizontalPadding: 1, verticalPadding: 1)
+                    
+
                 }
+                
                 
                 return .all(menuOptions: MenuOptions(), pagingControllers: [readVC, favoriteVC, commentVC])
             }

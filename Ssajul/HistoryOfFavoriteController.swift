@@ -78,11 +78,14 @@ class HistoryOfFavoriteController: HistoryTableViewBase {
     
     func getHistoryList(){
         let realm = try! Realm()
-        let result = realm.objects(History.self).filter( "type == '" + HistoryType.Favorite + "'" ).sorted(byProperty: "updateAt", ascending: false)
+        guard let boardId = SSajulClient.sharedInstance.selectedBoard?.boardID else {
+            return
+        }
+        let result = realm.objects(History.self).filter( "type == '" + HistoryType.Favorite + "' and boardId == '" + boardId + "'" ).sorted(byProperty: "updateAt", ascending: false)
         historyItemList = result
         
         self.tableView.reloadData()
-        
+
         
         
         

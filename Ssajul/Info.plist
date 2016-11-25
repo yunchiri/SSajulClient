@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>232</string>
+	<string>254</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -43,8 +43,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>써야된다고함요</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>사진요구하다는데요</string>
+	<string>사진에 접근할려고 합니다</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
