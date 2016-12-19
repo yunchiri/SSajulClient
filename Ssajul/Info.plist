@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.8.3</string>
+	<string>1.9</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>254</string>
+	<string>305</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -45,6 +45,8 @@
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
 	<string>써야된다고함요</string>
+	<key>NSCameraUsageDescription</key>
+	<string>사진찍을려고합니다</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>사진에 접근할려고 합니다</string>
 	<key>UILaunchStoryboardName</key>

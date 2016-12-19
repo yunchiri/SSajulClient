@@ -140,9 +140,6 @@ class CommentWriteCell: UITableViewCell , UITextViewDelegate  {
                 }
         }
         
-
-        
-        
     }
     
     func setUIDisable(){

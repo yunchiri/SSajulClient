@@ -4,6 +4,26 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>ALCameraViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AWSCognito.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AWSCore.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AWSS3.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ActiveLabel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -44,7 +64,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SVProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftyFORM.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -52,7 +82,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>011854A45BDE7ABA5C6799D8CCE64535</key>
+		<key>14899DD2DE4794A659D6E3A53A2FE532</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>18F4E1CEDDAB0C70351D348F225CFA69</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3F40A377786C1C764B8060F2EA11D440</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,7 +102,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>73EC6A92DE35B08A7EE14D6582A57DBA</key>
+		<key>74CC32C58E7AE782A588581C72E199BB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,22 +117,42 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>99DD02EFC436864A3B6A126E08E6FA00</key>
+		<key>97174972421DF0FBBC49B06FC08D6732</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C5A82921A1B97047AB8B8D3012D722A5</key>
+		<key>BAA396C4D689A02A15029B49E076FAF0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DA4A43693B347F8DB2047168181D7720</key>
+		<key>BB99EA53E193736DEA114FA21AF6B886</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BC152C4E9A694EBBF026219A913C9D35</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DAEFE5845A9A47287B43BE713DFD4B08</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E3701D594827CA3C9380D0287CE51E65</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>EE57040B0F2FD9464A60DBE1F82FE001</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FB76238DD099C656B946E8AB0C369E2E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

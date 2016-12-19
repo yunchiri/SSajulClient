@@ -48,14 +48,9 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        self.title = SSajulClient.sharedInstance.selectedBoard?.name
-        
+        self.navigationController?.navigationItem.title = SSajulClient.sharedInstance.selectedBoard?.name
         
         updateBoardList()
-        
-        
-        
         
         self.uiWriteContentButton =  UIBarButtonItem(title: "글쓰기", style: UIBarButtonItemStyle.plain, target: self, action: #selector(ItemListAdViewConroller.pushWriteViewController(_:)) );
         self.tabBarController?.navigationItem.rightBarButtonItem = uiWriteContentButton
@@ -63,7 +58,7 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
         setUpTableView()
         setUpSearchBarController()
         
-        
+        self.tabBarController?.navigationItem.title = SSajulClient.sharedInstance.selectedBoard?.name
         
     }
     
@@ -71,6 +66,8 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+
         
         self.tabBarController?.delegate = self;
         
@@ -103,6 +100,8 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
             (view as! AdamAdView).delegate = nil
             view.removeFromSuperview()
         }
+        
+        searchController.isActive = false
     }
     
     deinit{
@@ -139,6 +138,8 @@ class ItemListAdViewConroller: UIViewController, UITableViewDelegate, UITableVie
     
     func setUpSearchBarController(){
         searchController.searchBar.delegate = self
+        
+        searchController.automaticallyAdjustsScrollViewInsets = true
         
         if SSajulClient.sharedInstance.isLogin() == true {
             searchController.searchBar.scopeButtonTitles = ["제목", "필명", "아이디","내가쓴글"]

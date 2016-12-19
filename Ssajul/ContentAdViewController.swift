@@ -20,6 +20,7 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var adView: UIView!
+    @IBOutlet var uiDownButton: UIButton!
 
     var refreshControl : UIRefreshControl!
     var isLoading : Bool = false
@@ -45,6 +46,8 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
         self.tabBarController?.hidesBottomBarWhenPushed = true
         setUp()
         loadingContent();
+        
+        self.tableView.addSubview( uiDownButton)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -70,7 +73,7 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-
+        
         SSajulDatabase.sharedInstance.saveReadHistory(SSajulClient.sharedInstance.selectedBoard!, item: SSajulClient.sharedInstance.selectedItem!)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -124,7 +127,8 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func handleRefresh(_ refreshControl : UIRefreshControl){
-        
+        refreshControl.layoutIfNeeded()
+        refreshControl.beginRefreshing()
         self.loadingContent()
         refreshControl.endRefreshing()
     }
@@ -133,14 +137,17 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
     func setUp(){
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: #selector(handleRefresh(_:)), for: UIControlEvents.valueChanged)
+        self.tableView.addSubview(self.refreshControl)
         
-        self.title = SSajulClient.sharedInstance.selectedBoard?.name
+        self.title = SSajulClient.sharedInstance.selectedItem?.userName
         webView2.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         webView2.frame.size = CGSize(width: 100, height: 100)
         webView2.uiDelegate = self
         webView2.navigationDelegate = self
         webView2.scrollView.isScrollEnabled = true
         webView2.scrollView.bounces = false
+        
+        webView2.isUserInteractionEnabled = true
         
         
         self.tableView.estimatedRowHeight = 50
@@ -154,24 +161,35 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+        self.uiDownButton.isHidden = true
     }
+    
+
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         webView2.setNeedsLayout()
+        
     }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool){
+        self.uiDownButton.isHidden = false
+    }
+    
+    
     
     
     @IBAction func addComent(_ sender: AnyObject) {
         self.tableView.endEditing(true)
     }
     
-    @IBAction func getContentLast(_ sender: AnyObject) {
+    @IBAction func goLastContent(_ sender: Any) {
         if self.tableView.numberOfRows(inSection: 0) > 0 {
             let indexPath = IndexPath(item: self.commentList.count + 2, section: 0)
             self.tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
         }
     }
+
     
     
     override func didReceiveMemoryWarning() {
@@ -196,7 +214,7 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
         
         if indexPath.row == CellType.header.rawValue {
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! ItemCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "contentHeaderCell", for: indexPath) as! ContentHeaderCell
             
             cell.setItem( SSajulClient.sharedInstance.selectedItem!)
             
@@ -251,7 +269,7 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         Alamofire.request( url)
-            .responseString(encoding: String.Encoding.utf8  ) { response in
+            .responseString(encoding: String.Encoding.init(rawValue: CFStringConvertEncodingToNSStringEncoding(0x0422))  ) { response in
                 
                 
                 
@@ -302,14 +320,18 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
                     return
                 }
                 
+                //set content header
+                self.updateHeader(doc: doc)
                 
-                guard let content:XMLElement =  doc.css("div#articleView").first else {
+                
+                
+                guard let content:XMLElement =  doc.css("#DocContent").first else {
                     self.isLoading = false
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     return
                 }
                 
-                let htmlCode =  SSajulClient.sharedInstance.createHTML2(content.toHTML!)
+                let htmlCode =  SSajulClient.sharedInstance.createHTML2(content.innerHTML!)
                 
                 let dispatchGroup = DispatchGroup.init()
                 
@@ -322,12 +344,9 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
                     self.webView2.loadHTMLString(htmlCode, baseURL: nil)
                 }
                 
-                //                dispatch_group_async(dispatchGroup, highPriorityQueue, {
-                //                    self.webView2.loadHTMLString(htmlCode, baseURL: nil)
-                //                })
                 
                 DispatchQueue.global(qos: .userInitiated).async(group:dispatchGroup) {
-                    let commentHtml = doc.xpath("//div[3]/ul/li")
+                    let commentHtml = doc.css("center center center table")
                     
                     if self.commentList.count > 0 {
                         self.commentList.removeAll()
@@ -335,7 +354,7 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
                     
                     //무슨코드지?
                     for comment in  commentHtml{
-                        guard comment.xpath("p").count >= 2 else {
+                        guard comment.css("td").count >= 19 else {
                             //                        guard (comment.xpath("p") as XMLNodeSet).count>= 2 else {
                             continue
                         }
@@ -345,31 +364,7 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
                     }
                     
                 }
-                
-                //                dispatch_group_async(dispatch_group,highPriorityQueue , {
-                //                    let commentHtml = doc.xpath("//div[3]/ul/li")
-                //
-                //                    if self.commentList.count > 0 {
-                //                        self.commentList.removeAll()
-                //                    }
-                //
-                //                //무슨코드지?
-                //                    for comment in  commentHtml{
-                //                        guard comment.xpath("p").count >= 2 else {
-                ////                        guard (comment.xpath("p") as XMLNodeSet).count>= 2 else {
-                //                            continue
-                //                        }
-                //                        self.commentList.append(self.createComment(comment))
-                //
-                //                        SSajulClient.sharedInstance.selectedItem?.commentCount = self.commentList.count
-                //                    }
-                //
-                //                })
-                //
-                //                dispatch_group_notify(dispatch_group, DispatchQueue.main, {
-                //                    self.tableView.reloadData()
-                //                    self.isLoading = false
-                //                })
+
                 
                 dispatchGroup.notify(queue: DispatchQueue.main, execute: {
                     self.tableView.reloadData()
@@ -380,55 +375,91 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
+    func updateHeader(doc : HTMLDocument  ){
+        let contentHeader:XPathObject = doc.css(".te1 .te2")
+        if contentHeader.count > 0 {
+            let headerList = contentHeader.makeIterator()
+            
+            var headerListIndex : Int = 0
+            while let header = headerList.next(){
+                
+                if headerListIndex == 0 {
+                    SSajulClient.sharedInstance.selectedItem?.userName = header.text!
+                    
+                }
+                if headerListIndex == 1 {
+                    SSajulClient.sharedInstance.selectedItem?.userID = header.text!
+                    break;
+                }
+                
+                headerListIndex = headerListIndex + 1
+            }
+        }
+        
+        
+        if tableView.cellForRow(at: IndexPath.init(row: CellType.header.rawValue, section: 0) )  is ContentHeaderCell {
+            let headerCell =  tableView.cellForRow(at: IndexPath.init(row: CellType.header.rawValue, section: 0) ) as! ContentHeaderCell
+            headerCell.setItem(SSajulClient.sharedInstance.selectedItem!)
+        }
+        
+            
+        
+        
+    }
+    
     func createComment( _ commentHTML : XMLElement) -> Comment{
         
         
         
         var newComment = Comment()
         
-        guard let content = (commentHTML.xpath("p").first?.text) else {
+        
+        newComment.userName = commentHTML.at_css("tr:nth-child(4) td b")?.content?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+
+        newComment.content = (commentHTML.at_css("tr:nth-child(4)  td:nth-child(3) div")?.content)!
+        newComment.createAt = commentHTML.at_css("tr:nth-child(4)  td:nth-child(4)")?.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+
+        newComment.voteUp = Int((commentHTML.at_css("tr:nth-child(5) td.te2 table tr td:nth-child(2) b")?.text)!)
+        newComment.voteDown = Int((commentHTML.at_css("tr:nth-child(5) td.te2 table tr td:nth-child(4) b")?.text)!)
+        
+        
+        let isBestItem = commentHTML.css("tr:nth-child(4) td img")
+        if isBestItem.count == 2 {
+            newComment.isBest = true
+        }
+        
+
+        let minusCharacterCount = newComment.content.characters.filter { $0 == "-" }.count
+        
+        
+        
+        var contentsList = newComment.content.characters.split(separator: "-")
+        
+        if  minusCharacterCount < 2 {
             return newComment
         }
         
-        
-        newComment.content = content
-        
-        
-        
-        guard let commentDetail = (commentHTML.xpath("p").reversed().first?.text) else {
-            //        guard let commentDetail = (commentHTML.xpath("p").last?.text) else {
+        if minusCharacterCount >= 2 {
+//            var content = contentsList.joined()
             
-            return newComment
+            contentsList.removeLast() // userip doesn't need now
+            
+            newComment.userID = String( contentsList[ contentsList.count - 1]).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            contentsList.removeLast()
+            
+            newComment.content = String( contentsList.joined(separator: ["-"])).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         }
-        //
-        
-        newComment.userInfo = commentDetail
-        
-        
-        //        var commentDetailList = commentDetail.characters.split("-").map(String.init)
-        
-        var commentDetailList = commentDetail.components(separatedBy: "-")
-        
-        
-        if commentDetailList.count > 3 {
             
-            
-            for idxDashInId in 1..<commentDetailList.count - 2 {
-                commentDetailList[0] = commentDetailList[0] + "-" + commentDetailList[idxDashInId]
-            }
-            
-        }
         
-        let searchCharacter: Character = "("
-        let indexOfStart = commentDetailList[0].characters.index(of: searchCharacter)
         
-        let userName = commentDetailList[0].substring(to: indexOfStart!).trimmingCharacters(in: CharacterSet.whitespaces)
-        
-        let userID = commentDetailList[0].substring(from: indexOfStart!).trimmingCharacters(in: CharacterSet.whitespaces)
-        
-        newComment.userName = userName
-        newComment.userID = String(String(userID.characters.dropLast()).characters.dropFirst())
-        newComment.createAt = commentDetailList[ commentDetailList.count - 1  ]
+//
+//        let userName = commentDetailList[0].substring(to: indexOfStart!).trimmingCharacters(in: CharacterSet.whitespaces)
+//        
+//        let userID = commentDetailList[0].substring(from: indexOfStart!).trimmingCharacters(in: CharacterSet.whitespaces)
+//        
+//        newComment.userName = userName.replacingOccurrences(of: "- ", with: "")
+//        newComment.userID = String(String(userID.characters.dropLast()).characters.dropFirst())
+//        newComment.createAt = commentDetailList[ commentDetailList.count - 1  ]
         
         return newComment
     }
@@ -436,7 +467,9 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         //        print("didCommitNavigation");
+        
         if isLoading == true {
+            self.contentSize = 300
             return
         }
         
@@ -475,6 +508,7 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         //        print("didfinish Navigation");
+        
         
         let javascriptString = "" +
             "var body = document.body;" +
@@ -621,6 +655,7 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
         }
         
         
+        
         let delete = UITableViewRowAction(style: .normal, title: "삭제") { (action, index) in
             print("delete")
             //delete this comment
@@ -637,8 +672,15 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
             
         }
         
+        let voteDown = UITableViewRowAction(style: .normal, title: "비추") { (action, index) in
+            print("voteDown")
+//            self.commentVote(index: index, isVoteUp: false)
+            
+        }
         
-        return [ delete , voteUp ]
+        
+        
+        return [ delete , voteDown, voteUp ]
         
     }
     
@@ -678,4 +720,37 @@ class ContentAdViewController: UIViewController, UITableViewDataSource, UITableV
         
     }
     
+//# have to impletement 귀찮아서 못하겠다
+    //todo
+    func commentVote(index : IndexPath, isVoteUp : Bool){
+        
+        if SSajulClient.sharedInstance.isLogin() == false {
+            let loginVC =  SSajulClient.sharedInstance.getLoginVC()
+            
+            self.present(loginVC, animated: true, completion: nil)
+        }
+        
+        
+//        var commentCell = self.tableView.cellForRow(at: index) as! CommentCell
+//        
+//        commentCell._comment
+        
+        let url = URL(string: SSajulClient.sharedInstance.urlForCommentYN( ))!
+        
+        
+        
+        Alamofire.request(url).responseString(encoding: String.Encoding.init(rawValue: CFStringConvertEncodingToNSStringEncoding(0x0422))  ) { response in
+            
+        }
+    }
+//    func deleteComment(){
+//        let url = URL(string: SSajulClient.sharedInstance.urlForContent( ))!
+//        
+//        
+//        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+//        
+//        Alamofire.request( url)
+//            .responseString(encoding: String.Encoding.init(rawValue: CFStringConvertEncodingToNSStringEncoding(0x0422))  ) { response in
+//
+//    }
 }

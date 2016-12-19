@@ -15,6 +15,7 @@ target "Ssajul" do
     
     pod 'ActiveLabel'
     
+    pod 'SDWebImage'
 
 
     pod 'RealmSwift'
@@ -26,6 +27,13 @@ target "Ssajul" do
     pod 'Crashlytics'
 
 	pod 'SVProgressHUD'
+
+    pod 'SwiftyFORM' //delete
+    
+    pod 'AWSS3'
+    pod 'AWSCognito'
+    
+    pod 'ALCameraViewController'
 
 end
 

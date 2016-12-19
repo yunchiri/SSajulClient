@@ -10,6 +10,7 @@ import Foundation
 
 
 struct Comment{
+    var commentId : String?
     var userID : String?
     var userName : String?
     var userIP : String?
@@ -21,10 +22,11 @@ struct Comment{
     var rawData : String?
     
     var userInfo : String?
+    var isBest : Bool
     //func HTML() : String
 
     
-    init(userID : String, userName : String, userIP : String, createAt : String, voteUp : Int, voteDown : Int, content : String, rawData : String){
+    init(userID : String, userName : String, userIP : String, createAt : String, voteUp : Int, voteDown : Int, content : String, rawData : String, commentId : String, isBest : Bool){
         self.userID = userID
         self.userName = userName
         self.userIP = userIP
@@ -32,7 +34,8 @@ struct Comment{
         self.voteUp = voteUp
         self.voteDown = voteDown
         self.content = content
-        
+        self.commentId = commentId
+        self.isBest = isBest
         self.rawData = rawData
     }
     
@@ -53,6 +56,8 @@ struct Comment{
         self.content = ""
         
         self.rawData = ""
+        self.commentId = ""
+        self.isBest = false
     }
     
 }

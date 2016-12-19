@@ -16,6 +16,7 @@
 		040CB4F61C5F7CEC00C67432 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 040CB4F51C5F7CEC00C67432 /* Assets.xcassets */; };
 		040CB4F91C5F7CEC00C67432 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040CB4F71C5F7CEC00C67432 /* LaunchScreen.storyboard */; };
 		040CB5041C5F7CEC00C67432 /* SsajulTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CB5031C5F7CEC00C67432 /* SsajulTests.swift */; };
+		040FD9D01E06CB5B00C49BC5 /* UserMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FD9CF1E06CB5B00C49BC5 /* UserMap.swift */; };
 		0425B7E01D08642E00308734 /* HistoryTableViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0425B7DF1D08642E00308734 /* HistoryTableViewBase.swift */; };
 		042CD7121CEF6C4A00519EE0 /* ronaldo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 042CD7111CEF6C4A00519EE0 /* ronaldo.jpg */; };
 		042CD7141CEF6F8D00519EE0 /* ronaldo-pirelli.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 042CD7131CEF6F8D00519EE0 /* ronaldo-pirelli.jpg */; };
@@ -30,7 +31,11 @@
 		04948B971DE1A3CA00FA44CD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04948B961DE1A3CA00FA44CD /* Security.framework */; };
 		04948B9A1DE33EFB00FA44CD /* BoardAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04948B991DE33EFB00FA44CD /* BoardAdViewController.swift */; };
 		04948B9C1DE47A1A00FA44CD /* ContentAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04948B9B1DE47A1A00FA44CD /* ContentAdViewController.swift */; };
+		0495CED31DEAA39400841403 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495CED21DEAA39400841403 /* SettingViewController.swift */; };
+		0495CED51DEB1D5400841403 /* SettingBlockUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495CED41DEB1D5400841403 /* SettingBlockUserTableViewController.swift */; };
+		0495CED71DEB29D900841403 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495CED61DEB29D900841403 /* SettingTableViewController.swift */; };
 		04A1EB8B1CDA49C400022201 /* SSajulDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A1EB8A1CDA49C400022201 /* SSajulDatabase.swift */; };
+		04A647BF1DE880BE006B9C8C /* gerrard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04A647BE1DE880BE006B9C8C /* gerrard.jpg */; };
 		04ADCD721DE01CF1009FE63A /* EUCKREncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ADCD711DE01CF1009FE63A /* EUCKREncoding.swift */; };
 		04B4CA741DD0B698009440E1 /* libAdamPublisher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B4CA731DD0B698009440E1 /* libAdamPublisher.a */; };
 		04B72B2F1D0733D7003A6934 /* HistoryOfFavoriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B72B2E1D0733D7003A6934 /* HistoryOfFavoriteController.swift */; };
@@ -63,7 +68,6 @@
 		04EFEC921D044A9A00FE9DF3 /* PagingMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EFEC911D044A9A00FE9DF3 /* PagingMenuViewController.swift */; };
 		04EFEC941D044B0C00FE9DF3 /* HistoryOfReadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EFEC931D044B0C00FE9DF3 /* HistoryOfReadController.swift */; };
 		04F1CC0D1CEDE25F00AD5D87 /* BestBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1CC0C1CEDE25F00AD5D87 /* BestBoardViewController.swift */; };
-		04F1CC1F1CEE188400AD5D87 /* SettingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F1CC1E1CEE188400AD5D87 /* SettingTableView.swift */; };
 		159C1F1FF3E816E76889C0A1 /* Pods_Ssajul.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA16834B36E2D1DCE21D98 /* Pods_Ssajul.framework */; };
 		4D9D699C1C80605F000F4104 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9D699B1C80605F000F4104 /* ItemCell.swift */; };
 		4D9D699E1C89CCB3000F4104 /* ItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9D699D1C89CCB3000F4104 /* ItemTableViewController.swift */; };
@@ -96,6 +100,7 @@
 		040CB5051C5F7CEC00C67432 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		040CB50E1C5F7CEC00C67432 /* SsajulUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SsajulUITests.swift; sourceTree = "<group>"; };
 		040CB5101C5F7CEC00C67432 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		040FD9CF1E06CB5B00C49BC5 /* UserMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMap.swift; sourceTree = "<group>"; };
 		0425B7DF1D08642E00308734 /* HistoryTableViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewBase.swift; sourceTree = "<group>"; };
 		042CD7111CEF6C4A00519EE0 /* ronaldo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ronaldo.jpg; sourceTree = "<group>"; };
 		042CD7131CEF6F8D00519EE0 /* ronaldo-pirelli.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ronaldo-pirelli.jpg"; sourceTree = "<group>"; };
@@ -111,7 +116,11 @@
 		04948B961DE1A3CA00FA44CD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		04948B991DE33EFB00FA44CD /* BoardAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardAdViewController.swift; sourceTree = "<group>"; };
 		04948B9B1DE47A1A00FA44CD /* ContentAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentAdViewController.swift; sourceTree = "<group>"; };
+		0495CED21DEAA39400841403 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		0495CED41DEB1D5400841403 /* SettingBlockUserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingBlockUserTableViewController.swift; sourceTree = "<group>"; };
+		0495CED61DEB29D900841403 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		04A1EB8A1CDA49C400022201 /* SSajulDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSajulDatabase.swift; sourceTree = "<group>"; };
+		04A647BE1DE880BE006B9C8C /* gerrard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gerrard.jpg; sourceTree = "<group>"; };
 		04ADCD711DE01CF1009FE63A /* EUCKREncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EUCKREncoding.swift; sourceTree = "<group>"; };
 		04B4CA731DD0B698009440E1 /* libAdamPublisher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdamPublisher.a; path = Ssajul/Library/libAdamPublisher.a; sourceTree = "<group>"; };
 		04B72B2E1D0733D7003A6934 /* HistoryOfFavoriteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryOfFavoriteController.swift; sourceTree = "<group>"; };
@@ -149,7 +158,6 @@
 		04EFEC911D044A9A00FE9DF3 /* PagingMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuViewController.swift; sourceTree = "<group>"; };
 		04EFEC931D044B0C00FE9DF3 /* HistoryOfReadController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryOfReadController.swift; sourceTree = "<group>"; };
 		04F1CC0C1CEDE25F00AD5D87 /* BestBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BestBoardViewController.swift; sourceTree = "<group>"; };
-		04F1CC1E1CEE188400AD5D87 /* SettingTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableView.swift; sourceTree = "<group>"; };
 		06AC94D76EB323A467BA1EB6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		08EA16834B36E2D1DCE21D98 /* Pods_Ssajul.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ssajul.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3544073CBAAA4937DE4AE6B5 /* Pods-Ssajul.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ssajul.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Ssajul/Pods-Ssajul.debug.xcconfig"; sourceTree = "<group>"; };
@@ -227,6 +235,7 @@
 		040CB4EB1C5F7CEC00C67432 /* Ssajul */ = {
 			isa = PBXGroup;
 			children = (
+				04B872BC1DCA2B6E00A5BCEB /* Ssajul-Bridging-Header.h */,
 				04B872B01DCA24DA00A5BCEB /* Ad */,
 				042CD7101CEF6C1100519EE0 /* Resource */,
 				04D6BCE91CC542C000925F4A /* extension */,
@@ -265,6 +274,7 @@
 		042CD7101CEF6C1100519EE0 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				04A647BE1DE880BE006B9C8C /* gerrard.jpg */,
 				0477425A1D6348D100C6B267 /* epl-predictions-1471019967-800.jpg */,
 				047742581D63482A00C6B267 /* coaches-300x169.jpg */,
 				042CD7131CEF6F8D00519EE0 /* ronaldo-pirelli.jpg */,
@@ -301,7 +311,6 @@
 				04B872BF1DCA2B6F00A5BCEB /* AdamAdWrapperView.m */,
 				04B872C01DCA2B6F00A5BCEB /* AdamError.h */,
 				04B872C11DCA2B6F00A5BCEB /* AdamInterstitial.h */,
-				04B872BC1DCA2B6E00A5BCEB /* Ssajul-Bridging-Header.h */,
 			);
 			name = Ad;
 			sourceTree = "<group>";
@@ -309,6 +318,7 @@
 		04D0FF191C7C82D100B204C4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				040FD9CF1E06CB5B00C49BC5 /* UserMap.swift */,
 				04D0FF1A1C7C830300B204C4 /* Board.swift */,
 				04D0FF1C1C7C84C300B204C4 /* Item.swift */,
 				04D0FF1E1C7C84DE00B204C4 /* Comment.swift */,
@@ -383,7 +393,9 @@
 		04EFEC961D046F9300FE9DF3 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				04F1CC1E1CEE188400AD5D87 /* SettingTableView.swift */,
+				0495CED21DEAA39400841403 /* SettingViewController.swift */,
+				0495CED41DEB1D5400841403 /* SettingBlockUserTableViewController.swift */,
+				0495CED61DEB29D900841403 /* SettingTableViewController.swift */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -486,7 +498,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = youngchill;
 				TargetAttributes = {
 					040CB4E81C5F7CEC00C67432 = {
@@ -531,6 +543,7 @@
 				040CB4F41C5F7CEC00C67432 /* Main.storyboard in Resources */,
 				04D6BCF21CC686EF00925F4A /* Clock-25.png in Resources */,
 				042CD7121CEF6C4A00519EE0 /* ronaldo.jpg in Resources */,
+				04A647BF1DE880BE006B9C8C /* gerrard.jpg in Resources */,
 				046ED1121D350EDC00F7D6A6 /* champs.jpg in Resources */,
 				047742591D63482A00C6B267 /* coaches-300x169.jpg in Resources */,
 				0401EFB21D24112100851222 /* messi.png in Resources */,
@@ -615,6 +628,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0495CED71DEB29D900841403 /* SettingTableViewController.swift in Sources */,
 				04948B9A1DE33EFB00FA44CD /* BoardAdViewController.swift in Sources */,
 				0401EFB51D2415CF00851222 /* ItemListAdViewController.swift in Sources */,
 				04D6BCEC1CC542F500925F4A /* String.swift in Sources */,
@@ -623,7 +637,6 @@
 				04DCA7B01CC1E19600E2E184 /* CommentWriteCellDelegate.swift in Sources */,
 				048466CE1CC1EB1100A19919 /* ItemWriteViewController.swift in Sources */,
 				4D9D69A01C8F201E000F4104 /* ContentHeaderCell.swift in Sources */,
-				04F1CC1F1CEE188400AD5D87 /* SettingTableView.swift in Sources */,
 				04B872C21DCA2B6F00A5BCEB /* AdamAdWrapperView.m in Sources */,
 				04DCA7AE1CBE7B1000E2E184 /* CommentWriteCell.swift in Sources */,
 				0483C70E1D10655F00D053BE /* AdCell.swift in Sources */,
@@ -634,13 +647,16 @@
 				040973D41CCBAF8B008ABCA9 /* History.swift in Sources */,
 				0425B7E01D08642E00308734 /* HistoryTableViewBase.swift in Sources */,
 				04EFEC941D044B0C00FE9DF3 /* HistoryOfReadController.swift in Sources */,
+				0495CED51DEB1D5400841403 /* SettingBlockUserTableViewController.swift in Sources */,
 				04ADCD721DE01CF1009FE63A /* EUCKREncoding.swift in Sources */,
 				04D0FF1F1C7C84DE00B204C4 /* Comment.swift in Sources */,
 				04A1EB8B1CDA49C400022201 /* SSajulDatabase.swift in Sources */,
 				04EFEC921D044A9A00FE9DF3 /* PagingMenuViewController.swift in Sources */,
 				04D0FF251C7C94E000B204C4 /* SSajulClient.swift in Sources */,
+				040FD9D01E06CB5B00C49BC5 /* UserMap.swift in Sources */,
 				04F1CC0D1CEDE25F00AD5D87 /* BestBoardViewController.swift in Sources */,
 				04B72B311D073545003A6934 /* HistoryOfCommentController.swift in Sources */,
+				0495CED31DEAA39400841403 /* SettingViewController.swift in Sources */,
 				04B72B2F1D0733D7003A6934 /* HistoryOfFavoriteController.swift in Sources */,
 				04948B9C1DE47A1A00FA44CD /* ContentAdViewController.swift in Sources */,
 				04D0FF1D1C7C84C300B204C4 /* Item.swift in Sources */,
@@ -782,7 +798,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3544073CBAAA4937DE4AE6B5 /* Pods-Ssajul.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -813,7 +829,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E3A783730FEFE727ED167A7A /* Pods-Ssajul.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

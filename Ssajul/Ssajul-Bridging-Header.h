@@ -6,3 +6,7 @@
 #import "AdamInterstitial.h"
 #import "AdamError.h"
 #import "AdamAdWrapperView.h"
+
+
+#import <AWSCore/AWSCore.h>
+#import <AWSCognito/AWSCognito.h>

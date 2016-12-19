@@ -11,11 +11,11 @@ import PagingMenuController
 import ChameleonFramework
 
 
-class PagingMenuViewController: UIViewController {
+class PagingMenuViewController: UIViewController ,AdamAdViewDelegate{
     
     var isEditingMode = false
-    
-    
+
+    @IBOutlet weak var adView: UIView!
     
     @IBAction func editingTableView(_ sender: AnyObject) {
         let pagingMenuController = self.childViewControllers.first as! PagingMenuController
@@ -46,6 +46,38 @@ class PagingMenuViewController: UIViewController {
         removeAllDataButton.isEnabled = false
         
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+        super.viewWillAppear(animated)
+        
+        
+        let adamAdView = AdamAdView.shared()
+        adamAdView?.frame = CGRect.init(x: 0, y: 0, width: self.adView.frame.size.width, height: self.adView.frame.size.height)
+        
+        adamAdView?.clientId = "DAN-1h7ooubgv7nzn"
+        adamAdView?.delegate = self
+        adamAdView?.gender = "M"
+        
+        if adamAdView?.usingAutoRequest == false {
+            adamAdView?.startAutoRequestAd(60.0)
+        }
+        
+        self.adView.addSubview(adamAdView!)
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.adView.subviews.forEach { view in
+            (view as! AdamAdView).delegate = nil
+            view.removeFromSuperview()
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -97,7 +129,18 @@ class PagingMenuViewController: UIViewController {
         }
         
         let pagingMenuController = self.childViewControllers.first as! PagingMenuController
-        pagingMenuController.delegate = self
+        
+        
+        pagingMenuController.onMove = { state in
+            switch state {
+            case let .didMoveController(menuController, previousMenuController):
+                previousMenuController.setEditing(false, animated: false)
+                self.isEditingMode = false
+                self.removeAllDataButton.isEnabled = false
+            default : break
+            }
+        }
+ 
         pagingMenuController.setup( PagingMenuuOptions())
         
         //usersViewController.menuItemDescription = menuItemDescription
@@ -137,31 +180,6 @@ class PagingMenuViewController: UIViewController {
 //        setUpAdmob()
     }
     
-    func setUpAdmob(){
 
-//        nativeExpressAdvieW!.adUnitID = "ca-app-pub-8030062085508715/2596335385"
-//        nativeExpressAdvieW!.rootViewController = self
-//        
-//        let request = GADRequest()
-//        //request.testDevices = [kGADSimulatorID]
-//        nativeExpressAdvieW!.load(request)
-//
-//        
-    }
 }
 
-extension PagingMenuViewController: PagingMenuControllerDelegate {
-    // MARK: - PagingMenuControllerDelegate
-
-    func willMoveToPageMenuController(_ menuController: UIViewController, previousMenuController: UIViewController) {
-        
-        
-    }
-
-    func didMoveToPageMenuController(_ menuController: UIViewController, previousMenuController: UIViewController) {
-        
-        previousMenuController.setEditing(false, animated: false)
-        isEditingMode = false
-        removeAllDataButton.isEnabled = false
-    }
-}

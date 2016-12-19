@@ -90,6 +90,8 @@ class SSajulClient  {
         return ""
     }
     
+    
+    
     func getItem(_ board : Board, itemID : String) -> String{
         
         return ""
@@ -169,11 +171,11 @@ class SSajulClient  {
         let html = "<html>"
             + "<head>"
             + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
-            + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=0\" />"
+            + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=1\" />"
 
             
             + "<style type=\"text/css\">"
-            + "#articleView * {"
+            + " * {"
             + "\tmax-width: 100%; !important;"
             + "}"
             + "</style>"
@@ -270,7 +272,8 @@ class SSajulClient  {
         let boardId = selectedBoard!.boardID
         let itemId = selectedItem!.uid
         
-        return String(format:  "http://m.soccerline.co.kr/bbs/totalboard/view.html?uid=%@&page=1&code=%@&keyfield=&key=&period=", itemId, boardId)
+        return String(format: "https://www.soccerline.co.kr/slboard/view.php?uid=%@&page=1&code=%@&keyfield=&key=&period=" , itemId, boardId)
+//        return String(format:  "http://m.soccerline.co.kr/bbs/totalboard/view.html?uid=%@&page=1&code=%@&keyfield=&key=&period=", itemId, boardId)
     }
     
     func urlForBoardItemList(_ page : Int) -> String{
@@ -426,8 +429,44 @@ class SSajulClient  {
             UserDefaults.standard.synchronize()
         }
     }
+    
+    //pic url
+    
+    func urlForUserPic(userId : String) -> NSURL{
+        
+        let userPicBase = "http://cdn.wearecontrol.com/ssajul/thumb/" + userId + ".jpg"
+        
+//        let testURL = "https://raw.githubusercontent.com/ra1028/Former/master/Logo.png"
+        
+        return NSURL(string: userPicBase)!
+    }
+    
 
+//# have to impletement
+//    func urlForCommentDelete() -> NSURL{
+//        
+//    }
+//    
+    func urlForCommentYN() -> String{
+        return  "https://www.soccerline.co.kr/slboard/comment_yesorno.php"
+    }
+//    
+//    func urlForContentDelete() -> NSURL{
+//        
+//    }
+//    
+//    func urlForContentYN() -> NSURL{
+//        
+//    }
+//    
     
-    
+    func getLoginVC() -> LoginViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let loginViewController = storyboard.instantiateViewController(withIdentifier: "loginVC") as! LoginViewController
+        
+        return loginViewController
+        
+    }
     
 }

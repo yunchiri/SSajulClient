@@ -31,6 +31,8 @@ class SSajulDatabase{
         try! realm.write {
             realm.add(history, update: true)
         }
+        
+        saveUserMap(item: item)
     }
     
     
@@ -81,6 +83,39 @@ class SSajulDatabase{
         
     }
     
+    func getUerID(unm : String)->String?{
+        let realm = try! Realm()
+        
+        if unm.isEmpty == true {
+            return nil
+        }
+        
+        guard let userMappingID = realm.objects(UserMap.self).filter( "unm == '" + unm + "'" ).first?.uid else {
+            return nil
+        }
+        
+        if userMappingID.isEmpty == true {
+            return nil
+        }
+        return userMappingID
+    }
+    
+    func saveUserMap(item : Item)
+    {
+        if item.userID.isEmpty == true {
+            return
+        }
+        
+        let userMap = UserMap()
+        userMap.uid = item.userID
+        userMap.unm = item.userName
+        
+        let realm = try! Realm()
+        
+        try! realm.write {
+            realm.add(userMap, update: true)
+        }
+    }
     
     
 }

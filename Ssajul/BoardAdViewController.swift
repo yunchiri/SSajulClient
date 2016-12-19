@@ -34,14 +34,18 @@ class BoardAdViewController: UIViewController , UITableViewDelegate, UITableView
     
     var boardList = SSajulClient.sharedInstance.getBoardList()
     var extraBoardList = SSajulClient.sharedInstance.getExtraBoardList()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         //        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
+        
+        
         
         loginButtonChanger()
         

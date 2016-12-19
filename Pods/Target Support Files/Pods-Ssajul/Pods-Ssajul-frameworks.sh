@@ -84,6 +84,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/ALCameraViewController/ALCameraViewController.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AWSCognito/AWSCognito.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AWSCore/AWSCore.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AWSS3/AWSS3.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ActiveLabel/ActiveLabel.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ChameleonFramework/ChameleonFramework.framework"
@@ -91,9 +95,15 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/PagingMenuController/PagingMenuController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Realm/Realm.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RealmSwift/RealmSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SVProgressHUD/SVProgressHUD.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SwiftyFORM/SwiftyFORM.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/ALCameraViewController/ALCameraViewController.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AWSCognito/AWSCognito.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AWSCore/AWSCore.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/AWSS3/AWSS3.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ActiveLabel/ActiveLabel.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ChameleonFramework/ChameleonFramework.framework"
@@ -101,5 +111,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/PagingMenuController/PagingMenuController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Realm/Realm.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RealmSwift/RealmSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SVProgressHUD/SVProgressHUD.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SwiftyFORM/SwiftyFORM.framework"
 fi

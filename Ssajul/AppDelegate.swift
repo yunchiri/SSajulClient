@@ -11,6 +11,8 @@ import ChameleonFramework
 import Fabric
 import Crashlytics
 
+import AWSS3
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         Fabric.with([Crashlytics.self])
 
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: AWSRegionType.apNortheast2,
+            identityPoolId:"ap-northeast-2:16923988-acd3-439b-aa09-7e2c511efbc0")
+        
+        let configuration = AWSServiceConfiguration(region: AWSRegionType.apNortheast2, credentialsProvider:credentialsProvider)
+        
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
         
 //        Chameleon.setGlobalThemeUsingPrimaryColor(FlatNavyBlueDark(),
 //                                                  withSecondaryColor: FlatWhiteDark(),
